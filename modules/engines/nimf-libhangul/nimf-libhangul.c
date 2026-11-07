@@ -605,6 +605,18 @@ nimf_libhangul_filter_event (NimfEngine    *engine,
 
   gchar *new_commit  = g_ucs4_to_utf8 (ucs_commit,  -1, NULL, NULL, NULL);
 
+  /* Commit a completed syllable and its printable delimiter together.
+   * Firefox can replace the first of two commits from the same key event. */
+  if (!retval && ucs_commit[0] != 0 && keyval >= 0x20 && keyval <= 0x7e &&
+      !(event->key.state & (NIMF_MOD4_MASK | NIMF_SUPER_MASK |
+                           NIMF_HYPER_MASK | NIMF_META_MASK)))
+  {
+    gchar *combined = g_strdup_printf ("%s%c", new_commit, (gchar) keyval);
+    g_free (new_commit);
+    new_commit = combined;
+    retval = TRUE;
+  }
+
   if (ucs_commit[0] != 0)
     nimf_libhangul_emit_commit (engine, target, new_commit);
 
