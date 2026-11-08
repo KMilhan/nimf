@@ -1,0 +1,7 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+USER root
+COPY tests/latency /src/tests/latency
+RUN bash /src/tests/latency/build.sh
+USER tester
+ENTRYPOINT ["bash", "/src/tests/latency/session.sh"]

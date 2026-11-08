@@ -1,0 +1,4682 @@
+[
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 84.47265625,
+      "Pss": 52.427734375,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.732421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.47265625,
+      "Pss": 52.427734375,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.732421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.1875,
+      "Pss": 72.720703125,
+      "Pss_Anon": 20.5234375,
+      "Pss_File": 52.193359375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.59765625,
+      "Pss": 51.607421875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.912109375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.51953125,
+      "Pss": 3.7578125,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.7421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.0703125,
+      "Pss": 17.35546875,
+      "Pss_Anon": 4.81640625,
+      "Pss_File": 12.5390625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.625,
+      "Pss": 1.67578125,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.28125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.546875,
+      "Pss": 73.080078125,
+      "Pss_Anon": 20.8828125,
+      "Pss_File": 52.193359375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.59765625,
+      "Pss": 51.607421875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.912109375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.51953125,
+      "Pss": 3.7578125,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.7421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.4296875,
+      "Pss": 17.71484375,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.5390625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.625,
+      "Pss": 1.67578125,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.28125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.546875,
+      "Pss": 73.080078125,
+      "Pss_Anon": 20.8828125,
+      "Pss_File": 52.193359375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.59765625,
+      "Pss": 51.607421875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.912109375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.51953125,
+      "Pss": 3.7578125,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.7421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.4296875,
+      "Pss": 17.71484375,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.5390625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.625,
+      "Pss": 1.67578125,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.28125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.66796875,
+      "Pss": 73.087890625,
+      "Pss_Anon": 20.8828125,
+      "Pss_File": 52.201171875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.71875,
+      "Pss": 51.6396484375,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.9443359375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.51953125,
+      "Pss": 3.7451171875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.7294921875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.4296875,
+      "Pss": 17.703125,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.52734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.625,
+      "Pss": 1.6748046875,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.2802734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.66796875,
+      "Pss": 73.7255859375,
+      "Pss_Anon": 20.8828125,
+      "Pss_File": 52.8388671875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.71875,
+      "Pss": 52.2373046875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.5419921875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.51953125,
+      "Pss": 3.765625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.75
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.4296875,
+      "Pss": 17.72265625,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 84.359375,
+      "Pss": 52.5712890625,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.8759765625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.359375,
+      "Pss": 52.5712890625,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.8759765625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.0625,
+      "Pss": 72.8828125,
+      "Pss_Anon": 20.52734375,
+      "Pss_File": 52.3515625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.484375,
+      "Pss": 51.7763671875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.0810546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.53125,
+      "Pss": 3.8203125,
+      "Pss_Anon": 1.01953125,
+      "Pss_File": 2.80078125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.046875,
+      "Pss": 17.2861328125,
+      "Pss_Anon": 4.81640625,
+      "Pss_File": 12.4697265625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.46875,
+      "Pss": 1.615234375,
+      "Pss_Anon": 0.390625,
+      "Pss_File": 1.224609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.4375,
+      "Pss": 73.2568359375,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 52.3505859375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.484375,
+      "Pss": 51.7763671875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.0810546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.53125,
+      "Pss": 3.8193359375,
+      "Pss_Anon": 1.01953125,
+      "Pss_File": 2.7998046875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.421875,
+      "Pss": 17.6611328125,
+      "Pss_Anon": 5.19140625,
+      "Pss_File": 12.4697265625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.53125,
+      "Pss": 1.623046875,
+      "Pss_Anon": 0.390625,
+      "Pss_File": 1.232421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.4375,
+      "Pss": 73.2568359375,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 52.3505859375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.484375,
+      "Pss": 51.7763671875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.0810546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.53125,
+      "Pss": 3.8193359375,
+      "Pss_Anon": 1.01953125,
+      "Pss_File": 2.7998046875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.421875,
+      "Pss": 17.6611328125,
+      "Pss_Anon": 5.19140625,
+      "Pss_File": 12.4697265625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.53125,
+      "Pss": 1.623046875,
+      "Pss_Anon": 0.390625,
+      "Pss_File": 1.232421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.5546875,
+      "Pss": 73.265625,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 52.359375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.6015625,
+      "Pss": 51.8095703125,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.1142578125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.53125,
+      "Pss": 3.8154296875,
+      "Pss_Anon": 1.01953125,
+      "Pss_File": 2.7958984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.421875,
+      "Pss": 17.640625,
+      "Pss_Anon": 5.19140625,
+      "Pss_File": 12.44921875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.53125,
+      "Pss": 1.623046875,
+      "Pss_Anon": 0.390625,
+      "Pss_File": 1.232421875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.5546875,
+      "Pss": 73.8896484375,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 52.9833984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.6015625,
+      "Pss": 52.3876953125,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.6923828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.53125,
+      "Pss": 3.8369140625,
+      "Pss_Anon": 1.01953125,
+      "Pss_File": 2.8173828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.421875,
+      "Pss": 17.6650390625,
+      "Pss_Anon": 5.19140625,
+      "Pss_File": 12.4736328125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 84.43359375,
+      "Pss": 52.4404296875,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 37.7294921875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.43359375,
+      "Pss": 52.4404296875,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 37.7294921875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.265625,
+      "Pss": 72.8408203125,
+      "Pss_Anon": 20.54296875,
+      "Pss_File": 52.2939453125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.55859375,
+      "Pss": 51.634765625,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 36.923828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.3203125,
+      "Pss": 3.5966796875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.5810546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.38671875,
+      "Pss": 17.609375,
+      "Pss_Anon": 4.8203125,
+      "Pss_File": 12.7890625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.65234375,
+      "Pss": 1.6787109375,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.2802734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.62109375,
+      "Pss": 73.1962890625,
+      "Pss_Anon": 20.8984375,
+      "Pss_File": 52.2939453125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.55859375,
+      "Pss": 51.634765625,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 36.923828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.3203125,
+      "Pss": 3.5966796875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.5810546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.7421875,
+      "Pss": 17.96484375,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.7890625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.65234375,
+      "Pss": 1.6787109375,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.2802734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.62109375,
+      "Pss": 73.1962890625,
+      "Pss_Anon": 20.8984375,
+      "Pss_File": 52.2939453125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.55859375,
+      "Pss": 51.634765625,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 36.923828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.3203125,
+      "Pss": 3.5966796875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.5810546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.7421875,
+      "Pss": 17.96484375,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.7890625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.65234375,
+      "Pss": 1.6787109375,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.2802734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.73828125,
+      "Pss": 73.2041015625,
+      "Pss_Anon": 20.8984375,
+      "Pss_File": 52.3017578125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.67578125,
+      "Pss": 51.662109375,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 36.951171875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.3203125,
+      "Pss": 3.5869140625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.5712890625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.7421875,
+      "Pss": 17.955078125,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.779296875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.65234375,
+      "Pss": 1.67578125,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.27734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.73828125,
+      "Pss": 73.8564453125,
+      "Pss_Anon": 20.8984375,
+      "Pss_File": 52.9541015625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.67578125,
+      "Pss": 52.2666015625,
+      "Pss_Anon": 14.70703125,
+      "Pss_File": 37.5556640625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.3203125,
+      "Pss": 3.61328125,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.59765625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.7421875,
+      "Pss": 17.9765625,
+      "Pss_Anon": 5.17578125,
+      "Pss_File": 12.80078125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 84.27734375,
+      "Pss": 51.7392578125,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 37.0361328125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.27734375,
+      "Pss": 51.7392578125,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 37.0361328125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 114.78125,
+      "Pss": 72.126953125,
+      "Pss_Anon": 20.52734375,
+      "Pss_File": 51.595703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.40234375,
+      "Pss": 50.9580078125,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 36.2548828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.234375,
+      "Pss": 3.671875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.14453125,
+      "Pss": 17.4970703125,
+      "Pss_Anon": 4.8125,
+      "Pss_File": 12.6845703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.5859375,
+      "Pss": 1.64453125,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.24609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.15625,
+      "Pss": 72.501953125,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 51.595703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.40234375,
+      "Pss": 50.9580078125,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 36.2548828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.234375,
+      "Pss": 3.671875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.51953125,
+      "Pss": 17.8720703125,
+      "Pss_Anon": 5.1875,
+      "Pss_File": 12.6845703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.5859375,
+      "Pss": 1.64453125,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.24609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.15625,
+      "Pss": 72.501953125,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 51.595703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.40234375,
+      "Pss": 50.9580078125,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 36.2548828125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.234375,
+      "Pss": 3.671875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.51953125,
+      "Pss": 17.8720703125,
+      "Pss_Anon": 5.1875,
+      "Pss_File": 12.6845703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.5859375,
+      "Pss": 1.64453125,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.24609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.1484375,
+      "Pss": 72.3916015625,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 51.4853515625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.515625,
+      "Pss": 50.982421875,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 36.279296875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.234375,
+      "Pss": 3.671875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.3984375,
+      "Pss": 17.7373046875,
+      "Pss_Anon": 5.1875,
+      "Pss_File": 12.5498046875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.5859375,
+      "Pss": 1.64453125,
+      "Pss_Anon": 0.3984375,
+      "Pss_File": 1.24609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.1484375,
+      "Pss": 72.9931640625,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 52.0869140625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.515625,
+      "Pss": 51.5439453125,
+      "Pss_Anon": 14.69921875,
+      "Pss_File": 36.8408203125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.234375,
+      "Pss": 3.69140625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.67578125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.3984375,
+      "Pss": 17.7578125,
+      "Pss_Anon": 5.1875,
+      "Pss_File": 12.5703125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 84.265625,
+      "Pss": 51.75390625,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.05859375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.265625,
+      "Pss": 51.75390625,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 37.05859375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.48046875,
+      "Pss": 72.474609375,
+      "Pss_Anon": 20.52734375,
+      "Pss_File": 51.943359375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.3984375,
+      "Pss": 50.9765625,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.28125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.46875,
+      "Pss": 3.775390625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.759765625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.61328125,
+      "Pss": 17.72265625,
+      "Pss_Anon": 4.8203125,
+      "Pss_File": 12.90234375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.41015625,
+      "Pss": 1.6025390625,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.2080078125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.85546875,
+      "Pss": 72.84765625,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 51.94140625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.3984375,
+      "Pss": 50.9755859375,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.2802734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.46875,
+      "Pss": 3.775390625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.759765625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98828125,
+      "Pss": 18.0966796875,
+      "Pss_Anon": 5.1953125,
+      "Pss_File": 12.9013671875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.47265625,
+      "Pss": 1.609375,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.21484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.85546875,
+      "Pss": 72.84765625,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 51.94140625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.3984375,
+      "Pss": 50.9755859375,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.2802734375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.46875,
+      "Pss": 3.775390625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.759765625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98828125,
+      "Pss": 18.0966796875,
+      "Pss_Anon": 5.1953125,
+      "Pss_File": 12.9013671875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.47265625,
+      "Pss": 1.609375,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.21484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.91796875,
+      "Pss": 72.8583984375,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 51.9521484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.4609375,
+      "Pss": 50.9951171875,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.2998046875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.46875,
+      "Pss": 3.7744140625,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.7587890625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98828125,
+      "Pss": 18.0888671875,
+      "Pss_Anon": 5.1953125,
+      "Pss_File": 12.8935546875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.47265625,
+      "Pss": 1.609375,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.21484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.91796875,
+      "Pss": 73.4716796875,
+      "Pss_Anon": 20.90234375,
+      "Pss_File": 52.5654296875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.4609375,
+      "Pss": 51.56640625,
+      "Pss_Anon": 14.69140625,
+      "Pss_File": 36.87109375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.46875,
+      "Pss": 3.794921875,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.779296875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98828125,
+      "Pss": 18.1103515625,
+      "Pss_Anon": 5.1953125,
+      "Pss_File": 12.9150390625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 84.4375,
+      "Pss": 52.50390625,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.796875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.4375,
+      "Pss": 52.50390625,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.796875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 115.63671875,
+      "Pss": 73.1298828125,
+      "Pss_Anon": 20.53515625,
+      "Pss_File": 52.5908203125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.5625,
+      "Pss": 51.7216796875,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.0146484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.50390625,
+      "Pss": 3.724609375,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.708984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.5703125,
+      "Pss": 17.68359375,
+      "Pss_Anon": 4.81640625,
+      "Pss_File": 12.8671875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.58984375,
+      "Pss": 1.646484375,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.251953125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 116.046875,
+      "Pss": 73.5400390625,
+      "Pss_Anon": 20.9453125,
+      "Pss_File": 52.5908203125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.5625,
+      "Pss": 51.7216796875,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.0146484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.50390625,
+      "Pss": 3.724609375,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.708984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98046875,
+      "Pss": 18.09375,
+      "Pss_Anon": 5.2265625,
+      "Pss_File": 12.8671875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.58984375,
+      "Pss": 1.646484375,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.251953125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 116.046875,
+      "Pss": 73.5400390625,
+      "Pss_Anon": 20.9453125,
+      "Pss_File": 52.5908203125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.5625,
+      "Pss": 51.7216796875,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.0146484375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.50390625,
+      "Pss": 3.724609375,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.708984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98046875,
+      "Pss": 18.09375,
+      "Pss_Anon": 5.2265625,
+      "Pss_File": 12.8671875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.58984375,
+      "Pss": 1.646484375,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.251953125
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 116.1640625,
+      "Pss": 73.55859375,
+      "Pss_Anon": 20.9453125,
+      "Pss_File": 52.609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.6796875,
+      "Pss": 51.7529296875,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.0458984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.50390625,
+      "Pss": 3.724609375,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.708984375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98046875,
+      "Pss": 18.0810546875,
+      "Pss_Anon": 5.2265625,
+      "Pss_File": 12.8544921875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.58984375,
+      "Pss": 1.64453125,
+      "Pss_Anon": 0.39453125,
+      "Pss_File": 1.25
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 116.1640625,
+      "Pss": 74.173828125,
+      "Pss_Anon": 20.9453125,
+      "Pss_File": 53.224609375
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 84.6796875,
+      "Pss": 52.3173828125,
+      "Pss_Anon": 14.703125,
+      "Pss_File": 37.6103515625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 8.50390625,
+      "Pss": 3.74609375,
+      "Pss_Anon": 1.015625,
+      "Pss_File": 2.73046875
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.98046875,
+      "Pss": 18.1103515625,
+      "Pss_Anon": 5.2265625,
+      "Pss_File": 12.8837890625
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 62.91796875,
+      "Pss": 48.4970703125,
+      "Pss_Anon": 11.6484375,
+      "Pss_File": 36.8447265625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.91796875,
+      "Pss": 48.4970703125,
+      "Pss_Anon": 11.6484375,
+      "Pss_File": 36.8447265625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.30859375,
+      "Pss": 69.7548828125,
+      "Pss_Anon": 16.859375,
+      "Pss_File": 52.8916015625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.94140625,
+      "Pss": 47.32421875,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 35.6484375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.85546875,
+      "Pss": 3.47265625,
+      "Pss_Anon": 0.828125,
+      "Pss_File": 2.64453125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.51171875,
+      "Pss": 18.9580078125,
+      "Pss_Anon": 4.359375,
+      "Pss_File": 14.5986328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 6.265625,
+      "Pss": 2.1455078125,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.5634765625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.55078125,
+      "Pss": 69.9931640625,
+      "Pss_Anon": 17.1015625,
+      "Pss_File": 52.8876953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.94140625,
+      "Pss": 47.3232421875,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 35.6474609375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.87109375,
+      "Pss": 3.4873046875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.6435546875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.73828125,
+      "Pss": 19.1826171875,
+      "Pss_Anon": 4.5859375,
+      "Pss_File": 14.5966796875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 6.328125,
+      "Pss": 2.1533203125,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.5712890625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.5625,
+      "Pss": 70.0048828125,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 52.8876953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.94140625,
+      "Pss": 47.3232421875,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 35.6474609375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.87109375,
+      "Pss": 3.4873046875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.6435546875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.75,
+      "Pss": 19.1943359375,
+      "Pss_Anon": 4.59765625,
+      "Pss_File": 14.5966796875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.328125,
+      "Pss": 2.1533203125,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.5712890625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.5625,
+      "Pss": 70.1181640625,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 53.0009765625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.94140625,
+      "Pss": 47.36328125,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 35.6875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.87109375,
+      "Pss": 3.5205078125,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.6767578125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.75,
+      "Pss": 19.234375,
+      "Pss_Anon": 4.59765625,
+      "Pss_File": 14.63671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.328125,
+      "Pss": 2.171875,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.58984375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.5625,
+      "Pss": 70.8525390625,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 53.7353515625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.94140625,
+      "Pss": 48.04296875,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 36.3671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.87109375,
+      "Pss": 3.546875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.75,
+      "Pss": 19.2626953125,
+      "Pss_Anon": 4.59765625,
+      "Pss_File": 14.6650390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 1,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 61.95703125,
+      "Pss": 48.361328125,
+      "Pss_Anon": 11.65234375,
+      "Pss_File": 36.705078125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.95703125,
+      "Pss": 48.361328125,
+      "Pss_Anon": 11.65234375,
+      "Pss_File": 36.705078125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.40234375,
+      "Pss": 69.8349609375,
+      "Pss_Anon": 16.8671875,
+      "Pss_File": 52.9638671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.03125,
+      "Pss": 47.2919921875,
+      "Pss_Anon": 11.6796875,
+      "Pss_File": 35.6083984375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.73046875,
+      "Pss": 3.447265625,
+      "Pss_Anon": 0.828125,
+      "Pss_File": 2.619140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.640625,
+      "Pss": 19.095703125,
+      "Pss_Anon": 4.359375,
+      "Pss_File": 14.736328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 5.94140625,
+      "Pss": 1.982421875,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.400390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.640625,
+      "Pss": 70.0732421875,
+      "Pss_Anon": 17.10546875,
+      "Pss_File": 52.9638671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.03125,
+      "Pss": 47.2919921875,
+      "Pss_Anon": 11.6796875,
+      "Pss_File": 35.6083984375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.74609375,
+      "Pss": 3.462890625,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.619140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.86328125,
+      "Pss": 19.318359375,
+      "Pss_Anon": 4.58203125,
+      "Pss_File": 14.736328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 5.94140625,
+      "Pss": 1.982421875,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.400390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.6484375,
+      "Pss": 70.0810546875,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 52.9638671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.03125,
+      "Pss": 47.2919921875,
+      "Pss_Anon": 11.6796875,
+      "Pss_File": 35.6083984375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.74609375,
+      "Pss": 3.462890625,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.619140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.87109375,
+      "Pss": 19.326171875,
+      "Pss_Anon": 4.58984375,
+      "Pss_File": 14.736328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.94140625,
+      "Pss": 1.982421875,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.400390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.6484375,
+      "Pss": 70.1943359375,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 53.0771484375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.03125,
+      "Pss": 47.3330078125,
+      "Pss_Anon": 11.6796875,
+      "Pss_File": 35.6494140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.74609375,
+      "Pss": 3.4951171875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.6513671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.87109375,
+      "Pss": 19.3662109375,
+      "Pss_Anon": 4.58984375,
+      "Pss_File": 14.7763671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 5.94140625,
+      "Pss": 2.0,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.41796875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.6484375,
+      "Pss": 70.87109375,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 53.75390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.03125,
+      "Pss": 47.962890625,
+      "Pss_Anon": 11.6796875,
+      "Pss_File": 36.279296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.74609375,
+      "Pss": 3.5185546875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.6748046875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.87109375,
+      "Pss": 19.3896484375,
+      "Pss_Anon": 4.58984375,
+      "Pss_File": 14.7998046875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 2,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 62.3984375,
+      "Pss": 48.0107421875,
+      "Pss_Anon": 11.640625,
+      "Pss_File": 36.3662109375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.3984375,
+      "Pss": 48.0107421875,
+      "Pss_Anon": 11.640625,
+      "Pss_File": 36.3662109375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.078125,
+      "Pss": 69.7421875,
+      "Pss_Anon": 16.85546875,
+      "Pss_File": 52.8828125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.421875,
+      "Pss": 46.84375,
+      "Pss_Anon": 11.6640625,
+      "Pss_File": 35.17578125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.83203125,
+      "Pss": 3.4697265625,
+      "Pss_Anon": 0.828125,
+      "Pss_File": 2.6416015625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.82421875,
+      "Pss": 19.4287109375,
+      "Pss_Anon": 4.36328125,
+      "Pss_File": 15.0654296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 6.33203125,
+      "Pss": 2.1015625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.515625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.30859375,
+      "Pss": 69.9697265625,
+      "Pss_Anon": 17.0859375,
+      "Pss_File": 52.8798828125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.421875,
+      "Pss": 46.841796875,
+      "Pss_Anon": 11.6640625,
+      "Pss_File": 35.173828125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.484375,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.640625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.0390625,
+      "Pss": 19.6435546875,
+      "Pss_Anon": 4.578125,
+      "Pss_File": 15.0654296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 6.39453125,
+      "Pss": 2.1103515625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.5244140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.31640625,
+      "Pss": 69.9775390625,
+      "Pss_Anon": 17.09375,
+      "Pss_File": 52.8798828125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.421875,
+      "Pss": 46.841796875,
+      "Pss_Anon": 11.6640625,
+      "Pss_File": 35.173828125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.484375,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.640625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.046875,
+      "Pss": 19.6513671875,
+      "Pss_Anon": 4.5859375,
+      "Pss_File": 15.0654296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.39453125,
+      "Pss": 2.1103515625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.5244140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.32421875,
+      "Pss": 70.095703125,
+      "Pss_Anon": 17.1015625,
+      "Pss_File": 52.990234375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.421875,
+      "Pss": 46.87890625,
+      "Pss_Anon": 11.6640625,
+      "Pss_File": 35.2109375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.5224609375,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.6787109375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.0546875,
+      "Pss": 19.6943359375,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.1005859375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.39453125,
+      "Pss": 2.1298828125,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.5439453125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.32421875,
+      "Pss": 70.82421875,
+      "Pss_Anon": 17.1015625,
+      "Pss_File": 53.71875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.421875,
+      "Pss": 47.5556640625,
+      "Pss_Anon": 11.6640625,
+      "Pss_File": 35.8876953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.5478515625,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.7041015625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.0546875,
+      "Pss": 19.720703125,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.126953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "trial": 3,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 62.9296875,
+      "Pss": 49.0908203125,
+      "Pss_Anon": 11.65234375,
+      "Pss_File": 37.4345703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.9296875,
+      "Pss": 49.0908203125,
+      "Pss_Anon": 11.65234375,
+      "Pss_File": 37.4345703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.49609375,
+      "Pss": 70.734375,
+      "Pss_Anon": 16.8671875,
+      "Pss_File": 53.86328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.953125,
+      "Pss": 48.005859375,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 36.326171875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.83984375,
+      "Pss": 3.484375,
+      "Pss_Anon": 0.83203125,
+      "Pss_File": 2.65234375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.703125,
+      "Pss": 19.244140625,
+      "Pss_Anon": 4.359375,
+      "Pss_File": 14.884765625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 6.23828125,
+      "Pss": 2.0888671875,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.5068359375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.734375,
+      "Pss": 70.970703125,
+      "Pss_Anon": 17.10546875,
+      "Pss_File": 53.861328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.953125,
+      "Pss": 48.0048828125,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 36.3251953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.85546875,
+      "Pss": 3.5,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.65234375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.92578125,
+      "Pss": 19.4658203125,
+      "Pss_Anon": 4.58203125,
+      "Pss_File": 14.8837890625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 6.30078125,
+      "Pss": 2.09765625,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.515625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.73828125,
+      "Pss": 70.974609375,
+      "Pss_Anon": 17.109375,
+      "Pss_File": 53.861328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.953125,
+      "Pss": 48.0048828125,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 36.3251953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.85546875,
+      "Pss": 3.5,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.65234375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.9296875,
+      "Pss": 19.4697265625,
+      "Pss_Anon": 4.5859375,
+      "Pss_File": 14.8837890625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.30078125,
+      "Pss": 2.09765625,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.515625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.7421875,
+      "Pss": 71.0849609375,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 53.9677734375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.953125,
+      "Pss": 48.04296875,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 36.36328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.85546875,
+      "Pss": 3.5341796875,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.6865234375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.93359375,
+      "Pss": 19.5078125,
+      "Pss_Anon": 4.58984375,
+      "Pss_File": 14.91796875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.30078125,
+      "Pss": 2.1171875,
+      "Pss_Anon": 0.58203125,
+      "Pss_File": 1.53515625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.7421875,
+      "Pss": 71.802734375,
+      "Pss_Anon": 17.11328125,
+      "Pss_File": 54.685546875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.953125,
+      "Pss": 48.705078125,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 37.025390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.85546875,
+      "Pss": 3.564453125,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.716796875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.93359375,
+      "Pss": 19.533203125,
+      "Pss_Anon": 4.58984375,
+      "Pss_File": 14.943359375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 1,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 61.6015625,
+      "Pss": 47.03125,
+      "Pss_Anon": 11.65234375,
+      "Pss_File": 35.375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.6015625,
+      "Pss": 47.03125,
+      "Pss_Anon": 11.65234375,
+      "Pss_File": 35.375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.5546875,
+      "Pss": 69.1650390625,
+      "Pss_Anon": 16.8671875,
+      "Pss_File": 52.2939453125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.625,
+      "Pss": 45.9541015625,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 34.2744140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.71484375,
+      "Pss": 3.48828125,
+      "Pss_Anon": 0.83203125,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.21484375,
+      "Pss": 19.72265625,
+      "Pss_Anon": 4.359375,
+      "Pss_File": 15.36328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 6.09375,
+      "Pss": 2.0009765625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4150390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.79296875,
+      "Pss": 69.4033203125,
+      "Pss_Anon": 17.10546875,
+      "Pss_File": 52.2939453125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.625,
+      "Pss": 45.9541015625,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 34.2744140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.73046875,
+      "Pss": 3.50390625,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.4375,
+      "Pss": 19.9453125,
+      "Pss_Anon": 4.58203125,
+      "Pss_File": 15.36328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 6.09375,
+      "Pss": 2.0009765625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4150390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.8046875,
+      "Pss": 69.4150390625,
+      "Pss_Anon": 17.1171875,
+      "Pss_File": 52.2939453125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.625,
+      "Pss": 45.9541015625,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 34.2744140625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.73046875,
+      "Pss": 3.50390625,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.65625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.44921875,
+      "Pss": 19.95703125,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.36328125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.09375,
+      "Pss": 2.0009765625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4150390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.8046875,
+      "Pss": 69.517578125,
+      "Pss_Anon": 17.1171875,
+      "Pss_File": 52.396484375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.625,
+      "Pss": 45.9892578125,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 34.3095703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.73046875,
+      "Pss": 3.5380859375,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.6904296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.44921875,
+      "Pss": 19.990234375,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.396484375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.09375,
+      "Pss": 2.0244140625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4384765625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.8046875,
+      "Pss": 70.21484375,
+      "Pss_Anon": 17.1171875,
+      "Pss_File": 53.09375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 61.625,
+      "Pss": 46.63671875,
+      "Pss_Anon": 11.67578125,
+      "Pss_File": 34.95703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.73046875,
+      "Pss": 3.5654296875,
+      "Pss_Anon": 0.84765625,
+      "Pss_File": 2.7177734375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.44921875,
+      "Pss": 20.0126953125,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.4189453125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 2,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "stack",
+    "mib": {
+      "Rss": 62.1640625,
+      "Pss": 48.8173828125,
+      "Pss_Anon": 11.6484375,
+      "Pss_File": 37.1650390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.1640625,
+      "Pss": 48.8173828125,
+      "Pss_Anon": 11.6484375,
+      "Pss_File": 37.1650390625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "helper",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "mozc",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "idle",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "stack",
+    "mib": {
+      "Rss": 91.9296875,
+      "Pss": 70.6416015625,
+      "Pss_Anon": 16.859375,
+      "Pss_File": 53.7783203125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.234375,
+      "Pss": 47.71875,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 36.04296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.83203125,
+      "Pss": 3.53125,
+      "Pss_Anon": 0.828125,
+      "Pss_File": 2.703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "mozc",
+    "mib": {
+      "Rss": 22.86328125,
+      "Pss": 19.3916015625,
+      "Pss_Anon": 4.359375,
+      "Pss_File": 15.0322265625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "candidate",
+    "group": "client",
+    "mib": {
+      "Rss": 6.203125,
+      "Pss": 2.015625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.171875,
+      "Pss": 70.8828125,
+      "Pss_Anon": 17.1015625,
+      "Pss_File": 53.77734375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.234375,
+      "Pss": 47.7177734375,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 36.0419921875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.546875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.08984375,
+      "Pss": 19.6181640625,
+      "Pss_Anon": 4.5859375,
+      "Pss_File": 15.0322265625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-100",
+    "group": "client",
+    "mib": {
+      "Rss": 6.265625,
+      "Pss": 2.0244140625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4384765625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.1796875,
+      "Pss": 70.890625,
+      "Pss_Anon": 17.109375,
+      "Pss_File": 53.77734375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.234375,
+      "Pss": 47.7177734375,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 36.0419921875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.546875,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.703125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.09765625,
+      "Pss": 19.6259765625,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.0322265625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-1000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.265625,
+      "Pss": 2.0244140625,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.4384765625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.1796875,
+      "Pss": 71.0068359375,
+      "Pss_Anon": 17.109375,
+      "Pss_File": 53.8935546875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.234375,
+      "Pss": 47.751953125,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 36.076171875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.5830078125,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.7392578125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.09765625,
+      "Pss": 19.671875,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.078125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "after-10000",
+    "group": "client",
+    "mib": {
+      "Rss": 6.265625,
+      "Pss": 2.044921875,
+      "Pss_Anon": 0.5859375,
+      "Pss_File": 1.458984375
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "stack",
+    "mib": {
+      "Rss": 92.1796875,
+      "Pss": 71.7412109375,
+      "Pss_Anon": 17.109375,
+      "Pss_File": 54.6279296875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "nimf",
+    "mib": {
+      "Rss": 62.234375,
+      "Pss": 48.439453125,
+      "Pss_Anon": 11.671875,
+      "Pss_File": 36.763671875
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "helper",
+    "mib": {
+      "Rss": 6.84765625,
+      "Pss": 3.6064453125,
+      "Pss_Anon": 0.84375,
+      "Pss_File": 2.7626953125
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "mozc",
+    "mib": {
+      "Rss": 23.09765625,
+      "Pss": 19.6953125,
+      "Pss_Anon": 4.59375,
+      "Pss_File": 15.1015625
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "trial": 3,
+    "stage": "closed",
+    "group": "client",
+    "mib": {
+      "Rss": 0.0,
+      "Pss": 0.0,
+      "Pss_Anon": 0.0,
+      "Pss_File": 0.0
+    }
+  }
+]

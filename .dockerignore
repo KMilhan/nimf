@@ -3,6 +3,7 @@
 .serena
 .vscode
 build
+tests/benchmarks
 dist
 **/core
 **/core.*

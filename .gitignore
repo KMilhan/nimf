@@ -109,3 +109,6 @@ bin/nimf-settings/nimf-settings
 
 # Crash dumps
 core.[0-9]*
+
+# Published benchmark samples
+!tests/benchmarks/**/raw.tar.gz

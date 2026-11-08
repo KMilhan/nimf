@@ -1,0 +1,4 @@
+FROM nimf-frameworks-arch:deps
+USER root
+RUN cd /opt/mozc/src && bazel --batch build --config release_build --config stable_channel --jobs=8 --features=-supports_start_end_lib --linkopt=-fuse-ld=bfd unix/ibus:ibus_mozc unix/ibus:gen_mozc_xml && install -Dm755 bazel-bin/unix/ibus/ibus_mozc /usr/lib/ibus-mozc/ibus-engine-mozc && install -Dm644 bazel-bin/unix/ibus/mozc.xml /usr/share/ibus/component/mozc.xml
+USER tester

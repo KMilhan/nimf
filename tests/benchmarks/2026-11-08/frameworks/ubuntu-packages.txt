@@ -1,0 +1,39 @@
+fcitx5	5.1.7-1build3
+fcitx5-frontend-gtk3	5.1.1-1build2
+fcitx5-frontend-gtk4	5.1.1-1build2
+fcitx5-hangul:amd64	5.1.1-1
+fcitx5-mozc:amd64	2.28.4715.102+dfsg-2.2build7
+ibus	1.5.29-2
+ibus-gtk3:amd64	1.5.29-2
+ibus-gtk4:amd64	1.5.29-2
+ibus-hangul	1.5.5-2build2
+ibus-mozc	2.28.4715.102+dfsg-2.2build7
+libhangul1:amd64	0.1.0+git20230314-2build1
+mozc-server	2.28.4715.102+dfsg-2.2build7
+d786f8ac9d5d6969a1fa420cd8d60eb9bb88863d02b06bf370573923fa6e70a1  /usr/local/bin/nimf-latency-driver
+a7ca029e94bbaab759eddc786b80f80b4e7aef6c05c4d3f33136d98d70f70c9e  /usr/local/bin/nimf-latency-gtk3
+bcd5f33516fac9ae1afe0cf07dabcf918aaa0e00abb74372f6b8764eff770210  /usr/local/bin/nimf-latency-gtk4
+e70595d7b23cedd7ba4c7b8ebedf889530a29393491c7a20f892f1a5a934cfec  /usr/lib/x86_64-linux-gnu/libhangul.so.1
+/usr/lib/x86_64-linux-gnu/fcitx5/libhangul.so:
+	linux-vdso.so.1 (0x00007fee5cfc6000)
+	libFcitx5Core.so.7 => /lib/x86_64-linux-gnu/libFcitx5Core.so.7 (0x00007fee5cebd000)
+	libFcitx5Config.so.6 => /lib/x86_64-linux-gnu/libFcitx5Config.so.6 (0x00007fee5ce9d000)
+	libFcitx5Utils.so.2 => /lib/x86_64-linux-gnu/libFcitx5Utils.so.2 (0x00007fee5cdfa000)
+	libhangul.so.1 => /lib/x86_64-linux-gnu/libhangul.so.1 (0x00007fee5cde6000)
+	libstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007fee5cb68000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007fee5cb38000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fee5c925000)
+	libxkbcommon.so.0 => /lib/x86_64-linux-gnu/libxkbcommon.so.0 (0x00007fee5c8dc000)
+	libuuid.so.1 => /lib/x86_64-linux-gnu/libuuid.so.1 (0x00007fee5c8d2000)
+	libsystemd.so.0 => /lib/x86_64-linux-gnu/libsystemd.so.0 (0x00007fee5c7f2000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fee5c707000)
+	libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fee5c6d9000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fee5cfc8000)
+	libcap.so.2 => /lib/x86_64-linux-gnu/libcap.so.2 (0x00007fee5c6cc000)
+	libgcrypt.so.20 => /lib/x86_64-linux-gnu/libgcrypt.so.20 (0x00007fee5c583000)
+	liblz4.so.1 => /lib/x86_64-linux-gnu/liblz4.so.1 (0x00007fee5c561000)
+	liblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x00007fee5c52d000)
+	libzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007fee5c473000)
+	libgpg-error.so.0 => /lib/x86_64-linux-gnu/libgpg-error.so.0 (0x00007fee5c44e000)
+/usr/lib/ibus/ibus-engine-hangul:
+/usr/lib/nimf/engines/libnimf-libhangul.so:

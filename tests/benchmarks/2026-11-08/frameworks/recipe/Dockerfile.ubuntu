@@ -1,0 +1,6 @@
+FROM nimf-latency-ubuntu:test
+USER root
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ibus ibus-gtk3 ibus-gtk4 ibus-mozc ibus-hangul \
+    fcitx5 fcitx5-frontend-gtk3 fcitx5-frontend-gtk4 fcitx5-mozc fcitx5-hangul
+USER tester

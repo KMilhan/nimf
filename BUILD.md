@@ -234,3 +234,8 @@ sudo apt purge '*nimf*'
 
 See [memory ownership and validation](docs/memory-safety.md) for the ownership
 rules and isolated Ubuntu/Arch sanitizer and static-analysis commands.
+
+## Input latency
+
+See the [input-to-screen microbenchmark](tests/latency/README.md) for isolated
+GTK3/GTK4 measurements on Ubuntu and Arch, including raw samples and timing bounds.

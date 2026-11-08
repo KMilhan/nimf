@@ -1,0 +1,3482 @@
+[
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "idle",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.43359375,
+        "min": 84.359375,
+        "max": 84.47265625
+      },
+      "Pss": {
+        "median": 52.4404296875,
+        "min": 52.427734375,
+        "max": 52.5712890625
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 37.732421875,
+        "min": 37.7294921875,
+        "max": 37.8759765625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "idle",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.43359375,
+        "min": 84.359375,
+        "max": 84.47265625
+      },
+      "Pss": {
+        "median": 52.4404296875,
+        "min": 52.427734375,
+        "max": 52.5712890625
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 37.732421875,
+        "min": 37.7294921875,
+        "max": 37.8759765625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "idle",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "idle",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "idle",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.1875,
+        "min": 115.0625,
+        "max": 115.265625
+      },
+      "Pss": {
+        "median": 72.8408203125,
+        "min": 72.720703125,
+        "max": 72.8828125
+      },
+      "Pss_Anon": {
+        "median": 20.52734375,
+        "min": 20.5234375,
+        "max": 20.54296875
+      },
+      "Pss_File": {
+        "median": 52.2939453125,
+        "min": 52.193359375,
+        "max": 52.3515625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.55859375,
+        "min": 84.484375,
+        "max": 84.59765625
+      },
+      "Pss": {
+        "median": 51.634765625,
+        "min": 51.607421875,
+        "max": 51.7763671875
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 36.923828125,
+        "min": 36.912109375,
+        "max": 37.0810546875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.51953125,
+        "min": 8.3203125,
+        "max": 8.53125
+      },
+      "Pss": {
+        "median": 3.7578125,
+        "min": 3.5966796875,
+        "max": 3.8203125
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.01953125
+      },
+      "Pss_File": {
+        "median": 2.7421875,
+        "min": 2.5810546875,
+        "max": 2.80078125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.0703125,
+        "min": 22.046875,
+        "max": 22.38671875
+      },
+      "Pss": {
+        "median": 17.35546875,
+        "min": 17.2861328125,
+        "max": 17.609375
+      },
+      "Pss_Anon": {
+        "median": 4.81640625,
+        "min": 4.81640625,
+        "max": 4.8203125
+      },
+      "Pss_File": {
+        "median": 12.5390625,
+        "min": 12.4697265625,
+        "max": 12.7890625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.625,
+        "min": 5.46875,
+        "max": 5.65234375
+      },
+      "Pss": {
+        "median": 1.67578125,
+        "min": 1.615234375,
+        "max": 1.6787109375
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.390625,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.2802734375,
+        "min": 1.224609375,
+        "max": 1.28125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.546875,
+        "min": 115.4375,
+        "max": 115.62109375
+      },
+      "Pss": {
+        "median": 73.1962890625,
+        "min": 73.080078125,
+        "max": 73.2568359375
+      },
+      "Pss_Anon": {
+        "median": 20.8984375,
+        "min": 20.8828125,
+        "max": 20.90234375
+      },
+      "Pss_File": {
+        "median": 52.2939453125,
+        "min": 52.193359375,
+        "max": 52.3505859375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.55859375,
+        "min": 84.484375,
+        "max": 84.59765625
+      },
+      "Pss": {
+        "median": 51.634765625,
+        "min": 51.607421875,
+        "max": 51.7763671875
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 36.923828125,
+        "min": 36.912109375,
+        "max": 37.0810546875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.51953125,
+        "min": 8.3203125,
+        "max": 8.53125
+      },
+      "Pss": {
+        "median": 3.7578125,
+        "min": 3.5966796875,
+        "max": 3.8193359375
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.01953125
+      },
+      "Pss_File": {
+        "median": 2.7421875,
+        "min": 2.5810546875,
+        "max": 2.7998046875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.4296875,
+        "min": 22.421875,
+        "max": 22.7421875
+      },
+      "Pss": {
+        "median": 17.71484375,
+        "min": 17.6611328125,
+        "max": 17.96484375
+      },
+      "Pss_Anon": {
+        "median": 5.17578125,
+        "min": 5.17578125,
+        "max": 5.19140625
+      },
+      "Pss_File": {
+        "median": 12.5390625,
+        "min": 12.4697265625,
+        "max": 12.7890625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.625,
+        "min": 5.53125,
+        "max": 5.65234375
+      },
+      "Pss": {
+        "median": 1.67578125,
+        "min": 1.623046875,
+        "max": 1.6787109375
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.390625,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.2802734375,
+        "min": 1.232421875,
+        "max": 1.28125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.546875,
+        "min": 115.4375,
+        "max": 115.62109375
+      },
+      "Pss": {
+        "median": 73.1962890625,
+        "min": 73.080078125,
+        "max": 73.2568359375
+      },
+      "Pss_Anon": {
+        "median": 20.8984375,
+        "min": 20.8828125,
+        "max": 20.90234375
+      },
+      "Pss_File": {
+        "median": 52.2939453125,
+        "min": 52.193359375,
+        "max": 52.3505859375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.55859375,
+        "min": 84.484375,
+        "max": 84.59765625
+      },
+      "Pss": {
+        "median": 51.634765625,
+        "min": 51.607421875,
+        "max": 51.7763671875
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 36.923828125,
+        "min": 36.912109375,
+        "max": 37.0810546875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.51953125,
+        "min": 8.3203125,
+        "max": 8.53125
+      },
+      "Pss": {
+        "median": 3.7578125,
+        "min": 3.5966796875,
+        "max": 3.8193359375
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.01953125
+      },
+      "Pss_File": {
+        "median": 2.7421875,
+        "min": 2.5810546875,
+        "max": 2.7998046875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.4296875,
+        "min": 22.421875,
+        "max": 22.7421875
+      },
+      "Pss": {
+        "median": 17.71484375,
+        "min": 17.6611328125,
+        "max": 17.96484375
+      },
+      "Pss_Anon": {
+        "median": 5.17578125,
+        "min": 5.17578125,
+        "max": 5.19140625
+      },
+      "Pss_File": {
+        "median": 12.5390625,
+        "min": 12.4697265625,
+        "max": 12.7890625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.625,
+        "min": 5.53125,
+        "max": 5.65234375
+      },
+      "Pss": {
+        "median": 1.67578125,
+        "min": 1.623046875,
+        "max": 1.6787109375
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.390625,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.2802734375,
+        "min": 1.232421875,
+        "max": 1.28125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.66796875,
+        "min": 115.5546875,
+        "max": 115.73828125
+      },
+      "Pss": {
+        "median": 73.2041015625,
+        "min": 73.087890625,
+        "max": 73.265625
+      },
+      "Pss_Anon": {
+        "median": 20.8984375,
+        "min": 20.8828125,
+        "max": 20.90234375
+      },
+      "Pss_File": {
+        "median": 52.3017578125,
+        "min": 52.201171875,
+        "max": 52.359375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.67578125,
+        "min": 84.6015625,
+        "max": 84.71875
+      },
+      "Pss": {
+        "median": 51.662109375,
+        "min": 51.6396484375,
+        "max": 51.8095703125
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 36.951171875,
+        "min": 36.9443359375,
+        "max": 37.1142578125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.51953125,
+        "min": 8.3203125,
+        "max": 8.53125
+      },
+      "Pss": {
+        "median": 3.7451171875,
+        "min": 3.5869140625,
+        "max": 3.8154296875
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.01953125
+      },
+      "Pss_File": {
+        "median": 2.7294921875,
+        "min": 2.5712890625,
+        "max": 2.7958984375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.4296875,
+        "min": 22.421875,
+        "max": 22.7421875
+      },
+      "Pss": {
+        "median": 17.703125,
+        "min": 17.640625,
+        "max": 17.955078125
+      },
+      "Pss_Anon": {
+        "median": 5.17578125,
+        "min": 5.17578125,
+        "max": 5.19140625
+      },
+      "Pss_File": {
+        "median": 12.52734375,
+        "min": 12.44921875,
+        "max": 12.779296875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.625,
+        "min": 5.53125,
+        "max": 5.65234375
+      },
+      "Pss": {
+        "median": 1.6748046875,
+        "min": 1.623046875,
+        "max": 1.67578125
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.390625,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.27734375,
+        "min": 1.232421875,
+        "max": 1.2802734375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "closed",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.66796875,
+        "min": 115.5546875,
+        "max": 115.73828125
+      },
+      "Pss": {
+        "median": 73.8564453125,
+        "min": 73.7255859375,
+        "max": 73.8896484375
+      },
+      "Pss_Anon": {
+        "median": 20.8984375,
+        "min": 20.8828125,
+        "max": 20.90234375
+      },
+      "Pss_File": {
+        "median": 52.9541015625,
+        "min": 52.8388671875,
+        "max": 52.9833984375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "closed",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.67578125,
+        "min": 84.6015625,
+        "max": 84.71875
+      },
+      "Pss": {
+        "median": 52.2666015625,
+        "min": 52.2373046875,
+        "max": 52.3876953125
+      },
+      "Pss_Anon": {
+        "median": 14.69140625,
+        "min": 14.69140625,
+        "max": 14.70703125
+      },
+      "Pss_File": {
+        "median": 37.5556640625,
+        "min": 37.5419921875,
+        "max": 37.6923828125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "closed",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.51953125,
+        "min": 8.3203125,
+        "max": 8.53125
+      },
+      "Pss": {
+        "median": 3.765625,
+        "min": 3.61328125,
+        "max": 3.8369140625
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.01953125
+      },
+      "Pss_File": {
+        "median": 2.75,
+        "min": 2.59765625,
+        "max": 2.8173828125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "closed",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.4296875,
+        "min": 22.421875,
+        "max": 22.7421875
+      },
+      "Pss": {
+        "median": 17.72265625,
+        "min": 17.6650390625,
+        "max": 17.9765625
+      },
+      "Pss_Anon": {
+        "median": 5.17578125,
+        "min": 5.17578125,
+        "max": 5.19140625
+      },
+      "Pss_File": {
+        "median": 12.546875,
+        "min": 12.4736328125,
+        "max": 12.80078125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "before",
+    "stage": "closed",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "idle",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.27734375,
+        "min": 84.265625,
+        "max": 84.4375
+      },
+      "Pss": {
+        "median": 51.75390625,
+        "min": 51.7392578125,
+        "max": 52.50390625
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 37.05859375,
+        "min": 37.0361328125,
+        "max": 37.796875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "idle",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.27734375,
+        "min": 84.265625,
+        "max": 84.4375
+      },
+      "Pss": {
+        "median": 51.75390625,
+        "min": 51.7392578125,
+        "max": 52.50390625
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 37.05859375,
+        "min": 37.0361328125,
+        "max": 37.796875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "idle",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "idle",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "idle",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.48046875,
+        "min": 114.78125,
+        "max": 115.63671875
+      },
+      "Pss": {
+        "median": 72.474609375,
+        "min": 72.126953125,
+        "max": 73.1298828125
+      },
+      "Pss_Anon": {
+        "median": 20.52734375,
+        "min": 20.52734375,
+        "max": 20.53515625
+      },
+      "Pss_File": {
+        "median": 51.943359375,
+        "min": 51.595703125,
+        "max": 52.5908203125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.40234375,
+        "min": 84.3984375,
+        "max": 84.5625
+      },
+      "Pss": {
+        "median": 50.9765625,
+        "min": 50.9580078125,
+        "max": 51.7216796875
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 36.28125,
+        "min": 36.2548828125,
+        "max": 37.0146484375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.46875,
+        "min": 8.234375,
+        "max": 8.50390625
+      },
+      "Pss": {
+        "median": 3.724609375,
+        "min": 3.671875,
+        "max": 3.775390625
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.015625
+      },
+      "Pss_File": {
+        "median": 2.708984375,
+        "min": 2.65625,
+        "max": 2.759765625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.5703125,
+        "min": 22.14453125,
+        "max": 22.61328125
+      },
+      "Pss": {
+        "median": 17.68359375,
+        "min": 17.4970703125,
+        "max": 17.72265625
+      },
+      "Pss_Anon": {
+        "median": 4.81640625,
+        "min": 4.8125,
+        "max": 4.8203125
+      },
+      "Pss_File": {
+        "median": 12.8671875,
+        "min": 12.6845703125,
+        "max": 12.90234375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.5859375,
+        "min": 5.41015625,
+        "max": 5.58984375
+      },
+      "Pss": {
+        "median": 1.64453125,
+        "min": 1.6025390625,
+        "max": 1.646484375
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.39453125,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.24609375,
+        "min": 1.2080078125,
+        "max": 1.251953125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.85546875,
+        "min": 115.15625,
+        "max": 116.046875
+      },
+      "Pss": {
+        "median": 72.84765625,
+        "min": 72.501953125,
+        "max": 73.5400390625
+      },
+      "Pss_Anon": {
+        "median": 20.90234375,
+        "min": 20.90234375,
+        "max": 20.9453125
+      },
+      "Pss_File": {
+        "median": 51.94140625,
+        "min": 51.595703125,
+        "max": 52.5908203125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.40234375,
+        "min": 84.3984375,
+        "max": 84.5625
+      },
+      "Pss": {
+        "median": 50.9755859375,
+        "min": 50.9580078125,
+        "max": 51.7216796875
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 36.2802734375,
+        "min": 36.2548828125,
+        "max": 37.0146484375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.46875,
+        "min": 8.234375,
+        "max": 8.50390625
+      },
+      "Pss": {
+        "median": 3.724609375,
+        "min": 3.671875,
+        "max": 3.775390625
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.015625
+      },
+      "Pss_File": {
+        "median": 2.708984375,
+        "min": 2.65625,
+        "max": 2.759765625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.98046875,
+        "min": 22.51953125,
+        "max": 22.98828125
+      },
+      "Pss": {
+        "median": 18.09375,
+        "min": 17.8720703125,
+        "max": 18.0966796875
+      },
+      "Pss_Anon": {
+        "median": 5.1953125,
+        "min": 5.1875,
+        "max": 5.2265625
+      },
+      "Pss_File": {
+        "median": 12.8671875,
+        "min": 12.6845703125,
+        "max": 12.9013671875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.5859375,
+        "min": 5.47265625,
+        "max": 5.58984375
+      },
+      "Pss": {
+        "median": 1.64453125,
+        "min": 1.609375,
+        "max": 1.646484375
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.39453125,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.24609375,
+        "min": 1.21484375,
+        "max": 1.251953125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.85546875,
+        "min": 115.15625,
+        "max": 116.046875
+      },
+      "Pss": {
+        "median": 72.84765625,
+        "min": 72.501953125,
+        "max": 73.5400390625
+      },
+      "Pss_Anon": {
+        "median": 20.90234375,
+        "min": 20.90234375,
+        "max": 20.9453125
+      },
+      "Pss_File": {
+        "median": 51.94140625,
+        "min": 51.595703125,
+        "max": 52.5908203125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.40234375,
+        "min": 84.3984375,
+        "max": 84.5625
+      },
+      "Pss": {
+        "median": 50.9755859375,
+        "min": 50.9580078125,
+        "max": 51.7216796875
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 36.2802734375,
+        "min": 36.2548828125,
+        "max": 37.0146484375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.46875,
+        "min": 8.234375,
+        "max": 8.50390625
+      },
+      "Pss": {
+        "median": 3.724609375,
+        "min": 3.671875,
+        "max": 3.775390625
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.015625
+      },
+      "Pss_File": {
+        "median": 2.708984375,
+        "min": 2.65625,
+        "max": 2.759765625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.98046875,
+        "min": 22.51953125,
+        "max": 22.98828125
+      },
+      "Pss": {
+        "median": 18.09375,
+        "min": 17.8720703125,
+        "max": 18.0966796875
+      },
+      "Pss_Anon": {
+        "median": 5.1953125,
+        "min": 5.1875,
+        "max": 5.2265625
+      },
+      "Pss_File": {
+        "median": 12.8671875,
+        "min": 12.6845703125,
+        "max": 12.9013671875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.5859375,
+        "min": 5.47265625,
+        "max": 5.58984375
+      },
+      "Pss": {
+        "median": 1.64453125,
+        "min": 1.609375,
+        "max": 1.646484375
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.39453125,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.24609375,
+        "min": 1.21484375,
+        "max": 1.251953125
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.91796875,
+        "min": 115.1484375,
+        "max": 116.1640625
+      },
+      "Pss": {
+        "median": 72.8583984375,
+        "min": 72.3916015625,
+        "max": 73.55859375
+      },
+      "Pss_Anon": {
+        "median": 20.90234375,
+        "min": 20.90234375,
+        "max": 20.9453125
+      },
+      "Pss_File": {
+        "median": 51.9521484375,
+        "min": 51.4853515625,
+        "max": 52.609375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.515625,
+        "min": 84.4609375,
+        "max": 84.6796875
+      },
+      "Pss": {
+        "median": 50.9951171875,
+        "min": 50.982421875,
+        "max": 51.7529296875
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 36.2998046875,
+        "min": 36.279296875,
+        "max": 37.0458984375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.46875,
+        "min": 8.234375,
+        "max": 8.50390625
+      },
+      "Pss": {
+        "median": 3.724609375,
+        "min": 3.671875,
+        "max": 3.7744140625
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.015625
+      },
+      "Pss_File": {
+        "median": 2.708984375,
+        "min": 2.65625,
+        "max": 2.7587890625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.98046875,
+        "min": 22.3984375,
+        "max": 22.98828125
+      },
+      "Pss": {
+        "median": 18.0810546875,
+        "min": 17.7373046875,
+        "max": 18.0888671875
+      },
+      "Pss_Anon": {
+        "median": 5.1953125,
+        "min": 5.1875,
+        "max": 5.2265625
+      },
+      "Pss_File": {
+        "median": 12.8544921875,
+        "min": 12.5498046875,
+        "max": 12.8935546875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 5.5859375,
+        "min": 5.47265625,
+        "max": 5.58984375
+      },
+      "Pss": {
+        "median": 1.64453125,
+        "min": 1.609375,
+        "max": 1.64453125
+      },
+      "Pss_Anon": {
+        "median": 0.39453125,
+        "min": 0.39453125,
+        "max": 0.3984375
+      },
+      "Pss_File": {
+        "median": 1.24609375,
+        "min": 1.21484375,
+        "max": 1.25
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "closed",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 115.91796875,
+        "min": 115.1484375,
+        "max": 116.1640625
+      },
+      "Pss": {
+        "median": 73.4716796875,
+        "min": 72.9931640625,
+        "max": 74.173828125
+      },
+      "Pss_Anon": {
+        "median": 20.90234375,
+        "min": 20.90234375,
+        "max": 20.9453125
+      },
+      "Pss_File": {
+        "median": 52.5654296875,
+        "min": 52.0869140625,
+        "max": 53.224609375
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "closed",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 84.515625,
+        "min": 84.4609375,
+        "max": 84.6796875
+      },
+      "Pss": {
+        "median": 51.56640625,
+        "min": 51.5439453125,
+        "max": 52.3173828125
+      },
+      "Pss_Anon": {
+        "median": 14.69921875,
+        "min": 14.69140625,
+        "max": 14.703125
+      },
+      "Pss_File": {
+        "median": 36.87109375,
+        "min": 36.8408203125,
+        "max": 37.6103515625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "closed",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 8.46875,
+        "min": 8.234375,
+        "max": 8.50390625
+      },
+      "Pss": {
+        "median": 3.74609375,
+        "min": 3.69140625,
+        "max": 3.794921875
+      },
+      "Pss_Anon": {
+        "median": 1.015625,
+        "min": 1.015625,
+        "max": 1.015625
+      },
+      "Pss_File": {
+        "median": 2.73046875,
+        "min": 2.67578125,
+        "max": 2.779296875
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "closed",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.98046875,
+        "min": 22.3984375,
+        "max": 22.98828125
+      },
+      "Pss": {
+        "median": 18.1103515625,
+        "min": 17.7578125,
+        "max": 18.1103515625
+      },
+      "Pss_Anon": {
+        "median": 5.1953125,
+        "min": 5.1875,
+        "max": 5.2265625
+      },
+      "Pss_File": {
+        "median": 12.8837890625,
+        "min": 12.5703125,
+        "max": 12.9150390625
+      }
+    }
+  },
+  {
+    "distro": "ubuntu",
+    "variant": "after",
+    "stage": "closed",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "idle",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.3984375,
+        "min": 61.95703125,
+        "max": 62.91796875
+      },
+      "Pss": {
+        "median": 48.361328125,
+        "min": 48.0107421875,
+        "max": 48.4970703125
+      },
+      "Pss_Anon": {
+        "median": 11.6484375,
+        "min": 11.640625,
+        "max": 11.65234375
+      },
+      "Pss_File": {
+        "median": 36.705078125,
+        "min": 36.3662109375,
+        "max": 36.8447265625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "idle",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.3984375,
+        "min": 61.95703125,
+        "max": 62.91796875
+      },
+      "Pss": {
+        "median": 48.361328125,
+        "min": 48.0107421875,
+        "max": 48.4970703125
+      },
+      "Pss_Anon": {
+        "median": 11.6484375,
+        "min": 11.640625,
+        "max": 11.65234375
+      },
+      "Pss_File": {
+        "median": 36.705078125,
+        "min": 36.3662109375,
+        "max": 36.8447265625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "idle",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "idle",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "idle",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.078125,
+        "min": 91.40234375,
+        "max": 92.30859375
+      },
+      "Pss": {
+        "median": 69.7548828125,
+        "min": 69.7421875,
+        "max": 69.8349609375
+      },
+      "Pss_Anon": {
+        "median": 16.859375,
+        "min": 16.85546875,
+        "max": 16.8671875
+      },
+      "Pss_File": {
+        "median": 52.8916015625,
+        "min": 52.8828125,
+        "max": 52.9638671875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.421875,
+        "min": 62.03125,
+        "max": 62.94140625
+      },
+      "Pss": {
+        "median": 47.2919921875,
+        "min": 46.84375,
+        "max": 47.32421875
+      },
+      "Pss_Anon": {
+        "median": 11.671875,
+        "min": 11.6640625,
+        "max": 11.6796875
+      },
+      "Pss_File": {
+        "median": 35.6083984375,
+        "min": 35.17578125,
+        "max": 35.6484375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.83203125,
+        "min": 6.73046875,
+        "max": 6.85546875
+      },
+      "Pss": {
+        "median": 3.4697265625,
+        "min": 3.447265625,
+        "max": 3.47265625
+      },
+      "Pss_Anon": {
+        "median": 0.828125,
+        "min": 0.828125,
+        "max": 0.828125
+      },
+      "Pss_File": {
+        "median": 2.6416015625,
+        "min": 2.619140625,
+        "max": 2.64453125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.640625,
+        "min": 22.51171875,
+        "max": 22.82421875
+      },
+      "Pss": {
+        "median": 19.095703125,
+        "min": 18.9580078125,
+        "max": 19.4287109375
+      },
+      "Pss_Anon": {
+        "median": 4.359375,
+        "min": 4.359375,
+        "max": 4.36328125
+      },
+      "Pss_File": {
+        "median": 14.736328125,
+        "min": 14.5986328125,
+        "max": 15.0654296875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "candidate",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.265625,
+        "min": 5.94140625,
+        "max": 6.33203125
+      },
+      "Pss": {
+        "median": 2.1015625,
+        "min": 1.982421875,
+        "max": 2.1455078125
+      },
+      "Pss_Anon": {
+        "median": 0.58203125,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.515625,
+        "min": 1.400390625,
+        "max": 1.5634765625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.30859375,
+        "min": 91.640625,
+        "max": 92.55078125
+      },
+      "Pss": {
+        "median": 69.9931640625,
+        "min": 69.9697265625,
+        "max": 70.0732421875
+      },
+      "Pss_Anon": {
+        "median": 17.1015625,
+        "min": 17.0859375,
+        "max": 17.10546875
+      },
+      "Pss_File": {
+        "median": 52.8876953125,
+        "min": 52.8798828125,
+        "max": 52.9638671875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.421875,
+        "min": 62.03125,
+        "max": 62.94140625
+      },
+      "Pss": {
+        "median": 47.2919921875,
+        "min": 46.841796875,
+        "max": 47.3232421875
+      },
+      "Pss_Anon": {
+        "median": 11.671875,
+        "min": 11.6640625,
+        "max": 11.6796875
+      },
+      "Pss_File": {
+        "median": 35.6083984375,
+        "min": 35.173828125,
+        "max": 35.6474609375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.74609375,
+        "max": 6.87109375
+      },
+      "Pss": {
+        "median": 3.484375,
+        "min": 3.462890625,
+        "max": 3.4873046875
+      },
+      "Pss_Anon": {
+        "median": 0.84375,
+        "min": 0.84375,
+        "max": 0.84375
+      },
+      "Pss_File": {
+        "median": 2.640625,
+        "min": 2.619140625,
+        "max": 2.6435546875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.86328125,
+        "min": 22.73828125,
+        "max": 23.0390625
+      },
+      "Pss": {
+        "median": 19.318359375,
+        "min": 19.1826171875,
+        "max": 19.6435546875
+      },
+      "Pss_Anon": {
+        "median": 4.58203125,
+        "min": 4.578125,
+        "max": 4.5859375
+      },
+      "Pss_File": {
+        "median": 14.736328125,
+        "min": 14.5966796875,
+        "max": 15.0654296875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-100",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.328125,
+        "min": 5.94140625,
+        "max": 6.39453125
+      },
+      "Pss": {
+        "median": 2.1103515625,
+        "min": 1.982421875,
+        "max": 2.1533203125
+      },
+      "Pss_Anon": {
+        "median": 0.58203125,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.5244140625,
+        "min": 1.400390625,
+        "max": 1.5712890625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.31640625,
+        "min": 91.6484375,
+        "max": 92.5625
+      },
+      "Pss": {
+        "median": 70.0048828125,
+        "min": 69.9775390625,
+        "max": 70.0810546875
+      },
+      "Pss_Anon": {
+        "median": 17.11328125,
+        "min": 17.09375,
+        "max": 17.11328125
+      },
+      "Pss_File": {
+        "median": 52.8876953125,
+        "min": 52.8798828125,
+        "max": 52.9638671875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.421875,
+        "min": 62.03125,
+        "max": 62.94140625
+      },
+      "Pss": {
+        "median": 47.2919921875,
+        "min": 46.841796875,
+        "max": 47.3232421875
+      },
+      "Pss_Anon": {
+        "median": 11.671875,
+        "min": 11.6640625,
+        "max": 11.6796875
+      },
+      "Pss_File": {
+        "median": 35.6083984375,
+        "min": 35.173828125,
+        "max": 35.6474609375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.74609375,
+        "max": 6.87109375
+      },
+      "Pss": {
+        "median": 3.484375,
+        "min": 3.462890625,
+        "max": 3.4873046875
+      },
+      "Pss_Anon": {
+        "median": 0.84375,
+        "min": 0.84375,
+        "max": 0.84375
+      },
+      "Pss_File": {
+        "median": 2.640625,
+        "min": 2.619140625,
+        "max": 2.6435546875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.87109375,
+        "min": 22.75,
+        "max": 23.046875
+      },
+      "Pss": {
+        "median": 19.326171875,
+        "min": 19.1943359375,
+        "max": 19.6513671875
+      },
+      "Pss_Anon": {
+        "median": 4.58984375,
+        "min": 4.5859375,
+        "max": 4.59765625
+      },
+      "Pss_File": {
+        "median": 14.736328125,
+        "min": 14.5966796875,
+        "max": 15.0654296875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-1000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.328125,
+        "min": 5.94140625,
+        "max": 6.39453125
+      },
+      "Pss": {
+        "median": 2.1103515625,
+        "min": 1.982421875,
+        "max": 2.1533203125
+      },
+      "Pss_Anon": {
+        "median": 0.58203125,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.5244140625,
+        "min": 1.400390625,
+        "max": 1.5712890625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.32421875,
+        "min": 91.6484375,
+        "max": 92.5625
+      },
+      "Pss": {
+        "median": 70.1181640625,
+        "min": 70.095703125,
+        "max": 70.1943359375
+      },
+      "Pss_Anon": {
+        "median": 17.11328125,
+        "min": 17.1015625,
+        "max": 17.11328125
+      },
+      "Pss_File": {
+        "median": 53.0009765625,
+        "min": 52.990234375,
+        "max": 53.0771484375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.421875,
+        "min": 62.03125,
+        "max": 62.94140625
+      },
+      "Pss": {
+        "median": 47.3330078125,
+        "min": 46.87890625,
+        "max": 47.36328125
+      },
+      "Pss_Anon": {
+        "median": 11.671875,
+        "min": 11.6640625,
+        "max": 11.6796875
+      },
+      "Pss_File": {
+        "median": 35.6494140625,
+        "min": 35.2109375,
+        "max": 35.6875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.74609375,
+        "max": 6.87109375
+      },
+      "Pss": {
+        "median": 3.5205078125,
+        "min": 3.4951171875,
+        "max": 3.5224609375
+      },
+      "Pss_Anon": {
+        "median": 0.84375,
+        "min": 0.84375,
+        "max": 0.84375
+      },
+      "Pss_File": {
+        "median": 2.6767578125,
+        "min": 2.6513671875,
+        "max": 2.6787109375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.87109375,
+        "min": 22.75,
+        "max": 23.0546875
+      },
+      "Pss": {
+        "median": 19.3662109375,
+        "min": 19.234375,
+        "max": 19.6943359375
+      },
+      "Pss_Anon": {
+        "median": 4.59375,
+        "min": 4.58984375,
+        "max": 4.59765625
+      },
+      "Pss_File": {
+        "median": 14.7763671875,
+        "min": 14.63671875,
+        "max": 15.1005859375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "after-10000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.328125,
+        "min": 5.94140625,
+        "max": 6.39453125
+      },
+      "Pss": {
+        "median": 2.1298828125,
+        "min": 2.0,
+        "max": 2.171875
+      },
+      "Pss_Anon": {
+        "median": 0.58203125,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.5439453125,
+        "min": 1.41796875,
+        "max": 1.58984375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "closed",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.32421875,
+        "min": 91.6484375,
+        "max": 92.5625
+      },
+      "Pss": {
+        "median": 70.8525390625,
+        "min": 70.82421875,
+        "max": 70.87109375
+      },
+      "Pss_Anon": {
+        "median": 17.11328125,
+        "min": 17.1015625,
+        "max": 17.11328125
+      },
+      "Pss_File": {
+        "median": 53.7353515625,
+        "min": 53.71875,
+        "max": 53.75390625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "closed",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.421875,
+        "min": 62.03125,
+        "max": 62.94140625
+      },
+      "Pss": {
+        "median": 47.962890625,
+        "min": 47.5556640625,
+        "max": 48.04296875
+      },
+      "Pss_Anon": {
+        "median": 11.671875,
+        "min": 11.6640625,
+        "max": 11.6796875
+      },
+      "Pss_File": {
+        "median": 36.279296875,
+        "min": 35.8876953125,
+        "max": 36.3671875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "closed",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.74609375,
+        "max": 6.87109375
+      },
+      "Pss": {
+        "median": 3.546875,
+        "min": 3.5185546875,
+        "max": 3.5478515625
+      },
+      "Pss_Anon": {
+        "median": 0.84375,
+        "min": 0.84375,
+        "max": 0.84375
+      },
+      "Pss_File": {
+        "median": 2.703125,
+        "min": 2.6748046875,
+        "max": 2.7041015625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "closed",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.87109375,
+        "min": 22.75,
+        "max": 23.0546875
+      },
+      "Pss": {
+        "median": 19.3896484375,
+        "min": 19.2626953125,
+        "max": 19.720703125
+      },
+      "Pss_Anon": {
+        "median": 4.59375,
+        "min": 4.58984375,
+        "max": 4.59765625
+      },
+      "Pss_File": {
+        "median": 14.7998046875,
+        "min": 14.6650390625,
+        "max": 15.126953125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "before",
+    "stage": "closed",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "idle",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.1640625,
+        "min": 61.6015625,
+        "max": 62.9296875
+      },
+      "Pss": {
+        "median": 48.8173828125,
+        "min": 47.03125,
+        "max": 49.0908203125
+      },
+      "Pss_Anon": {
+        "median": 11.65234375,
+        "min": 11.6484375,
+        "max": 11.65234375
+      },
+      "Pss_File": {
+        "median": 37.1650390625,
+        "min": 35.375,
+        "max": 37.4345703125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "idle",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.1640625,
+        "min": 61.6015625,
+        "max": 62.9296875
+      },
+      "Pss": {
+        "median": 48.8173828125,
+        "min": 47.03125,
+        "max": 49.0908203125
+      },
+      "Pss_Anon": {
+        "median": 11.65234375,
+        "min": 11.6484375,
+        "max": 11.65234375
+      },
+      "Pss_File": {
+        "median": 37.1650390625,
+        "min": 35.375,
+        "max": 37.4345703125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "idle",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "idle",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "idle",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 91.9296875,
+        "min": 91.5546875,
+        "max": 92.49609375
+      },
+      "Pss": {
+        "median": 70.6416015625,
+        "min": 69.1650390625,
+        "max": 70.734375
+      },
+      "Pss_Anon": {
+        "median": 16.8671875,
+        "min": 16.859375,
+        "max": 16.8671875
+      },
+      "Pss_File": {
+        "median": 53.7783203125,
+        "min": 52.2939453125,
+        "max": 53.86328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.234375,
+        "min": 61.625,
+        "max": 62.953125
+      },
+      "Pss": {
+        "median": 47.71875,
+        "min": 45.9541015625,
+        "max": 48.005859375
+      },
+      "Pss_Anon": {
+        "median": 11.67578125,
+        "min": 11.671875,
+        "max": 11.67578125
+      },
+      "Pss_File": {
+        "median": 36.04296875,
+        "min": 34.2744140625,
+        "max": 36.326171875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.83203125,
+        "min": 6.71484375,
+        "max": 6.83984375
+      },
+      "Pss": {
+        "median": 3.48828125,
+        "min": 3.484375,
+        "max": 3.53125
+      },
+      "Pss_Anon": {
+        "median": 0.83203125,
+        "min": 0.828125,
+        "max": 0.83203125
+      },
+      "Pss_File": {
+        "median": 2.65625,
+        "min": 2.65234375,
+        "max": 2.703125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 22.86328125,
+        "min": 22.703125,
+        "max": 23.21484375
+      },
+      "Pss": {
+        "median": 19.3916015625,
+        "min": 19.244140625,
+        "max": 19.72265625
+      },
+      "Pss_Anon": {
+        "median": 4.359375,
+        "min": 4.359375,
+        "max": 4.359375
+      },
+      "Pss_File": {
+        "median": 15.0322265625,
+        "min": 14.884765625,
+        "max": 15.36328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "candidate",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.203125,
+        "min": 6.09375,
+        "max": 6.23828125
+      },
+      "Pss": {
+        "median": 2.015625,
+        "min": 2.0009765625,
+        "max": 2.0888671875
+      },
+      "Pss_Anon": {
+        "median": 0.5859375,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.4296875,
+        "min": 1.4150390625,
+        "max": 1.5068359375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.171875,
+        "min": 91.79296875,
+        "max": 92.734375
+      },
+      "Pss": {
+        "median": 70.8828125,
+        "min": 69.4033203125,
+        "max": 70.970703125
+      },
+      "Pss_Anon": {
+        "median": 17.10546875,
+        "min": 17.1015625,
+        "max": 17.10546875
+      },
+      "Pss_File": {
+        "median": 53.77734375,
+        "min": 52.2939453125,
+        "max": 53.861328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.234375,
+        "min": 61.625,
+        "max": 62.953125
+      },
+      "Pss": {
+        "median": 47.7177734375,
+        "min": 45.9541015625,
+        "max": 48.0048828125
+      },
+      "Pss_Anon": {
+        "median": 11.67578125,
+        "min": 11.671875,
+        "max": 11.67578125
+      },
+      "Pss_File": {
+        "median": 36.0419921875,
+        "min": 34.2744140625,
+        "max": 36.3251953125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.73046875,
+        "max": 6.85546875
+      },
+      "Pss": {
+        "median": 3.50390625,
+        "min": 3.5,
+        "max": 3.546875
+      },
+      "Pss_Anon": {
+        "median": 0.84765625,
+        "min": 0.84375,
+        "max": 0.84765625
+      },
+      "Pss_File": {
+        "median": 2.65625,
+        "min": 2.65234375,
+        "max": 2.703125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 23.08984375,
+        "min": 22.92578125,
+        "max": 23.4375
+      },
+      "Pss": {
+        "median": 19.6181640625,
+        "min": 19.4658203125,
+        "max": 19.9453125
+      },
+      "Pss_Anon": {
+        "median": 4.58203125,
+        "min": 4.58203125,
+        "max": 4.5859375
+      },
+      "Pss_File": {
+        "median": 15.0322265625,
+        "min": 14.8837890625,
+        "max": 15.36328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-100",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.265625,
+        "min": 6.09375,
+        "max": 6.30078125
+      },
+      "Pss": {
+        "median": 2.0244140625,
+        "min": 2.0009765625,
+        "max": 2.09765625
+      },
+      "Pss_Anon": {
+        "median": 0.5859375,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.4384765625,
+        "min": 1.4150390625,
+        "max": 1.515625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.1796875,
+        "min": 91.8046875,
+        "max": 92.73828125
+      },
+      "Pss": {
+        "median": 70.890625,
+        "min": 69.4150390625,
+        "max": 70.974609375
+      },
+      "Pss_Anon": {
+        "median": 17.109375,
+        "min": 17.109375,
+        "max": 17.1171875
+      },
+      "Pss_File": {
+        "median": 53.77734375,
+        "min": 52.2939453125,
+        "max": 53.861328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.234375,
+        "min": 61.625,
+        "max": 62.953125
+      },
+      "Pss": {
+        "median": 47.7177734375,
+        "min": 45.9541015625,
+        "max": 48.0048828125
+      },
+      "Pss_Anon": {
+        "median": 11.67578125,
+        "min": 11.671875,
+        "max": 11.67578125
+      },
+      "Pss_File": {
+        "median": 36.0419921875,
+        "min": 34.2744140625,
+        "max": 36.3251953125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.73046875,
+        "max": 6.85546875
+      },
+      "Pss": {
+        "median": 3.50390625,
+        "min": 3.5,
+        "max": 3.546875
+      },
+      "Pss_Anon": {
+        "median": 0.84765625,
+        "min": 0.84375,
+        "max": 0.84765625
+      },
+      "Pss_File": {
+        "median": 2.65625,
+        "min": 2.65234375,
+        "max": 2.703125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 23.09765625,
+        "min": 22.9296875,
+        "max": 23.44921875
+      },
+      "Pss": {
+        "median": 19.6259765625,
+        "min": 19.4697265625,
+        "max": 19.95703125
+      },
+      "Pss_Anon": {
+        "median": 4.59375,
+        "min": 4.5859375,
+        "max": 4.59375
+      },
+      "Pss_File": {
+        "median": 15.0322265625,
+        "min": 14.8837890625,
+        "max": 15.36328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-1000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.265625,
+        "min": 6.09375,
+        "max": 6.30078125
+      },
+      "Pss": {
+        "median": 2.0244140625,
+        "min": 2.0009765625,
+        "max": 2.09765625
+      },
+      "Pss_Anon": {
+        "median": 0.5859375,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.4384765625,
+        "min": 1.4150390625,
+        "max": 1.515625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.1796875,
+        "min": 91.8046875,
+        "max": 92.7421875
+      },
+      "Pss": {
+        "median": 71.0068359375,
+        "min": 69.517578125,
+        "max": 71.0849609375
+      },
+      "Pss_Anon": {
+        "median": 17.11328125,
+        "min": 17.109375,
+        "max": 17.1171875
+      },
+      "Pss_File": {
+        "median": 53.8935546875,
+        "min": 52.396484375,
+        "max": 53.9677734375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.234375,
+        "min": 61.625,
+        "max": 62.953125
+      },
+      "Pss": {
+        "median": 47.751953125,
+        "min": 45.9892578125,
+        "max": 48.04296875
+      },
+      "Pss_Anon": {
+        "median": 11.67578125,
+        "min": 11.671875,
+        "max": 11.67578125
+      },
+      "Pss_File": {
+        "median": 36.076171875,
+        "min": 34.3095703125,
+        "max": 36.36328125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.73046875,
+        "max": 6.85546875
+      },
+      "Pss": {
+        "median": 3.5380859375,
+        "min": 3.5341796875,
+        "max": 3.5830078125
+      },
+      "Pss_Anon": {
+        "median": 0.84765625,
+        "min": 0.84375,
+        "max": 0.84765625
+      },
+      "Pss_File": {
+        "median": 2.6904296875,
+        "min": 2.6865234375,
+        "max": 2.7392578125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 23.09765625,
+        "min": 22.93359375,
+        "max": 23.44921875
+      },
+      "Pss": {
+        "median": 19.671875,
+        "min": 19.5078125,
+        "max": 19.990234375
+      },
+      "Pss_Anon": {
+        "median": 4.59375,
+        "min": 4.58984375,
+        "max": 4.59375
+      },
+      "Pss_File": {
+        "median": 15.078125,
+        "min": 14.91796875,
+        "max": 15.396484375
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "after-10000",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.265625,
+        "min": 6.09375,
+        "max": 6.30078125
+      },
+      "Pss": {
+        "median": 2.044921875,
+        "min": 2.0244140625,
+        "max": 2.1171875
+      },
+      "Pss_Anon": {
+        "median": 0.5859375,
+        "min": 0.58203125,
+        "max": 0.5859375
+      },
+      "Pss_File": {
+        "median": 1.458984375,
+        "min": 1.4384765625,
+        "max": 1.53515625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "closed",
+    "group": "stack",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 92.1796875,
+        "min": 91.8046875,
+        "max": 92.7421875
+      },
+      "Pss": {
+        "median": 71.7412109375,
+        "min": 70.21484375,
+        "max": 71.802734375
+      },
+      "Pss_Anon": {
+        "median": 17.11328125,
+        "min": 17.109375,
+        "max": 17.1171875
+      },
+      "Pss_File": {
+        "median": 54.6279296875,
+        "min": 53.09375,
+        "max": 54.685546875
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "closed",
+    "group": "nimf",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 62.234375,
+        "min": 61.625,
+        "max": 62.953125
+      },
+      "Pss": {
+        "median": 48.439453125,
+        "min": 46.63671875,
+        "max": 48.705078125
+      },
+      "Pss_Anon": {
+        "median": 11.67578125,
+        "min": 11.671875,
+        "max": 11.67578125
+      },
+      "Pss_File": {
+        "median": 36.763671875,
+        "min": 34.95703125,
+        "max": 37.025390625
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "closed",
+    "group": "helper",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 6.84765625,
+        "min": 6.73046875,
+        "max": 6.85546875
+      },
+      "Pss": {
+        "median": 3.5654296875,
+        "min": 3.564453125,
+        "max": 3.6064453125
+      },
+      "Pss_Anon": {
+        "median": 0.84765625,
+        "min": 0.84375,
+        "max": 0.84765625
+      },
+      "Pss_File": {
+        "median": 2.7177734375,
+        "min": 2.716796875,
+        "max": 2.7626953125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "closed",
+    "group": "mozc",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 23.09765625,
+        "min": 22.93359375,
+        "max": 23.44921875
+      },
+      "Pss": {
+        "median": 19.6953125,
+        "min": 19.533203125,
+        "max": 20.0126953125
+      },
+      "Pss_Anon": {
+        "median": 4.59375,
+        "min": 4.58984375,
+        "max": 4.59375
+      },
+      "Pss_File": {
+        "median": 15.1015625,
+        "min": 14.943359375,
+        "max": 15.4189453125
+      }
+    }
+  },
+  {
+    "distro": "arch",
+    "variant": "after",
+    "stage": "closed",
+    "group": "client",
+    "trials": 3,
+    "mib": {
+      "Rss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_Anon": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Pss_File": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  }
+]

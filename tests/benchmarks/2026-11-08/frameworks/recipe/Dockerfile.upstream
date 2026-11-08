@@ -1,0 +1,10 @@
+ARG BASE_IMAGE=nimf-frameworks-ubuntu:probe
+FROM ${BASE_IMAGE}
+USER root
+COPY source /opt/upstream-nimf
+WORKDIR /opt/upstream-nimf
+ENV CFLAGS="-g -O2" CXXFLAGS="-g -O2" LDFLAGS=""
+RUN mkdir -p m4 && gtkdocize && autoreconf --force --install && ./configure --prefix=/usr --enable-gtk4 --disable-gtk2 --disable-nimf-m17n && make -j8 && make install && ldconfig && glib-compile-schemas /usr/share/glib-2.0/schemas && make update-gtk-im-cache
+RUN for directory in /usr/lib/gtk-4.0/4.0.0/immodules /usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/immodules; do if test -d "$directory"; then gio-querymodules "$directory"; fi; done
+WORKDIR /src
+USER tester

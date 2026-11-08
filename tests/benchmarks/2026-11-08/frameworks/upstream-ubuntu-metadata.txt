@@ -1,0 +1,33 @@
+CFLAGS = -g -O2
+CXXFLAGS = -g -O2
+LDFLAGS =
+d786f8ac9d5d6969a1fa420cd8d60eb9bb88863d02b06bf370573923fa6e70a1  /usr/local/bin/nimf-latency-driver
+a7ca029e94bbaab759eddc786b80f80b4e7aef6c05c4d3f33136d98d70f70c9e  /usr/local/bin/nimf-latency-gtk3
+bcd5f33516fac9ae1afe0cf07dabcf918aaa0e00abb74372f6b8764eff770210  /usr/local/bin/nimf-latency-gtk4
+c640cc43287cca0002e5c7d0d471af190bf88d005c9f85f8c29708576fd83ac9  /usr/bin/nimf
+613650e2f955c2a24fd53f9b02f3b9c1cb69e6a211efaffef816babf4ad44067  /usr/lib/libnimf.so.1
+4c905c331cec3981e5af92519056b1ba60a3b4b531c5bd0daabcb461d0f622e3  /usr/lib/nimf/modules/libnimf-libhangul.so
+/usr/lib/x86_64-linux-gnu/fcitx5/libhangul.so
+/usr/lib/x86_64-linux-gnu/libhangul.a
+/usr/lib/x86_64-linux-gnu/libhangul.so
+/usr/lib/x86_64-linux-gnu/libhangul.so.1
+/usr/lib/x86_64-linux-gnu/libhangul.so.1.0.0
+/usr/lib/x86_64-linux-gnu/pkgconfig/libhangul.pc
+/usr/lib/nimf/modules/libnimf-libhangul.so
+	linux-vdso.so.1 (0x00007fe2e9767000)
+	libhangul.so.1 => /lib/x86_64-linux-gnu/libhangul.so.1 (0x00007fe2e9737000)
+	libgio-2.0.so.0 => /lib/x86_64-linux-gnu/libgio-2.0.so.0 (0x00007fe2e9567000)
+	libgobject-2.0.so.0 => /lib/x86_64-linux-gnu/libgobject-2.0.so.0 (0x00007fe2e9504000)
+	libglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007fe2e93bb000)
+	libnimf.so.1 => /lib/libnimf.so.1 (0x00007fe2e939d000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007fe2e9188000)
+	libexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x00007fe2e915a000)
+	libgmodule-2.0.so.0 => /lib/x86_64-linux-gnu/libgmodule-2.0.so.0 (0x00007fe2e9153000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007fe2e9137000)
+	libmount.so.1 => /lib/x86_64-linux-gnu/libmount.so.1 (0x00007fe2e90ea000)
+	libselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x00007fe2e90bd000)
+	libffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007fe2e90af000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007fe2e8fc6000)
+	libpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x00007fe2e8f2c000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007fe2e9769000)
+	libblkid.so.1 => /lib/x86_64-linux-gnu/libblkid.so.1 (0x00007fe2e8ef1000)

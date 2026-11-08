@@ -1,0 +1,4 @@
+FROM nimf-frameworks-arch:deps
+USER root
+RUN install -Dm755 /usr/lib/mozc/mozc_server /opt/nimf-original/mozc_server && pacman -S --noconfirm --needed --overwrite usr/lib/mozc/mozc_server fcitx5-mozc
+USER tester

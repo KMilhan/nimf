@@ -1,0 +1,4 @@
+FROM nimf-latency-arch:test
+USER root
+RUN pacman -Syu --noconfirm --needed ibus ibus-hangul fcitx5 fcitx5-gtk fcitx5-hangul
+USER tester
