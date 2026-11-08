@@ -65,11 +65,13 @@ docs/*
 docs/html/
 docs/xml/
 !docs/nimf.png
+!docs/memory-safety.md
 # tests
 test-*.log
 test-*.trs
 test-suite.log
 test-nimf-m17n
+/libnimf/test-memory
 # vscode
 .vscode/
 *.stamp

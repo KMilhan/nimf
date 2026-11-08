@@ -65,21 +65,38 @@ static gboolean nimf_wayland_source_prepare (GSource *base,
   return FALSE;
 }
 
+static void
+nimf_wayland_clear_context (NimfWayland *wayland)
+{
+  g_clear_pointer (&wayland->keyboard, wl_keyboard_destroy);
+  g_clear_pointer (&wayland->context, zwp_input_method_context_v1_destroy);
+  g_clear_pointer (&wayland->state, xkb_state_unref);
+  g_clear_pointer (&wayland->keymap, xkb_keymap_unref);
+}
+
 static void nimf_wayland_stop (NimfService *service)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   NimfWayland *wayland = NIMF_WAYLAND (service);
 
-  if (!wayland->active)
-    return;
-
   if (wayland->event_source)
   {
+    NimfWaylandEventSource *source = (NimfWaylandEventSource *) wayland->event_source;
+    if (source->reading)
+      wl_display_cancel_read (wayland->display);
+    source->reading = FALSE;
+    source->wayland = NULL;
     g_source_destroy (wayland->event_source);
-    g_source_unref   (wayland->event_source);
+    g_clear_pointer (&wayland->event_source, g_source_unref);
   }
 
+  nimf_wayland_clear_context (wayland);
+  g_clear_object (&wayland->wic);
+  g_clear_pointer (&wayland->xkb_context, xkb_context_unref);
+  g_clear_pointer (&wayland->input_method, zwp_input_method_v1_destroy);
+  g_clear_pointer (&wayland->registry, wl_registry_destroy);
+  g_clear_pointer (&wayland->display, wl_display_disconnect);
   wayland->active = FALSE;
 }
 
@@ -91,6 +108,7 @@ static gboolean nimf_wayland_source_check (GSource *base)
 
   if (source->reading)
   {
+    source->reading = FALSE;
     if (source->poll_fd.revents & G_IO_IN)
     {
       if (wl_display_read_events (source->wayland->display) < 0)
@@ -105,7 +123,6 @@ static gboolean nimf_wayland_source_check (GSource *base)
       wl_display_cancel_read (source->wayland->display);
     }
 
-    source->reading = FALSE;
   }
 
   return source->poll_fd.revents;
@@ -119,11 +136,15 @@ static gboolean nimf_wayland_source_dispatch (GSource     *base,
 
   NimfWaylandEventSource *source = (NimfWaylandEventSource *) base;
 
+  if (source->wayland == NULL)
+    return G_SOURCE_REMOVE;
+
   if (wl_display_dispatch_pending (source->wayland->display) < 0)
   {
     g_critical (G_STRLOC ": %s: wl_display_dispatch_pending() failed: %s: %m",
                 G_STRFUNC, g_strerror (errno));
     nimf_wayland_stop (NIMF_SERVICE (source->wayland));
+    return G_SOURCE_REMOVE;
   }
 
   source->poll_fd.revents = 0;
@@ -236,6 +257,13 @@ static const struct zwp_input_method_context_v1_listener input_method_context_li
   handle_preferred_language
 };
 
+static xkb_mod_mask_t
+modifier_mask (struct xkb_keymap *keymap, const char *name)
+{
+  xkb_mod_index_t index = xkb_keymap_mod_get_index (keymap, name);
+  return index < sizeof (xkb_mod_mask_t) * 8 ? ((xkb_mod_mask_t) 1 << index) : 0;
+}
+
 static void
 input_method_keyboard_keymap (void               *data,
                               struct wl_keyboard *wl_keyboard,
@@ -262,6 +290,8 @@ input_method_keyboard_keymap (void               *data,
     return;
   }
 
+  g_clear_pointer (&wayland->state, xkb_state_unref);
+  g_clear_pointer (&wayland->keymap, xkb_keymap_unref);
   wayland->keymap = xkb_keymap_new_from_string (wayland->xkb_context,
                                                 map_str,
                                                 XKB_KEYMAP_FORMAT_TEXT_V1,
@@ -280,32 +310,32 @@ input_method_keyboard_keymap (void               *data,
   if (!wayland->state)
   {
     g_critical (G_STRLOC ": %s: xkb_state_new() failed", G_STRFUNC);
-    xkb_keymap_unref(wayland->keymap);
+    g_clear_pointer (&wayland->keymap, xkb_keymap_unref);
     return;
   }
 
   wayland->shift_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Shift");
+    modifier_mask (wayland->keymap, "Shift");
   wayland->lock_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Lock");
+    modifier_mask (wayland->keymap, "Lock");
   wayland->control_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Control");
+    modifier_mask (wayland->keymap, "Control");
   wayland->mod1_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Mod1");
+    modifier_mask (wayland->keymap, "Mod1");
   wayland->mod2_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Mod2");
+    modifier_mask (wayland->keymap, "Mod2");
   wayland->mod3_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Mod3");
+    modifier_mask (wayland->keymap, "Mod3");
   wayland->mod4_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Mod4");
+    modifier_mask (wayland->keymap, "Mod4");
   wayland->mod5_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Mod5");
+    modifier_mask (wayland->keymap, "Mod5");
   wayland->super_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Super");
+    modifier_mask (wayland->keymap, "Super");
   wayland->hyper_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Hyper");
+    modifier_mask (wayland->keymap, "Hyper");
   wayland->meta_mask =
-    1 << xkb_keymap_mod_get_index (wayland->keymap, "Meta");
+    modifier_mask (wayland->keymap, "Meta");
 }
 
 static void
@@ -375,6 +405,9 @@ input_method_keyboard_modifiers (void *data,
   struct zwp_input_method_context_v1 *context = wayland->context;
   xkb_mod_mask_t mask;
 
+  if (wayland->state == NULL || context == NULL)
+    return;
+
   xkb_state_update_mask (wayland->state, mods_depressed,
                          mods_latched, mods_locked, 0, 0, group);
   mask = xkb_state_serialize_mods (wayland->state,
@@ -426,8 +459,7 @@ input_method_activate (void *data,
 
   NimfWayland *wayland = data;
 
-  if (wayland->context)
-    zwp_input_method_context_v1_destroy (wayland->context);
+  nimf_wayland_clear_context (wayland);
 
   wayland->serial = 0;
   wayland->context = context;
@@ -453,8 +485,7 @@ input_method_deactivate (void *data,
     return;
 
   nimf_service_ic_reset (NIMF_SERVICE_IC (wayland->wic));
-  zwp_input_method_context_v1_destroy (wayland->context);
-  wayland->context = NULL;
+  nimf_wayland_clear_context (wayland);
 }
 
 static const struct zwp_input_method_v1_listener input_method_listener = {
@@ -529,12 +560,14 @@ static gboolean nimf_wayland_start (NimfService *service)
   if (wayland->input_method == NULL)
   {
     g_critical (G_STRLOC ": %s: No input_method global", G_STRFUNC);
+    nimf_wayland_stop (service);
     return FALSE;
   }
 
   wayland->xkb_context = xkb_context_new (XKB_CONTEXT_NO_FLAGS);
   if (wayland->xkb_context == NULL) {
     g_critical (G_STRLOC ": %s: xkb_context_new() failed", G_STRFUNC);
+    nimf_wayland_stop (service);
     return FALSE;
   }
 
@@ -573,13 +606,9 @@ nimf_wayland_finalize (GObject *object)
 
   NimfWayland *wayland = NIMF_WAYLAND (object);
 
-  if (wayland->active)
-    nimf_wayland_stop (NIMF_SERVICE (wayland));
+  nimf_wayland_stop (NIMF_SERVICE (wayland));
 
   g_free (wayland->id);
-
-  if (wayland->wic)
-    g_object_unref (wayland->wic);
 
   G_OBJECT_CLASS (nimf_wayland_parent_class)->finalize (object);
 }

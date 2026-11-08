@@ -31,7 +31,7 @@ NimfWaylandIC *nimf_wayland_ic_new (NimfWayland *wayland)
   NimfWaylandIC *wic;
 
   wic = g_object_new (NIMF_TYPE_WAYLAND_IC, NULL);
-  wic->wayland = wayland;
+  g_set_weak_pointer (&wic->wayland, wayland);
 
   return wic;
 }
@@ -43,6 +43,9 @@ nimf_wayland_ic_emit_commit (NimfServiceIC *ic,
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   NimfWayland *wayland = NIMF_WAYLAND_IC (ic)->wayland;
+
+  if (wayland == NULL || wayland->context == NULL)
+    return;
 
   zwp_input_method_context_v1_commit_string (wayland->context,
                                              wayland->serial,
@@ -63,6 +66,9 @@ nimf_wayland_ic_emit_preedit_changed (NimfServiceIC    *ic,
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   NimfWayland *wayland = NIMF_WAYLAND_IC (ic)->wayland;
+
+  if (wayland == NULL || wayland->context == NULL)
+    return;
 
   zwp_input_method_context_v1_preedit_cursor (wayland->context, cursor_pos);
   zwp_input_method_context_v1_preedit_string (wayland->context,
@@ -85,6 +91,7 @@ nimf_wayland_ic_finalize (GObject *object)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  g_clear_weak_pointer (&NIMF_WAYLAND_IC (object)->wayland);
   G_OBJECT_CLASS (nimf_wayland_ic_parent_class)->finalize (object);
 }
 

@@ -58,6 +58,8 @@ NimfEngine *nimf_server_get_next_engine    (NimfServer  *server,
 NimfEngine *nimf_server_get_engine_by_id   (NimfServer  *server,
                                             const gchar *engine_id);
 gboolean    nimf_server_start              (NimfServer  *server);
+void        nimf_server_set_last_focused_im (NimfServer *server,
+                                            NimfServiceIC *ic);
 
 #endif /* __NIMF_SERVER_PRIVATE_H__ */
 

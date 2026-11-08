@@ -1,0 +1,8 @@
+# Fontconfig retains process-wide font caches in the GTK/Pango shutdown path.
+# Do not suppress GLib, GTK, Nimf, or allocation functions: that hides our leaks.
+leak:libfontconfig.so
+# GTK 3.24.41 gtk_status_icon_color_changed copies boxed GdkRGBA properties
+# into a stack struct instead of freeing the returned pointer (3 x 32 bytes).
+# Restrict this exception to the status-icon constructor's call tree.
+# https://github.com/GNOME/gtk/blob/3.24.41/gtk/deprecated/gtkstatusicon.c#L1628
+leak:nimf_indicator_create_status_icon

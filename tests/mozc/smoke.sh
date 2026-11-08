@@ -6,6 +6,7 @@ export GDK_BACKEND=x11 QT_QPA_PLATFORM=xcb GSK_RENDERER=cairo
 {
     cat /etc/os-release
     pkg-config --modversion gtk+-3.0 gtk4 Qt5Core Qt6Core
+    cc --version
     mozc_emacs_helper < /dev/null
     if command -v pacman >/dev/null; then pacman -Q; else dpkg-query -W; fi
 } > /results/versions.txt

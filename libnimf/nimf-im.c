@@ -60,6 +60,7 @@ struct _NimfIMPrivate
 
   guint16       id;
   GFileMonitor *monitor;
+  gulong        monitor_handler;
   uid_t         uid;
   gboolean      created;
 };
@@ -69,7 +70,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (NimfIM, nimf_im, G_TYPE_OBJECT);
 static uid_t
 get_login_uid (void)
 {
-  gchar *nptr;
+  g_autofree gchar *nptr = NULL;
   gsize  length;
   uid_t  uid;
 
@@ -94,17 +95,23 @@ nimf_im_is_connected ()
 }
 
 static gboolean
-on_incoming_message (GSocket      *socket,
+dispatch_incoming_message (GSocket      *socket,
                      GIOCondition  condition,
                      gpointer      user_data)
 {
   g_debug (G_STRLOC ": %s: socket fd:%d", G_STRFUNC, g_socket_get_fd (socket));
 
-  nimf_message_unref (nimf_im_result->reply);
+  g_autoptr(NimfMessage) message = NULL;
+  g_autoptr(GObject) context = NULL;
+  g_clear_pointer (&nimf_im_result->reply, nimf_message_unref);
   nimf_im_result->is_dispatched = TRUE;
 
-  if (condition & (G_IO_HUP | G_IO_ERR))
+  if (!(condition & (G_IO_HUP | G_IO_ERR)))
+    message = nimf_recv_message (socket);
+
+  if (message == NULL)
   {
+    nimf_im_result->cancelled = TRUE;
     g_debug (G_STRLOC ": %s: G_IO_HUP | G_IO_ERR", G_STRFUNC);
     /* Because two GSource is created over one socket,
      * when G_IO_HUP | G_IO_ERR, callback can run two times.
@@ -132,22 +139,39 @@ on_incoming_message (GSocket      *socket,
     return G_SOURCE_REMOVE;
   }
 
-  NimfMessage *message;
-  message = nimf_recv_message (socket);
-  nimf_im_result->reply = message;
+  nimf_im_result->reply = nimf_message_ref (message);
   gboolean retval;
-
-  if (G_UNLIKELY (message == NULL))
-  {
-    g_debug (G_STRLOC ": NULL message");
-    return G_SOURCE_CONTINUE;
-  }
 
   NimfIM *im;
   im = g_hash_table_lookup (nimf_im_table,
-                            GUINT_TO_POINTER (message->header->icid));
+                            GUINT_TO_POINTER (message->header.icid));
 
-  switch (message->header->type)
+  switch (message->header.type)
+  {
+    case NIMF_MESSAGE_PREEDIT_START:
+    case NIMF_MESSAGE_PREEDIT_END:
+    case NIMF_MESSAGE_PREEDIT_CHANGED:
+    case NIMF_MESSAGE_COMMIT:
+    case NIMF_MESSAGE_RETRIEVE_SURROUNDING:
+    case NIMF_MESSAGE_DELETE_SURROUNDING:
+    case NIMF_MESSAGE_BEEP:
+      if (im == NULL)
+      {
+        gboolean handled = FALSE;
+        gboolean boolean_reply = message->header.type == NIMF_MESSAGE_RETRIEVE_SURROUNDING ||
+                                  message->header.type == NIMF_MESSAGE_DELETE_SURROUNDING;
+        nimf_send_message (socket, message->header.icid, message->header.type + 1,
+                           boolean_reply ? &handled : NULL,
+                           boolean_reply ? sizeof handled : 0, NULL);
+        return G_SOURCE_CONTINUE;
+      }
+      context = g_object_ref (G_OBJECT (im));
+      break;
+    default:
+      break;
+  }
+
+  switch (message->header.type)
   {
     /* signals */
     case NIMF_MESSAGE_PREEDIT_START:
@@ -166,10 +190,10 @@ on_incoming_message (GSocket      *socket,
 
         g_free (im->priv->preedit_string);
         im->priv->preedit_string = g_strndup (message->data,
-                                              message->header->data_len - 1 - sizeof (gint));
+                                              message->header.data_len - 1 - sizeof (gint));
 
         gint str_len = strlen (message->data);
-        gint n_attr = (message->header->data_len - str_len - 1 - sizeof (gint)) /
+        gint n_attr = (message->header.data_len - str_len - 1 - sizeof (gint)) /
                        sizeof (NimfPreeditAttr);
 
         nimf_preedit_attr_freev (im->priv->preedit_attrs);
@@ -187,17 +211,16 @@ on_incoming_message (GSocket      *socket,
 
         im->priv->preedit_attrs[n_attr] = NULL;
 
-        im->priv->cursor_pos = *(gint *) (message->data +
-                                          message->header->data_len - sizeof (gint));
+        memcpy (&im->priv->cursor_pos,
+                message->data + message->header.data_len - sizeof (gint),
+                sizeof (gint));
         g_signal_emit (im, im_signals[PREEDIT_CHANGED], 0);
         nimf_send_message (socket, im->priv->id,
                            NIMF_MESSAGE_PREEDIT_CHANGED_REPLY, NULL, 0, NULL);
       }
       break;
     case NIMF_MESSAGE_COMMIT:
-      nimf_message_ref (message);
       g_signal_emit (im, im_signals[COMMIT], 0, (const gchar *) message->data);
-      nimf_message_unref (message);
       nimf_send_message (socket, im->priv->id, NIMF_MESSAGE_COMMIT_REPLY,
                          NULL, 0, NULL);
       break;
@@ -208,11 +231,9 @@ on_incoming_message (GSocket      *socket,
                          &retval, sizeof (gboolean), NULL);
       break;
     case NIMF_MESSAGE_DELETE_SURROUNDING:
-      nimf_message_ref (message);
       g_signal_emit (im, im_signals[DELETE_SURROUNDING], 0,
                              ((gint *) message->data)[0],
                              ((gint *) message->data)[1], &retval);
-      nimf_message_unref (message);
       nimf_send_message (socket, im->priv->id,
                          NIMF_MESSAGE_DELETE_SURROUNDING_REPLY,
                          &retval, sizeof (gboolean), NULL);
@@ -235,11 +256,30 @@ on_incoming_message (GSocket      *socket,
       break;
     default:
       g_debug (G_STRLOC ": %s: Unknown message type: %d",
-               G_STRFUNC, message->header->type);
+               G_STRFUNC, message->header.type);
       break;
   }
 
   return G_SOURCE_CONTINUE;
+}
+
+static gboolean
+on_incoming_message (GSocket *socket, GIOCondition condition, gpointer user_data)
+{
+  /* Both main contexts watch this socket. Recheck readiness under the lock. */
+  if (!g_rec_mutex_trylock (&nimf_im_mutex))
+    return G_SOURCE_CONTINUE;
+
+  gboolean keep = G_SOURCE_REMOVE;
+  if (socket == nimf_im_socket && nimf_im_result)
+  {
+    condition = g_socket_is_closed (socket) ? G_IO_HUP :
+      g_socket_condition_check (socket, G_IO_IN | G_IO_HUP | G_IO_ERR);
+    keep = condition ? dispatch_incoming_message (socket, condition, user_data) :
+                       G_SOURCE_CONTINUE;
+  }
+  g_rec_mutex_unlock (&nimf_im_mutex);
+  return keep;
 }
 
 static void
@@ -322,6 +362,11 @@ nimf_im_connect (NimfIM *im)
 
     if (nimf_im_is_connected ())
     {
+      if (nimf_im_result->cancelled)
+      {
+        g_clear_pointer (&nimf_im_result, nimf_result_unref);
+        nimf_im_result = nimf_result_new ();
+      }
       /* when g_main_context_iteration(), iterate only socket */
       nimf_im_socket_source = g_socket_create_source (nimf_im_socket, G_IO_IN, NULL);
       g_source_set_can_recurse (nimf_im_socket_source, TRUE);
@@ -344,17 +389,36 @@ nimf_im_connect (NimfIM *im)
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
+/* Called with nimf_im_mutex held. The result can outlive a reconnect. */
+static gboolean
+nimf_im_request (NimfIM *im, NimfMessageType type, gpointer data,
+                 gsize size, GDestroyNotify destroy)
+{
+  g_autoptr(NimfResult) result = nimf_result_ref (nimf_im_result);
+  if (!nimf_send_message (nimf_im_socket, im->priv->id, type, data, size, destroy))
+  {
+    result->cancelled = TRUE;
+    return FALSE;
+  }
+  nimf_result_iteration_until (result, nimf_im_context, im->priv->id, type + 1);
+  if (result->cancelled || result->reply == NULL)
+    return FALSE;
+  if (type == NIMF_MESSAGE_FILTER_EVENT)
+  {
+    gboolean handled;
+    memcpy (&handled, result->reply->data, sizeof handled);
+    return handled;
+  }
+  return TRUE;
+}
+
 static void
 nimf_im_create_context (NimfIM *im)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   g_rec_mutex_lock (&nimf_im_mutex);
-  nimf_send_message (nimf_im_socket, im->priv->id,
-                     NIMF_MESSAGE_CREATE_CONTEXT, NULL, 0, NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_CREATE_CONTEXT_REPLY);
-  im->priv->created = TRUE;
+  im->priv->created = nimf_im_request (im, NIMF_MESSAGE_CREATE_CONTEXT, NULL, 0, NULL);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -367,7 +431,11 @@ on_changed (GFileMonitor     *monitor,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  NimfIM *im = user_data;
+  g_autoptr(GObject) retained = g_weak_ref_get (user_data);
+  if (retained == NULL)
+    return;
+  NimfIM *im = NIMF_IM (retained);
+  g_rec_mutex_lock (&nimf_im_mutex);
 
   if (event_type == G_FILE_MONITOR_EVENT_CREATED)
   {
@@ -377,6 +445,14 @@ on_changed (GFileMonitor     *monitor,
     if (nimf_im_is_connected () && !im->priv->created)
       nimf_im_create_context (im);
   }
+  g_rec_mutex_unlock (&nimf_im_mutex);
+}
+
+static void
+monitor_target_free (gpointer data, GClosure *closure)
+{
+  g_weak_ref_clear (data);
+  g_free (data);
 }
 
 /**
@@ -396,10 +472,9 @@ nimf_im_focus_out (NimfIM *im)
     g_rec_mutex_unlock (&nimf_im_mutex);
     return;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id, NIMF_MESSAGE_FOCUS_OUT,
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  nimf_im_request (im, NIMF_MESSAGE_FOCUS_OUT,
                      NULL, 0, NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_FOCUS_OUT_REPLY);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -423,11 +498,9 @@ nimf_im_set_cursor_location (NimfIM              *im,
     g_rec_mutex_unlock (&nimf_im_mutex);
     return;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id,
-                     NIMF_MESSAGE_SET_CURSOR_LOCATION,
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  nimf_im_request (im, NIMF_MESSAGE_SET_CURSOR_LOCATION,
                      (gchar *) area, sizeof (NimfRectangle), NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_SET_CURSOR_LOCATION_REPLY);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -451,11 +524,9 @@ nimf_im_set_use_preedit (NimfIM   *im,
     g_rec_mutex_unlock (&nimf_im_mutex);
     return;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id,
-                     NIMF_MESSAGE_SET_USE_PREEDIT,
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  nimf_im_request (im, NIMF_MESSAGE_SET_USE_PREEDIT,
                      (gchar *) &use_preedit, sizeof (gboolean), NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_SET_USE_PREEDIT_REPLY);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -478,19 +549,16 @@ nimf_im_set_surrounding (NimfIM     *im,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  gchar *data = NULL;
-  gint   str_len;
+  g_return_if_fail (text != NULL);
+  g_return_if_fail (len >= -1);
+  gsize str_len = len == -1 ? strlen (text) : (gsize) len;
+  g_return_if_fail (str_len <= G_MAXUINT16 - 1 - 2 * sizeof (gint));
 
-  if (len == -1)
-    str_len = strlen (text);
-  else
-    str_len = len;
+  gchar *data = g_malloc0 (str_len + 1 + 2 * sizeof (gint));
+  memcpy (data, text, str_len);
 
-  data = g_strndup (text, str_len);
-  data = g_realloc (data, str_len + 1 + 2 * sizeof (gint));
-
-  *(gint *) (data + str_len + 1) = len;
-  *(gint *) (data + str_len + 1 + sizeof (gint)) = cursor_index;
+  memcpy (data + str_len + 1, &len, sizeof len);
+  memcpy (data + str_len + 1 + sizeof len, &cursor_index, sizeof cursor_index);
 
   g_rec_mutex_lock (&nimf_im_mutex);
   if (!NIMF_IS_IM (im) || !nimf_im_is_connected ())
@@ -499,11 +567,9 @@ nimf_im_set_surrounding (NimfIM     *im,
     g_free (data);
     return;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id,
-                     NIMF_MESSAGE_SET_SURROUNDING,
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  nimf_im_request (im, NIMF_MESSAGE_SET_SURROUNDING,
                      data, str_len + 1 + 2 * sizeof (gint), g_free);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_SET_SURROUNDING_REPLY);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -524,10 +590,8 @@ nimf_im_focus_in (NimfIM *im)
     g_rec_mutex_unlock (&nimf_im_mutex);
     return;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id,
-                     NIMF_MESSAGE_FOCUS_IN, NULL, 0, NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_FOCUS_IN_REPLY);
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  nimf_im_request (im, NIMF_MESSAGE_FOCUS_IN, NULL, 0, NULL);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -554,8 +618,8 @@ nimf_im_get_preedit_string (NimfIM            *im,
 {
   g_debug (G_STRLOC ":%s", G_STRFUNC);
 
-  if (!NIMF_IS_IM (im))
-    return;
+  g_return_if_fail (NIMF_IS_IM (im));
+  g_rec_mutex_lock (&nimf_im_mutex);
 
   if (str)
     *str = g_strdup (im->priv->preedit_string);
@@ -565,6 +629,7 @@ nimf_im_get_preedit_string (NimfIM            *im,
 
   if (cursor_pos)
     *cursor_pos = im->priv->cursor_pos;
+  g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
 /**
@@ -584,10 +649,8 @@ nimf_im_reset (NimfIM *im)
     g_rec_mutex_unlock (&nimf_im_mutex);
     return;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id,
-                     NIMF_MESSAGE_RESET, NULL, 0, NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                               NIMF_MESSAGE_RESET_REPLY);
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  nimf_im_request (im, NIMF_MESSAGE_RESET, NULL, 0, NULL);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 
@@ -612,20 +675,11 @@ nimf_im_filter_event (NimfIM    *im,
     g_rec_mutex_unlock (&nimf_im_mutex);
     return FALSE;
   }
-  nimf_send_message (nimf_im_socket, im->priv->id, NIMF_MESSAGE_FILTER_EVENT,
-                     event, sizeof (NimfEvent), NULL);
-  nimf_result_iteration_until (nimf_im_result, nimf_im_context,
-                               im->priv->id, NIMF_MESSAGE_FILTER_EVENT_REPLY);
-
-  if (nimf_im_result->reply &&
-      *(gboolean *) (nimf_im_result->reply->data))
-  {
-    g_rec_mutex_unlock (&nimf_im_mutex);
-    return TRUE;
-  }
-
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
+  gboolean handled = nimf_im_request (im, NIMF_MESSAGE_FILTER_EVENT,
+                                       event, sizeof (NimfEvent), NULL);
   g_rec_mutex_unlock (&nimf_im_mutex);
-  return FALSE;
+  return handled;
 }
 
 /**
@@ -672,8 +726,6 @@ nimf_im_init (NimfIM *im)
   if (nimf_im_table == NULL)
     nimf_im_table = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                            NULL, NULL);
-  else
-    g_hash_table_ref (nimf_im_table);
 
   if (im->priv->monitor == NULL)
   {
@@ -682,7 +734,10 @@ nimf_im_init (NimfIM *im)
     file = g_file_new_for_path (nimf_im_socket_path);
     im->priv->monitor = g_file_monitor_file (file, G_FILE_MONITOR_NONE, NULL, NULL);
     g_file_monitor_set_rate_limit (im->priv->monitor, G_PRIORITY_LOW);
-    g_signal_connect (im->priv->monitor, "changed", G_CALLBACK (on_changed), im);
+    GWeakRef *target = g_new0 (GWeakRef, 1);
+    g_weak_ref_init (target, im);
+    im->priv->monitor_handler = g_signal_connect_data (im->priv->monitor, "changed",
+                              G_CALLBACK (on_changed), target, monitor_target_free, 0);
 
     g_object_unref (file);
   }
@@ -717,15 +772,18 @@ nimf_im_finalize (GObject *object)
 
   g_rec_mutex_lock (&nimf_im_mutex);
 
-  if (nimf_im_is_connected () && im->priv->created)
+  g_hash_table_remove (nimf_im_table, GUINT_TO_POINTER (im->priv->id));
+  if (im->priv->monitor)
   {
-    nimf_send_message (nimf_im_socket, im->priv->id,
-                       NIMF_MESSAGE_DESTROY_CONTEXT, NULL, 0, NULL);
-    nimf_result_iteration_until (nimf_im_result, nimf_im_context, im->priv->id,
-                                 NIMF_MESSAGE_DESTROY_CONTEXT_REPLY);
+    g_signal_handler_disconnect (im->priv->monitor, im->priv->monitor_handler);
+    g_file_monitor_cancel (im->priv->monitor);
   }
 
-  g_hash_table_remove (nimf_im_table, GUINT_TO_POINTER (im->priv->id));
+  if (nimf_im_is_connected () && im->priv->created)
+  {
+    nimf_im_request (im, NIMF_MESSAGE_DESTROY_CONTEXT, NULL, 0, NULL);
+  }
+
   g_main_context_unref (nimf_im_context);
 
   if (im->priv->monitor)

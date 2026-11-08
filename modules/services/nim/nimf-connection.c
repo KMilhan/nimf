@@ -33,15 +33,15 @@ nimf_connection_change_engine_by_id (NimfConnection *connection,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  GHashTableIter iter;
-  gpointer       im;
-
-  g_hash_table_iter_init (&iter, connection->ics);
-
-  while (g_hash_table_iter_next (&iter, NULL, &im))
+  g_autoptr(NimfConnection) retained = g_object_ref (connection);
+  if (connection->nim == NULL)
+    return;
+  GObject *ic = g_hash_table_lookup (connection->ics,
+                    GUINT_TO_POINTER (connection->nim->last_focused_icid));
+  if (ic)
   {
-    if (NIMF_NIM_IC (im)->icid == connection->nim->last_focused_icid)
-      nimf_service_ic_change_engine_by_id (im, engine_id);
+    g_autoptr(GObject) context = g_object_ref (ic);
+    nimf_service_ic_change_engine_by_id (NIMF_SERVICE_IC (ic), engine_id);
   }
 }
 
@@ -50,17 +50,15 @@ nimf_connection_change_engine (NimfConnection *connection,
                                const gchar    *engine_id,
                                const gchar    *method_id)
 {
-  g_debug (G_STRLOC ": %s", G_STRFUNC);
-
-  GHashTableIter iter;
-  gpointer       im;
-
-  g_hash_table_iter_init (&iter, connection->ics);
-
-  while (g_hash_table_iter_next (&iter, NULL, &im))
+  g_autoptr(NimfConnection) retained = g_object_ref (connection);
+  if (connection->nim == NULL)
+    return;
+  GObject *ic = g_hash_table_lookup (connection->ics,
+                    GUINT_TO_POINTER (connection->nim->last_focused_icid));
+  if (ic)
   {
-    if (NIMF_NIM_IC (im)->icid == connection->nim->last_focused_icid)
-      nimf_service_ic_change_engine (im, engine_id, method_id);
+    g_autoptr(GObject) context = g_object_ref (ic);
+    nimf_service_ic_change_engine (NIMF_SERVICE_IC (ic), engine_id, method_id);
   }
 }
 
@@ -90,6 +88,7 @@ nimf_connection_finalize (GObject *object)
   if (connection->socket_connection)
     g_object_unref (connection->socket_connection);
 
+  g_clear_weak_pointer (&connection->nim);
   nimf_result_unref  (connection->result);
   g_hash_table_unref (connection->ics);
 

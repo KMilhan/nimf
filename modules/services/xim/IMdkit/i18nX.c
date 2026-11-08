@@ -56,7 +56,7 @@ static XClient *NewXClient (NimfXim *xim, Window new_client)
     Xi18nClient *client = _Xi18nNewClient (xim);
     XClient *x_client;
 
-    x_client = (XClient *) malloc (sizeof (XClient));
+    x_client = g_new (XClient, 1);
     x_client->client_win = new_client;
     x_client->accept_win = XCreateSimpleWindow (xim->display,
                                                 DefaultRootWindow (xim->display),
@@ -85,6 +85,9 @@ static unsigned char *ReadXIMMessage (NimfXim *xim,
         client = client->next;
     }
 
+    if (client == NULL || x_client == NULL)
+        return NULL;
+
     if (ev->format == 8) {
         /* ClientMessage only */
         XimProtoHdr *hdr = (XimProtoHdr *) ev->data.b;
@@ -111,6 +114,9 @@ static unsigned char *ReadXIMMessage (NimfXim *xim,
         FrameMgrGetToken (fm, minor_opcode);
         FrameMgrGetToken (fm, length);
         FrameMgrFree (fm);
+
+        if (length * 4 > XCM_DATA_LIMIT - total_size)
+            return NULL;
 
         if ((p = (unsigned char *) malloc (total_size + length * 4)) == NULL)
             return (unsigned char *) NULL;
@@ -381,10 +387,12 @@ Bool Xi18nXWait (NimfXim *xim,
 Bool Xi18nXDisconnect (NimfXim *xim, CARD16 connect_id)
 {
     Xi18nClient *client = _Xi18nFindClient (xim, connect_id);
+    if (client == NULL)
+        return False;
     XClient *x_client = (XClient *) client->trans_rec;
 
-    XDestroyWindow (xim->display, x_client->accept_win);
-    XFree (x_client);
+    if (x_client)
+        XDestroyWindow (xim->display, x_client->accept_win);
     _Xi18nDeleteClient (xim, connect_id);
     return True;
 }

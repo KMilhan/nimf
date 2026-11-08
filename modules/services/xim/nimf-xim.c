@@ -67,22 +67,32 @@ static int nimf_xim_set_ic_values (NimfXim          *xim,
   CARD16 i;
 
   ic = g_hash_table_lookup (xim->ics, GUINT_TO_POINTER (data->icid));
+  if (ic == NULL)
+    return False;
   xic = NIMF_XIM_IC (ic);
 
   for (i = 0; i < data->ic_attr_num; i++)
   {
+    if (data->ic_attr[i].value_length < sizeof (CARD32))
+      return False;
     if (!g_strcmp0 (XNInputStyle, data->ic_attr[i].name))
     {
-      xic->input_style = *(CARD32*) data->ic_attr[i].value;
+      CARD32 style;
+      memcpy (&style, data->ic_attr[i].value, sizeof style);
+      xic->input_style = style;
       nimf_service_ic_set_use_preedit (ic, !!(xic->input_style & XIMPreeditCallbacks));
     }
     else if (!g_strcmp0 (XNClientWindow, data->ic_attr[i].name))
     {
-      xic->client_window = *(Window *) data->ic_attr[i].value;
+      CARD32 window;
+      memcpy (&window, data->ic_attr[i].value, sizeof window);
+      xic->client_window = window;
     }
     else if (!g_strcmp0 (XNFocusWindow, data->ic_attr[i].name))
     {
-      xic->focus_window = *(Window *) data->ic_attr[i].value;
+      CARD32 window;
+      memcpy (&window, data->ic_attr[i].value, sizeof window);
+      xic->focus_window = window;
     }
     else
     {
@@ -94,7 +104,10 @@ static int nimf_xim_set_ic_values (NimfXim          *xim,
   {
     if (g_strcmp0 (XNPreeditState, data->preedit_attr[i].name) == 0)
     {
-      XIMPreeditState state = *(XIMPreeditState *) data->preedit_attr[i].value;
+      CARD32 state;
+      if (data->preedit_attr[i].value_length < sizeof state)
+        return False;
+      memcpy (&state, data->preedit_attr[i].value, sizeof state);
       switch (state)
       {
         case XIMPreeditEnable:
@@ -106,16 +119,18 @@ static int nimf_xim_set_ic_values (NimfXim          *xim,
         case XIMPreeditUnKnown:
           break;
         default:
-          g_warning (G_STRLOC ": %s: XIMPreeditState: %ld is ignored",
+          g_warning (G_STRLOC ": %s: XIMPreeditState: %u is ignored",
                      G_STRFUNC, state);
           break;
       }
     }
     else if (g_strcmp0 (XNSpotLocation, data->preedit_attr[i].name) == 0)
     {
-      nimf_xim_ic_set_cursor_location (xic,
-                                  ((XPoint *) data->preedit_attr[i].value)->x,
-                                  ((XPoint *) data->preedit_attr[i].value)->y);
+      XPoint point;
+      if (data->preedit_attr[i].value_length < sizeof point)
+        return False;
+      memcpy (&point, data->preedit_attr[i].value, sizeof point);
+      nimf_xim_ic_set_cursor_location (xic, point.x, point.y);
       NimfServer      *server      = nimf_server_get_default ();
       NimfPreeditable *preeditable = nimf_server_get_preeditable (server);
       if (nimf_preeditable_is_visible (preeditable))
@@ -712,6 +727,8 @@ static void nimf_xim_finalize (GObject *object)
     nimf_xim_stop (service);
 
   g_hash_table_unref (xim->ics);
+  g_free (xim->address.xim_attr);
+  g_free (xim->address.xic_attr);
   g_free (xim->id);
 
   G_OBJECT_CLASS (nimf_xim_parent_class)->finalize (object);

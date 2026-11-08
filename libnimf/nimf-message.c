@@ -44,10 +44,9 @@ nimf_message_new_full (NimfMessageType type,
   NimfMessage *message;
 
   message                    = g_slice_new0 (NimfMessage);
-  message->header            = g_slice_new0 (NimfMessageHeader);
-  message->header->icid      = icid;
-  message->header->type      = type;
-  message->header->data_len  = data_len;
+  message->header.icid      = icid;
+  message->header.type      = type;
+  message->header.data_len  = data_len;
   message->data              = data;
   message->data_destroy_func = data_destroy_func;
   message->ref_count = 1;
@@ -77,8 +76,6 @@ nimf_message_unref (NimfMessage *message)
 
   if (g_atomic_int_dec_and_test (&message->ref_count))
   {
-    g_slice_free (NimfMessageHeader, message->header);
-
     if (message->data_destroy_func)
       message->data_destroy_func (message->data);
 
@@ -91,7 +88,7 @@ nimf_message_get_header (NimfMessage *message)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  return message->header;
+  return &message->header;
 }
 
 guint16
@@ -110,8 +107,11 @@ nimf_message_set_body (NimfMessage    *message,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  if (message->data != data && message->data_destroy_func)
+    message->data_destroy_func (message->data);
+
   message->data              = data;
-  message->header->data_len  = data_len;
+  message->header.data_len  = data_len;
   message->data_destroy_func = data_destroy_func;
 }
 
@@ -128,7 +128,7 @@ nimf_message_get_body_size (NimfMessage *message)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  return message->header->data_len;
+  return message->header.data_len;
 }
 
 const gchar *nimf_message_get_name (NimfMessage *message)
@@ -136,7 +136,7 @@ const gchar *nimf_message_get_name (NimfMessage *message)
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   GEnumClass *enum_class = (GEnumClass *) g_type_class_ref (NIMF_TYPE_MESSAGE_TYPE);
-  GEnumValue *enum_value = g_enum_get_value (enum_class, message->header->type);
+  GEnumValue *enum_value = g_enum_get_value (enum_class, message->header.type);
   g_type_class_unref (enum_class);
 
   return enum_value ? enum_value->value_name : NULL;
@@ -189,7 +189,7 @@ nimf_result_unref (NimfResult *result)
   if (g_atomic_int_dec_and_test (&result->ref_count))
   {
     if (result->reply)
-      g_slice_free (NimfMessage, result->reply);
+      nimf_message_unref (result->reply);
 
     g_slice_free (NimfResult, result);
   }
@@ -203,14 +203,19 @@ nimf_result_iteration_until (NimfResult      *result,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  nimf_result_ref (result);
+  g_autoptr(NimfResult) retained = nimf_result_ref (result);
 
-  do {
+  g_autoptr(GMainContext) context = g_main_context_ref (main_context ?
+                                     main_context : g_main_context_default ());
+  while (!result->cancelled)
+  {
     result->is_dispatched = FALSE;
-    g_main_context_iteration (main_context, TRUE);
-  } while ((result->is_dispatched == FALSE) ||
-           (result->reply && ((result->reply->header->type != type) ||
-                              (result->reply->header->icid != icid))));
+    g_main_context_iteration (context, TRUE);
+    if (result->is_dispatched &&
+        (result->reply == NULL || (result->reply->header.type == type &&
+                                  result->reply->header.icid == icid)))
+      break;
+  }
 
   if (G_UNLIKELY (result->is_dispatched == TRUE && result->reply == NULL))
     g_debug (G_STRLOC ": %s: Can't receive %s",
@@ -227,23 +232,30 @@ nimf_result_iteration_until (NimfResult      *result,
    */
   result->is_dispatched = FALSE;
 
-  nimf_result_unref (result);
 }
 
-void
+gboolean
 nimf_send_message (GSocket         *socket,
                    guint16          icid,
                    NimfMessageType  type,
                    gpointer         data,
-                   guint16          data_len,
+                   gsize            data_len,
                    GDestroyNotify   data_destroy_func)
 {
   g_debug (G_STRLOC ": %s: fd = %d", G_STRFUNC, g_socket_get_fd (socket));
 
-  NimfMessage   *message;
-  GError        *error = NULL;
+  g_autoptr(NimfMessage) message = NULL;
+  g_autoptr(GError) error = NULL;
   gssize         n_written;
   GOutputVector  vectors[2] = { { NULL, }, };
+
+  if (data_len > G_MAXUINT16)
+  {
+    if (data_destroy_func)
+      data_destroy_func (data);
+    g_socket_close (socket, NULL);
+    return FALSE;
+  }
 
   message = nimf_message_new_full (type, icid,
                                    data, data_len, data_destroy_func);
@@ -251,26 +263,24 @@ nimf_send_message (GSocket         *socket,
   vectors[0].buffer = nimf_message_get_header (message);
   vectors[0].size   = nimf_message_get_header_size ();
   vectors[1].buffer = message->data;
-  vectors[1].size   = message->header->data_len;
+  vectors[1].size   = message->header.data_len;
 
   n_written = g_socket_send_message (socket, NULL, vectors,
-                                     message->header->data_len > 0 ? 2 : 1,
+                                     message->header.data_len > 0 ? 2 : 1,
                                      NULL, 0, 0, NULL, &error);
 
-  if (G_UNLIKELY (n_written != nimf_message_get_header_size () + message->header->data_len))
+  if (G_UNLIKELY (n_written != nimf_message_get_header_size () + message->header.data_len))
   {
     g_debug (G_STRLOC ": %s: n_written %"G_GSSIZE_FORMAT" differs from %d",
-             G_STRFUNC, n_written, nimf_message_get_header_size () + message->header->data_len);
+             G_STRFUNC, n_written, nimf_message_get_header_size () + message->header.data_len);
 
     if (error)
     {
       g_debug (G_STRLOC ": %s: %s", G_STRFUNC, error->message);
-      g_error_free (error);
     }
 
-    nimf_message_unref (message);
-
-    return;
+    g_socket_close (socket, NULL);
+    return FALSE;
   }
 
   /* debug message */
@@ -280,19 +290,81 @@ nimf_send_message (GSocket         *socket,
   else
     g_error (G_STRLOC ": unknown message type");
 
-  nimf_message_unref (message);
+  return TRUE;
+}
+
+static gboolean
+message_body_is_valid (const NimfMessage *message)
+{
+  gsize size = message->header.data_len;
+  const gchar *data = message->data;
+
+  switch (message->header.type)
+  {
+    case NIMF_MESSAGE_FILTER_EVENT:
+      return size == sizeof (NimfEvent);
+    case NIMF_MESSAGE_SET_CURSOR_LOCATION:
+      return size == sizeof (NimfRectangle);
+    case NIMF_MESSAGE_SET_USE_PREEDIT:
+    case NIMF_MESSAGE_FILTER_EVENT_REPLY:
+    case NIMF_MESSAGE_RETRIEVE_SURROUNDING_REPLY:
+    case NIMF_MESSAGE_DELETE_SURROUNDING_REPLY:
+      return size == sizeof (gboolean);
+    case NIMF_MESSAGE_DELETE_SURROUNDING:
+      return size == 2 * sizeof (gint);
+    case NIMF_MESSAGE_COMMIT:
+      return size > 0 && data[size - 1] == '\0' &&
+             g_utf8_validate (data, size - 1, NULL);
+    case NIMF_MESSAGE_SET_SURROUNDING:
+      return size > 2 * sizeof (gint) &&
+             data[size - 2 * sizeof (gint) - 1] == '\0' &&
+             g_utf8_validate (data, size - 2 * sizeof (gint) - 1, NULL);
+    case NIMF_MESSAGE_PREEDIT_CHANGED:
+    {
+      if (size <= sizeof (gint))
+        return FALSE;
+      const gchar *end = memchr (data, '\0', size - sizeof (gint));
+      return end != NULL && g_utf8_validate (data, end - data, NULL) &&
+             (size - (end - data) - 1 - sizeof (gint)) % sizeof (NimfPreeditAttr) == 0;
+    }
+    case NIMF_MESSAGE_CREATE_CONTEXT:
+    case NIMF_MESSAGE_CREATE_CONTEXT_REPLY:
+    case NIMF_MESSAGE_DESTROY_CONTEXT:
+    case NIMF_MESSAGE_DESTROY_CONTEXT_REPLY:
+    case NIMF_MESSAGE_RESET:
+    case NIMF_MESSAGE_RESET_REPLY:
+    case NIMF_MESSAGE_FOCUS_IN:
+    case NIMF_MESSAGE_FOCUS_IN_REPLY:
+    case NIMF_MESSAGE_FOCUS_OUT:
+    case NIMF_MESSAGE_FOCUS_OUT_REPLY:
+    case NIMF_MESSAGE_SET_SURROUNDING_REPLY:
+    case NIMF_MESSAGE_SET_CURSOR_LOCATION_REPLY:
+    case NIMF_MESSAGE_SET_USE_PREEDIT_REPLY:
+    case NIMF_MESSAGE_PREEDIT_START:
+    case NIMF_MESSAGE_PREEDIT_START_REPLY:
+    case NIMF_MESSAGE_PREEDIT_CHANGED_REPLY:
+    case NIMF_MESSAGE_PREEDIT_END:
+    case NIMF_MESSAGE_PREEDIT_END_REPLY:
+    case NIMF_MESSAGE_COMMIT_REPLY:
+    case NIMF_MESSAGE_RETRIEVE_SURROUNDING:
+    case NIMF_MESSAGE_BEEP:
+    case NIMF_MESSAGE_BEEP_REPLY:
+      return size == 0;
+    default:
+      return FALSE;
+  }
 }
 
 NimfMessage *nimf_recv_message (GSocket *socket)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  NimfMessage *message = nimf_message_new ();
-  GError *error = NULL;
+  g_autoptr(NimfMessage) message = nimf_message_new ();
+  g_autoptr(GError) error = NULL;
   gssize n_read = 0;
 
   n_read = g_socket_receive (socket,
-                             (gchar *) message->header,
+                             (gchar *) &message->header,
                              nimf_message_get_header_size (),
                              NULL, &error);
 
@@ -304,49 +376,50 @@ NimfMessage *nimf_recv_message (GSocket *socket)
     if (error)
     {
       g_debug (G_STRLOC ": %s: %s", G_STRFUNC, error->message);
-      g_error_free (error);
     }
-
-    nimf_message_unref (message);
 
     return NULL;
   }
 
-  if (message->header->data_len > 0)
+  if (message->header.data_len > 0)
   {
     nimf_message_set_body (message,
-                           g_malloc0 (message->header->data_len),
-                           message->header->data_len,
+                           g_malloc0 (message->header.data_len),
+                           message->header.data_len,
                            g_free);
 
     n_read = g_socket_receive (socket,
                                message->data,
-                               message->header->data_len,
+                               message->header.data_len,
                                NULL, &error);
 
-    if (G_UNLIKELY (n_read < message->header->data_len))
+    if (G_UNLIKELY (n_read < message->header.data_len))
     {
       g_debug (G_STRLOC ": %s: received %"G_GSSIZE_FORMAT" less than %d",
-               G_STRFUNC, n_read, message->header->data_len);
+               G_STRFUNC, n_read, message->header.data_len);
 
       if (error)
       {
         g_debug (G_STRLOC ": %s: %s", G_STRFUNC, error->message);
-        g_error_free (error);
       }
-
-      nimf_message_unref (message);
 
       return NULL;
     }
   }
 
+  if (!message_body_is_valid (message))
+  {
+    g_debug ("Invalid message body: type=%d size=%u",
+             message->header.type, message->header.data_len);
+    return NULL;
+  }
+
   /* debug message */
   const gchar *name = nimf_message_get_name (message);
   if (name)
-    g_debug ("recv: %s, icid: %d, fd: %d", name, message->header->icid, g_socket_get_fd (socket));
+    g_debug ("recv: %s, icid: %d, fd: %d", name, message->header.icid, g_socket_get_fd (socket));
   else
     g_error (G_STRLOC ": unknown message type");
 
-  return message;
+  return g_steal_pointer (&message);
 }

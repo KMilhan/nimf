@@ -327,7 +327,7 @@ static XIMExt *MakeExtensionList (NimfXim *xim,
     if (!(*reply_number))
         return NULL;
     /*endif*/
-    ext_list = (XIMExt *) malloc (sizeof (XIMExt)*(*reply_number));
+    ext_list = g_new0 (XIMExt, *reply_number);
     if (!ext_list)
         return NULL;
     /*endif*/
@@ -427,6 +427,8 @@ static void QueryExtensionMessageProc (NimfXim *xim,
                                   query_ext->extension,
                                   number,
                                   &reply_number);
+    if (ext_list == NULL)
+        reply_number = 0;
 
     for (i = 0;  i < number;  i++)
         XFree (query_ext->extension[i].name);
@@ -449,7 +451,7 @@ static void QueryExtensionMessageProc (NimfXim *xim,
     /*endfor*/
 
     total_size = FrameMgrGetTotalSize (fm);
-    reply = (unsigned char *) malloc (total_size);
+    reply = g_malloc0 (total_size);
     if (!reply)
     {
         _Xi18nSendMessage (xim,
@@ -608,7 +610,7 @@ static XIMAttribute *MakeIMAttributeList (NimfXim *xim,
         /*endfor*/
     }
     /*endfor*/
-    attrib_list = (XIMAttribute *) malloc (sizeof (XIMAttribute)*(list_num + 1));
+    attrib_list = g_new0 (XIMAttribute, list_num + 1);
     if (!attrib_list)
         return NULL;
     /*endif*/
@@ -631,7 +633,7 @@ static XIMAttribute *MakeIMAttributeList (NimfXim *xim,
                                     attr[j].name,
                                     &value_length);
                 attrib_list[list_num].value_length = value_length;
-                attrib_list[list_num].value = (void *) malloc (value_length);
+                attrib_list[list_num].value = g_malloc0 (value_length);
                 memset(attrib_list[list_num].value, 0, value_length);
                 GetIMValueFromName (xim,
                                     connect_id,
@@ -734,7 +736,7 @@ static void GetIMValuesMessageProc (NimfXim *xim,
     /*endfor*/
 
     total_size = FrameMgrGetTotalSize (fm);
-    reply = (unsigned char *) malloc (total_size);
+    reply = g_malloc0 (total_size);
     if (!reply)
     {
         _Xi18nSendMessage (xim, connect_id, XIM_ERROR, 0, 0, 0);
@@ -1192,8 +1194,7 @@ static void EncodingNegotiatonMessageProc (NimfXim *xim,
     FrameMgrGetToken (fm, byte_length);
     if (byte_length > 0)
     {
-        enc_nego->encoding = (XIMStr *) malloc (sizeof (XIMStr)*10);
-        memset (enc_nego->encoding, 0, sizeof (XIMStr)*10);
+        enc_nego->encoding = g_new0 (XIMStr, byte_length);
         i = 0;
         while (FrameMgrIsIterLoopEnd (fm, &status) == False)
         {
@@ -1204,7 +1205,7 @@ static void EncodingNegotiatonMessageProc (NimfXim *xim,
             FrameMgrSetSize (fm, str_length);
             enc_nego->encoding[i].length = str_length;
             FrameMgrGetToken (fm, name);
-            enc_nego->encoding[i].name = malloc (str_length + 1);
+            enc_nego->encoding[i].name = g_malloc (str_length + 1);
             strncpy (enc_nego->encoding[i].name, name, str_length);
             enc_nego->encoding[i].name[str_length] = '\0';
             i++;
@@ -1217,8 +1218,7 @@ static void EncodingNegotiatonMessageProc (NimfXim *xim,
     FrameMgrGetToken (fm, byte_length);
     if (byte_length > 0)
     {
-        enc_nego->encodinginfo = (XIMStr *) malloc (sizeof (XIMStr)*10);
-        memset (enc_nego->encodinginfo, 0, sizeof (XIMStr)*10);
+        enc_nego->encodinginfo = g_new0 (XIMStr, byte_length);
         i = 0;
         while (FrameMgrIsIterLoopEnd (fm, &status) == False)
         {
@@ -1229,7 +1229,7 @@ static void EncodingNegotiatonMessageProc (NimfXim *xim,
             FrameMgrSetSize (fm, str_length);
             enc_nego->encodinginfo[i].length = str_length;
             FrameMgrGetToken (fm, name);
-            enc_nego->encodinginfo[i].name = malloc (str_length + 1);
+            enc_nego->encodinginfo[i].name = g_malloc (str_length + 1);
             strncpy (enc_nego->encodinginfo[i].name, name, str_length);
             enc_nego->encodinginfo[i].name[str_length] = '\0';
             i++;
@@ -1249,7 +1249,7 @@ static void EncodingNegotiatonMessageProc (NimfXim *xim,
                        _Xi18nNeedSwap (xim, connect_id));
 
     total_size = FrameMgrGetTotalSize (fm);
-    reply = (unsigned char *) malloc (total_size);
+    reply = g_malloc0 (total_size);
     if (!reply)
     {
         _Xi18nSendMessage (xim, connect_id, XIM_ERROR, 0, 0, 0);

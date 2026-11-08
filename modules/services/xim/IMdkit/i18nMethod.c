@@ -34,6 +34,7 @@ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #include "FrameMgr.h"
 #include "Xi18n.h"
 #include "XimFunc.h"
+#include "i18nX.h"
 #include <glib.h>
 
 /* How to generate SUPPORTED_LOCALES
@@ -248,6 +249,13 @@ ReturnSelectionNotify (NimfXim *xim, XSelectionRequestEvent *ev)
   else if (ev->target == xim->address.Transportname)
     data = "@transport=X/";
 
+  if (data == NULL)
+  {
+    event.xselection.property = None;
+    XSendEvent (xim->display, event.xselection.requestor, False, NoEventMask, &event);
+    return;
+  }
+
   XChangeProperty (xim->display,
                    event.xselection.requestor,
                    ev->target,
@@ -288,6 +296,14 @@ xi18n_openIM (NimfXim *xim, Window im_window)
 
 Status xi18n_closeIM (NimfXim *xim)
 {
+    while (xim->address.clients)
+        Xi18nXDisconnect (xim, xim->address.clients->connect_id);
+    while (xim->address.free_clients)
+    {
+        Xi18nClient *client = xim->address.free_clients;
+        xim->address.free_clients = client->next;
+        g_free (client);
+    }
     DeleteXi18nAtom (xim);
     return True;
 }

@@ -29,6 +29,7 @@
 
 #include <X11/Xlib.h>
 #include <stddef.h>
+#include <glib.h>
 #include "Xi18n.h"
 
 /*
@@ -45,8 +46,7 @@ void _Xi18nInitOffsetCache (Xi18nOffsetCache *offset_cache)
 {
     offset_cache->size = 0;
     offset_cache->capacity = INITIAL_OFFSET_CACHE_CAPACITY;
-    offset_cache->data = (Xi18nAtomOffsetPair *) malloc (
-        INITIAL_OFFSET_CACHE_CAPACITY * sizeof (Xi18nAtomOffsetPair));
+    offset_cache->data = g_new (Xi18nAtomOffsetPair, INITIAL_OFFSET_CACHE_CAPACITY);
 }
 
 unsigned long _Xi18nLookupPropertyOffset (Xi18nOffsetCache *offset_cache,
@@ -78,20 +78,13 @@ void _Xi18nSetPropertyOffset (Xi18nOffsetCache *offset_cache, Atom key,
         }
     }
 
-    if (++offset_cache->size > offset_cache->capacity) {
+    if (offset_cache->size == offset_cache->capacity) {
         offset_cache->capacity *= OFFSET_CACHE_GROWTH_FACTOR;
-        offset_cache->data = (Xi18nAtomOffsetPair *) realloc (data,
-                offset_cache->capacity * sizeof (Xi18nAtomOffsetPair));
-        if (offset_cache->data == NULL) {
-            offset_cache->data = data;
-            --offset_cache->size;
-        }
+        offset_cache->data = g_realloc_n (data, offset_cache->capacity,
+                                         sizeof (Xi18nAtomOffsetPair));
         data = offset_cache->data;
     }
-
-    if (offset_cache->size > 0) {
-        data[i].key = key;
-        data[i].offset = offset;
-    }
+    data[offset_cache->size].key = key;
+    data[offset_cache->size].offset = offset;
+    offset_cache->size++;
 }
-

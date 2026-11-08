@@ -31,7 +31,7 @@ mouse selection followed by Enter and a different commit after
 PageDown. Screenshots record preedit, candidates, and committed text. Inspect them
 for cursor alignment and styling. The placement assertion is specific to this
 controlled display, not a general desktop geometry rule. Shutdown failures also
-make the run fail. Separate checks disable Mozc and exercise shutdown without a
+make the run fail. Separate checks use only the system keyboard and exercise shutdown without a
 client, after closing a client, and while a client remains connected.
 Independent toolkits continue after a failure.
 

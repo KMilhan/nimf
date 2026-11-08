@@ -44,6 +44,8 @@ gint                nimf_mozc_sexp_get_int  (const NimfMozcSexp *sexp,
                                              const gchar        *key,
                                              gint                fallback);
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (NimfMozcSexp, nimf_mozc_sexp_free)
+
 G_END_DECLS
 
 #endif /* __NIMF_MOZC_SEXP_H__ */

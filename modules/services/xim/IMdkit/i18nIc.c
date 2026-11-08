@@ -439,14 +439,10 @@ static XICAttribute *CreateNestedList (CARD16 attr_id,
     }
     /*endfor*/
 
-    nest_list = (XICAttribute *) malloc (sizeof (XICAttribute));
-    if (nest_list == NULL)
-        return NULL;
+    nest_list = g_new0 (XICAttribute, 1);
     /*endif*/
     memset (nest_list, 0, sizeof (XICAttribute));
-    nest_list->value = (void *) malloc (value_length);
-    if (nest_list->value == NULL)
-        return NULL;
+    nest_list->value = g_malloc0 (value_length);
     /*endif*/
     memset (nest_list->value, 0, value_length);
 

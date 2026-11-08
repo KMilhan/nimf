@@ -250,7 +250,7 @@ nimf_mozc_send_key (NimfEngine    *engine,
                     NimfServiceIC *target,
                     const gchar   *tokens)
 {
-  NimfMozcSexp       *reply;
+  g_autoptr(NimfMozcSexp) reply = NULL;
   const NimfMozcSexp *output;
   gboolean            consumed;
 
@@ -265,7 +265,6 @@ nimf_mozc_send_key (NimfEngine    *engine,
   output   = nimf_mozc_sexp_lookup (reply, "output");
   consumed = g_strcmp0 (nimf_mozc_sexp_get_text (output, "consumed"), "t") == 0;
   nimf_mozc_apply_output (engine, target, output);
-  nimf_mozc_sexp_free (reply);
 
   return consumed;
 }

@@ -56,6 +56,7 @@ struct _NimfIndicator
   guint         source_id;
   XklEngine    *xklengine;
   GMenu        *menu;
+  GtkWidget    *popup_menu;
 };
 
 GType nimf_indicator_get_type (void) G_GNUC_CONST;
@@ -329,6 +330,7 @@ nimf_indicator_build_menu (NimfIndicator *indicator)
 
   indicator->menu = g_menu_new ();
   gtk_menu = gtk_menu_new_from_model (G_MENU_MODEL (indicator->menu));
+  indicator->popup_menu = g_object_ref_sink (gtk_menu);
   actions  = g_simple_action_group_new ();
 
   NimfServer *server = nimf_server_get_default ();
@@ -549,16 +551,22 @@ static void nimf_indicator_stop (NimfService *service)
 
   if (indicator->appindicator) {
     g_signal_handlers_disconnect_by_data(nimf_server_get_default(), indicator);
-    g_object_unref(indicator->appindicator);
+    g_clear_object (&indicator->appindicator);
   }
 
   if (indicator->status_icon) {
     g_signal_handlers_disconnect_by_data(nimf_server_get_default(), indicator);
-    g_object_unref(indicator->status_icon);
+    g_clear_object (&indicator->status_icon);
+  }
+
+  if (indicator->popup_menu)
+  {
+    gtk_widget_destroy (indicator->popup_menu);
+    g_clear_object (&indicator->popup_menu);
   }
 
   if (indicator->menu)
-    g_object_unref (indicator->menu);
+    g_clear_object (&indicator->menu);
 
   indicator->active = FALSE;
 }

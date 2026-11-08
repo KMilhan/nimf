@@ -94,7 +94,7 @@ nimf_candidate_show (NimfCandidatable *candidatable,
   gdk_screen_get_monitor_geometry (screen, monitor_num, &geometry);
 #endif
 
-  candidate->target = target;
+  g_set_weak_pointer (&candidate->target, target);
 
   if (show_entry)
     gtk_widget_show (candidate->entry);
@@ -149,7 +149,7 @@ nimf_candidate_set_page_values (NimfCandidatable *candidatable,
 
   GtkRange *range = GTK_RANGE (candidate->scrollbar);
 
-  candidate->target = target;
+  g_set_weak_pointer (&candidate->target, target);
   gtk_range_set_range (range, 1.0, (gdouble) n_pages + 1.0);
 
   if (page_index != (gint) gtk_range_get_value (range))
@@ -334,7 +334,11 @@ nimf_candidate_select_previous_item (NimfCandidatable *candidatable)
   {
     NimfEngineClass *engine_class;
     NimfEngine      *engine;
+    if (candidate->target == NULL)
+      return;
+    g_autoptr(GObject) target = g_object_ref (G_OBJECT (candidate->target));
     engine = nimf_service_ic_get_engine (candidate->target);
+    g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
     engine_class = NIMF_ENGINE_GET_CLASS (engine);
 
     if (engine_class->candidate_page_up)
@@ -373,7 +377,11 @@ nimf_candidate_select_next_item (NimfCandidatable *candidatable)
   {
     NimfEngineClass *engine_class;
     NimfEngine      *engine;
+    if (candidate->target == NULL)
+      return;
+    g_autoptr(GObject) target = g_object_ref (G_OBJECT (candidate->target));
     engine = nimf_service_ic_get_engine (candidate->target);
+    g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
     engine_class = NIMF_ENGINE_GET_CLASS (engine);
 
     if (engine_class->candidate_page_down)
@@ -452,9 +460,13 @@ on_tree_view_row_activated (GtkTreeView       *tree_view,
   NimfEngineClass *engine_class;
   NimfEngine      *engine;
 
+  if (candidate->target == NULL)
+    return;
+  g_autoptr(GObject) target = g_object_ref (G_OBJECT (candidate->target));
   engine = nimf_service_ic_get_engine (candidate->target);
 
   g_return_if_fail (candidate->target && NIMF_IS_ENGINE (engine));
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
 
   engine_class = NIMF_ENGINE_GET_CLASS (engine);
 
@@ -477,9 +489,13 @@ on_range_change_value (GtkRange      *range,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  if (candidate->target == NULL)
+    return FALSE;
+  g_autoptr(GObject) target = g_object_ref (G_OBJECT (candidate->target));
   NimfEngine *engine = nimf_service_ic_get_engine (candidate->target);
 
   g_return_val_if_fail (candidate->target && NIMF_IS_ENGINE (engine), FALSE);
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
 
   NimfEngineClass *engine_class;
   GtkAdjustment   *adjustment;
@@ -659,7 +675,9 @@ nimf_candidate_finalize (GObject *object)
   if (candidate->active)
     nimf_candidate_stop (NIMF_SERVICE (candidate));
 
-  gtk_widget_destroy (candidate->window);
+  g_clear_weak_pointer (&candidate->target);
+  if (candidate->window)
+    gtk_widget_destroy (candidate->window);
   g_free (candidate->id);
 
   G_OBJECT_CLASS (nimf_candidate_parent_class)->finalize (object);

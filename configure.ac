@@ -49,7 +49,7 @@ dnl ***************************************************************************
 LIBNIMF_LT_VERSION=1:0:0
 AC_SUBST(LIBNIMF_LT_VERSION)
 
-LIBNIMF_REQUIRES="glib-2.0 gio-2.0 gio-unix-2.0 gmodule-2.0"
+LIBNIMF_REQUIRES="glib-2.0 >= 2.56 gio-2.0 gio-unix-2.0 gmodule-2.0"
 AC_SUBST(LIBNIMF_REQUIRES)
 PKG_CHECK_MODULES(LIBNIMF_DEPS, [$LIBNIMF_REQUIRES])
 

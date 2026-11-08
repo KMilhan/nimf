@@ -1,10 +1,19 @@
 #!/bin/bash
 set -euo pipefail
 toolkit=$1
+if [[ $toolkit == gtk4 && ${NIMF_CHECK_MODE:-} == sanitize ]]; then
+    # The Xvfb test uses Cairo; do not initialize unused GPU driver caches.
+    export GDK_DISABLE=gl,vulkan GTK_A11Y=none
+    if ! pkg-config --atleast-version=4.18 gtk4; then
+        export GDK_DEBUG=gl-disable,vulkan-disable
+    fi
+fi
 export NIMF_TEST_STATE=/results/$toolkit.state
 status=0
 app_pid=
 gsettings set org.nimf setup-environment-variables false
+# Rime's first-run dictionary maintenance is unrelated to the Mozc scenarios.
+gsettings set org.nimf.engines.nimf-rime active-engine false
 gsettings set org.nimf.engines.nimf-mozc active-engine true
 gsettings set org.nimf.engines default-engine nimf-mozc
 nimf --no-daemon --debug > "/results/$toolkit-nimf.log" 2>&1 &
@@ -22,7 +31,9 @@ cleanup() {
     done
     kill -KILL "$nimf_pid" 2>/dev/null || true
     if [[ -n $app_pid ]]; then
-        kill "$app_pid" 2>/dev/null || true
+        if kill -0 "$app_pid" 2>/dev/null && [[ -n ${window:-} ]]; then
+            xdotool windowactivate --sync "$window" key alt+F4 || true
+        fi
         for ((i=0; i<20; i++)); do
             kill -0 "$app_pid" 2>/dev/null || break
             sleep 0.1
@@ -31,7 +42,7 @@ cleanup() {
         wait "$app_pid" 2>/dev/null || app_result=$?
     fi
     wait "$nimf_pid" 2>/dev/null || server_result=$?
-    if ((server_result != 0 || (app_result != 0 && app_result != 143))); then
+    if ((server_result != 0 || app_result != 0)); then
         echo "FAIL $toolkit shutdown: server=$server_result app=$app_result"
         result=1
     else

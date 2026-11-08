@@ -31,4 +31,6 @@ GTKDOC_LIBS = $(top_builddir)/libnimf/libnimf.la
 
 include $(top_srcdir)/gtk-doc.make
 
+EXTRA_DIST += memory-safety.md
+
 DISTCLEANFILES = Makefile.in

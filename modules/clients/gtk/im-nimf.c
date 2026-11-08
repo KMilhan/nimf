@@ -558,7 +558,7 @@ nimf_gtk_im_context_init (NimfGtkIMContext *context)
 }
 
 static void
-nimf_gtk_im_context_finalize (GObject *object)
+nimf_gtk_im_context_dispose (GObject *object)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -584,20 +584,15 @@ nimf_gtk_im_context_finalize (GObject *object)
     context->has_event_filter = FALSE;
   }
 
-  /* STEP 4: Process pending events */
-  while (g_main_context_pending (NULL))
-    g_main_context_iteration (NULL, FALSE);
-
   /* STEP 5: Clean up resources */
   g_clear_object (&context->im);
   g_clear_object (&context->simple);
   g_clear_object (&context->settings);
 
-  if (context->client_window)
-    g_object_unref (context->client_window);
+  g_clear_object (&context->client_window);
 
   /* STEP 6: Chain up to parent */
-  G_OBJECT_CLASS (nimf_gtk_im_context_parent_class)->finalize (object);
+  G_OBJECT_CLASS (nimf_gtk_im_context_parent_class)->dispose (object);
 }
 
 static void
@@ -618,7 +613,7 @@ nimf_gtk_im_context_class_init (NimfGtkIMContextClass *class)
   im_context_class->set_use_preedit     = nimf_gtk_im_context_set_use_preedit;
   im_context_class->set_surrounding     = nimf_gtk_im_context_set_surrounding;
 
-  object_class->finalize = nimf_gtk_im_context_finalize;
+  object_class->dispose = nimf_gtk_im_context_dispose;
 }
 
 static void

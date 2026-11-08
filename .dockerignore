@@ -44,6 +44,7 @@ modules/services/wayland/input-method-unstable-v1-client-protocol.h
 modules/services/wayland/input-method-unstable-v1-protocol.c
 modules/engines/nimf-mozc/test-nimf-mozc
 modules/engines/nimf-m17n/test-nimf-m17n
+libnimf/test-memory
 tests/gtk4-im-test/gtk4-im-test
 bin/nimf/nimf
 bin/nimf-settings/nimf-settings

@@ -881,7 +881,7 @@ nimf_libhangul_get_method_infos ()
   gint             n_methods = hangul_keyboard_list_get_count ();
   gint             i;
 
-  infos = g_malloc (sizeof (NimfMethodInfo *) * n_methods + 1);
+  infos = g_new0 (NimfMethodInfo *, n_methods + 1);
 
   for (i = 0; i < n_methods; i++)
   {

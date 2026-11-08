@@ -230,3 +230,7 @@ gedit or kate # for Qt
 ```
 sudo apt purge '*nimf*'
 ```
+## Memory checks
+
+See [memory ownership and validation](docs/memory-safety.md) for the ownership
+rules and isolated Ubuntu/Arch sanitizer and static-analysis commands.

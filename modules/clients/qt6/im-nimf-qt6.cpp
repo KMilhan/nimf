@@ -82,6 +82,8 @@ typedef struct
   void   (* signal_emit_by_name) (gpointer       instance,
                                   const gchar   *detailed_signal,
                                   ...);
+  guint  (* signal_handlers_disconnect_matched) (gpointer, GSignalMatchType, guint,
+                                                 GQuark, GClosure *, gpointer, gpointer);
   void   (* object_unref)        (gpointer       object);
 } GObjectAPI;
 
@@ -510,18 +512,26 @@ NimfInputContext::~NimfInputContext ()
     delete m_handler;
 
   if (m_im)
+  {
 #ifndef USE_DLFCN
+    g_signal_handlers_disconnect_by_data (m_im, this);
     g_object_unref (m_im);
 #else
+    gobject_api->signal_handlers_disconnect_matched (m_im, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, this);
     gobject_api->object_unref (m_im);
 #endif
+  }
 
   if (m_settings)
+  {
 #ifndef USE_DLFCN
+    g_signal_handlers_disconnect_by_data (m_settings, this);
     g_object_unref (m_settings);
 #else
+    gobject_api->signal_handlers_disconnect_matched (m_settings, G_SIGNAL_MATCH_DATA, 0, 0, nullptr, nullptr, this);
     gobject_api->object_unref (m_settings);
 #endif
+  }
 }
 
 bool
@@ -798,6 +808,7 @@ public:
       gobject_api = new GObjectAPI;
       gobject_api->signal_connect_data = reinterpret_cast<gulong (*) (gpointer, const gchar*, GCallback, gpointer, GClosureNotify, GConnectFlags)> (dlsym (libgobject, "g_signal_connect_data"));
       gobject_api->signal_emit_by_name = reinterpret_cast<void (*) (gpointer, const gchar*, ...)> (dlsym (libgobject, "g_signal_emit_by_name"));
+      gobject_api->signal_handlers_disconnect_matched = reinterpret_cast<guint (*) (gpointer, GSignalMatchType, guint, GQuark, GClosure *, gpointer, gpointer)> (dlsym (libgobject, "g_signal_handlers_disconnect_matched"));
       gobject_api->object_unref        = reinterpret_cast<void (*) (gpointer)> (dlsym (libgobject, "g_object_unref"));
     }
 

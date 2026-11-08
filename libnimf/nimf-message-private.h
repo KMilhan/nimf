@@ -80,7 +80,7 @@ struct _NimfMessageHeader
 
 struct _NimfMessage
 {
-  NimfMessageHeader *header;
+  NimfMessageHeader  header;
   gchar             *data;
   GDestroyNotify     data_destroy_func;
   gint               ref_count;
@@ -91,6 +91,7 @@ typedef struct _NimfResult NimfResult;
 struct _NimfResult
 {
   gboolean     is_dispatched;
+  gboolean     cancelled;
   NimfMessage *reply;
   gint         ref_count;
 };
@@ -122,14 +123,17 @@ void         nimf_result_iteration_until (NimfResult      *result,
                                           GMainContext    *main_context,
                                           guint16          icid,
                                           NimfMessageType  type);
-void         nimf_send_message           (GSocket         *socket,
+gboolean     nimf_send_message           (GSocket         *socket,
                                           guint16          im_id,
                                           NimfMessageType  type,
                                           gpointer         data,
-                                          guint16          data_len,
+                                          gsize            data_len,
                                           GDestroyNotify   data_destroy_func);
 NimfMessage *nimf_recv_message           (GSocket         *socket);
 
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (NimfMessage, nimf_message_unref)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (NimfResult, nimf_result_unref)
 
 G_END_DECLS
 

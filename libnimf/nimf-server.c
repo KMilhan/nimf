@@ -197,6 +197,7 @@ on_changed_shortcuts (GSettings  *settings,
     gchar **keys;
 
     keys = g_settings_get_strv (settings, key);
+    nimf_key_freev (shortcut->to_lang);
     shortcut->to_lang = nimf_key_newv ((const gchar **) keys);
 
     g_strfreev (keys);
@@ -206,6 +207,7 @@ on_changed_shortcuts (GSettings  *settings,
     gchar **keys;
 
     keys = g_settings_get_strv (settings, key);
+    nimf_key_freev (shortcut->to_sys);
     shortcut->to_sys = nimf_key_newv ((const gchar **) keys);
 
     g_strfreev (keys);
@@ -304,7 +306,7 @@ nimf_server_init (NimfServer *server)
 }
 
 static void
-nimf_server_finalize (GObject *object)
+nimf_server_dispose (GObject *object)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -312,15 +314,17 @@ nimf_server_finalize (GObject *object)
   GHashTableIter  iter;
   gpointer        service;
 
-  g_hash_table_iter_init (&iter, server->priv->services);
-  while (g_hash_table_iter_next (&iter, NULL, &service))
-    nimf_service_stop (NIMF_SERVICE (service));
-
-  g_hash_table_unref (server->priv->modules);
-  g_hash_table_unref (server->priv->services);
-
-  /* Service finalizers remove their input contexts from this array. */
-  g_ptr_array_unref (server->priv->ics);
+  g_clear_weak_pointer (&server->priv->last_focused_im);
+  server->priv->last_focused_service = NULL;
+  if (server->priv->services)
+  {
+    g_hash_table_iter_init (&iter, server->priv->services);
+    while (g_hash_table_iter_next (&iter, NULL, &service))
+      nimf_service_stop (NIMF_SERVICE (service));
+    g_clear_pointer (&server->priv->services, g_hash_table_unref);
+    server->priv->candidatable = NULL;
+    server->priv->preeditable = NULL;
+  }
 
   if (server->priv->engines)
   {
@@ -328,8 +332,22 @@ nimf_server_finalize (GObject *object)
     server->priv->engines = NULL;
   }
 
-  g_object_unref     (server->priv->settings);
-  g_hash_table_unref (server->priv->shortcuts);
+  g_clear_object (&server->priv->settings);
+  g_clear_pointer (&server->priv->shortcuts, g_hash_table_unref);
+  if (_nimf_server_ == server)
+    _nimf_server_ = NULL;
+
+  G_OBJECT_CLASS (nimf_server_parent_class)->dispose (object);
+}
+
+static void
+nimf_server_finalize (GObject *object)
+{
+  NimfServer *server = NIMF_SERVER (object);
+
+  /* Contexts unregister while services are disposed. */
+  g_ptr_array_unref (server->priv->ics);
+  g_hash_table_unref (server->priv->modules);
   nimf_key_freev     (server->priv->hotkeys);
 
   G_OBJECT_CLASS (nimf_server_parent_class)->finalize (object);
@@ -341,6 +359,7 @@ nimf_server_class_init (NimfServerClass *class)
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   G_OBJECT_CLASS (class)->finalize = nimf_server_finalize;
+  G_OBJECT_CLASS (class)->dispose = nimf_server_dispose;
 
   /**
    * NimfServer::engine-changed:
@@ -545,7 +564,7 @@ nimf_server_set_last_focused_im (NimfServer    *server,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  server->priv->last_focused_im = im;
+  g_set_weak_pointer (&server->priv->last_focused_im, im);
 }
 
 static void
@@ -622,7 +641,7 @@ nimf_server_load_engines (NimfServer *server)
     if (g_str_has_prefix (schema_ids[i], "org.nimf.engines."))
     {
       GSettingsSchema *schema;
-      GSettings       *settings;
+      g_autoptr(GSettings) settings = NULL;
       const gchar     *engine_id;
       gboolean         active = TRUE;
 
@@ -648,7 +667,6 @@ nimf_server_load_engines (NimfServer *server)
 
           g_object_unref (module);
           g_free (path);
-          g_object_unref (settings);
           g_settings_schema_unref (schema);
 
           continue;
@@ -662,7 +680,7 @@ nimf_server_load_engines (NimfServer *server)
 
         if (g_settings_schema_has_key (schema, "shortcuts-to-lang"))
           g_hash_table_insert (server->priv->shortcuts, g_strdup (engine_id),
-                               nimf_server_shortcut_new (server, settings));
+                               nimf_server_shortcut_new (server, g_steal_pointer (&settings)));
 
         g_free (path);
       }

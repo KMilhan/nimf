@@ -276,7 +276,12 @@ nimf_method_info_free (NimfMethodInfo *info)
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   if (info)
+  {
+    g_free (info->method_id);
+    g_free (info->label);
+    g_free (info->group);
     g_slice_free (NimfMethodInfo, info);
+  }
 }
 
 /**

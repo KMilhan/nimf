@@ -45,6 +45,7 @@ void nimf_engine_reset (NimfEngine    *engine,
 
   g_return_if_fail (NIMF_IS_ENGINE (engine));
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->reset)
@@ -66,6 +67,7 @@ nimf_engine_focus_in (NimfEngine    *engine,
 
   g_return_if_fail (NIMF_IS_ENGINE (engine));
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->focus_in)
@@ -86,6 +88,7 @@ void nimf_engine_focus_out (NimfEngine    *engine,
 
   g_return_if_fail (NIMF_IS_ENGINE (engine));
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->focus_out)
@@ -109,6 +112,7 @@ nimf_engine_filter_event (NimfEngine    *engine,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->filter_event)
@@ -198,6 +202,7 @@ nimf_engine_set_method (NimfEngine  *engine,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->set_method)
@@ -376,6 +381,7 @@ nimf_engine_get_id (NimfEngine *engine)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->get_id)
@@ -411,6 +417,7 @@ nimf_engine_get_icon_name (NimfEngine *engine)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));
   NimfEngineClass *class = NIMF_ENGINE_GET_CLASS (engine);
 
   if (class->get_icon_name)

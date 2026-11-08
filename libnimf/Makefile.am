@@ -117,6 +117,12 @@ gsettings_SCHEMAS = org.nimf.gschema.xml
 
 EXTRA_DIST = nimf.pc.in
 
+check_PROGRAMS = test-memory
+TESTS = $(check_PROGRAMS)
+test_memory_SOURCES = test-memory.c
+test_memory_CFLAGS = $(libnimf_la_CFLAGS)
+test_memory_LDADD = libnimf.la $(LIBNIMF_DEPS_LIBS)
+
 install-data-hook:
 	rm -f $(DESTDIR)$(libdir)/libnimf.la
 

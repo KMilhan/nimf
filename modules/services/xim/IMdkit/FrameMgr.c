@@ -28,6 +28,7 @@ SOFTWARE.
 
 #include <X11/Xlibint.h>
 #include <stdlib.h>
+#include <glib.h>
 #include "FrameMgr.h"
 
 /* Convenient macro */
@@ -867,7 +868,7 @@ static FrameInst FrameInstInit (XimFrame frame)
 {
     FrameInst fi;
 
-    fi = (FrameInst) Xmalloc (sizeof (FrameInstRec));
+    fi = g_new (FrameInstRec, 1);
 
     fi->template = frame;
     fi->cur_no = 0;
@@ -2246,7 +2247,7 @@ static ExtraData ChainMgrSetData (ChainMgr cm,
                                   int frame_no,
                                   ExtraDataRec data)
 {
-    Chain cur = (Chain) Xmalloc (sizeof (ChainRec));
+    Chain cur = g_new (ChainRec, 1);
 
     cur->frame_no = frame_no;
     cur->d = data;

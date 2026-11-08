@@ -61,7 +61,7 @@ struct _NimfGtk4IMContextClass
 static GType nimf_gtk4_im_context_get_type (void);
 static void nimf_gtk4_im_context_class_init (NimfGtk4IMContextClass *klass);
 static void nimf_gtk4_im_context_init (NimfGtk4IMContext *context);
-static void nimf_gtk4_im_context_finalize (GObject *object);
+static void nimf_gtk4_im_context_dispose (GObject *object);
 
 /* IM Context method implementations */
 static void nimf_gtk4_im_context_set_client_widget (GtkIMContext *context, GtkWidget *widget);
@@ -290,7 +290,7 @@ nimf_gtk4_im_context_set_client_widget (GtkIMContext *context, GtkWidget *widget
     GtkWidget *old_widget = gtk_event_controller_get_widget (nimf_context->key_controller);
     if (old_widget)
       gtk_widget_remove_controller (old_widget, nimf_context->key_controller);
-    nimf_context->key_controller = NULL;
+    g_clear_weak_pointer (&nimf_context->key_controller);
   }
 
   if (widget)
@@ -308,6 +308,8 @@ nimf_gtk4_im_context_set_client_widget (GtkIMContext *context, GtkWidget *widget
         /* Ensure IM gets key events before app-level handlers that may capture Enter */
         gtk_event_controller_set_propagation_phase (nimf_context->key_controller, GTK_PHASE_CAPTURE);
         gtk_widget_add_controller (widget, nimf_context->key_controller);
+        g_object_add_weak_pointer (G_OBJECT (nimf_context->key_controller),
+                                  (gpointer *) &nimf_context->key_controller);
         
         g_signal_connect (nimf_context->key_controller, "key-pressed",
                          G_CALLBACK (on_key_pressed), nimf_context);
@@ -425,7 +427,7 @@ nimf_gtk4_im_context_filter_keypress (GtkIMContext *context, GdkEvent *event)
       
       if (uc != 0 && g_unichar_validate (uc)) {
         len = g_unichar_to_utf8 (uc, text);
-        text[len] = ' ';
+        text[len] = '\0';
         
         g_debug ("GTK4 IM: Directly committing text: '%s'", text);
         g_signal_emit_by_name (nimf_context, "commit", text);
@@ -650,7 +652,7 @@ nimf_gtk4_im_context_init (NimfGtk4IMContext *context)
 }
 
 static void
-nimf_gtk4_im_context_finalize (GObject *object)
+nimf_gtk4_im_context_dispose (GObject *object)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -669,30 +671,24 @@ nimf_gtk4_im_context_finalize (GObject *object)
   if (context->settings)
     g_signal_handlers_disconnect_by_data (context->settings, context);
 
-  /* STEP 3: Process pending callbacks */
-  while (g_main_context_pending (NULL))
-    g_main_context_iteration (NULL, FALSE);
-
   /* STEP 4: Clean up key controller */
   if (context->key_controller)
   {
     GtkWidget *widget = gtk_event_controller_get_widget (context->key_controller);
     if (widget)
       gtk_widget_remove_controller (widget, context->key_controller);
-    context->key_controller = NULL;
+    g_clear_weak_pointer (&context->key_controller);
   }
 
   /* STEP 5: Clean up resources */
-  if (context->client_widget)
-    g_object_remove_weak_pointer (G_OBJECT (context->client_widget),
-                                  (gpointer *) &context->client_widget);
+  g_clear_weak_pointer (&context->client_widget);
   g_clear_object (&context->client_surface);
   g_clear_object (&context->im);
   g_clear_object (&context->simple);
   g_clear_object (&context->settings);
 
   /* STEP 6: Chain up to parent */
-  G_OBJECT_CLASS (nimf_gtk4_im_context_parent_class)->finalize (object);
+  G_OBJECT_CLASS (nimf_gtk4_im_context_parent_class)->dispose (object);
 }
 
 static void
@@ -704,7 +700,7 @@ nimf_gtk4_im_context_class_init (NimfGtk4IMContextClass *klass)
   GtkIMContextClass *im_context_class = GTK_IM_CONTEXT_CLASS (klass);
 
   /* Object methods */
-  object_class->finalize = nimf_gtk4_im_context_finalize;
+  object_class->dispose = nimf_gtk4_im_context_dispose;
 
   /* IM Context methods */
   im_context_class->set_client_widget   = nimf_gtk4_im_context_set_client_widget;

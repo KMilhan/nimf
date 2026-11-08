@@ -475,9 +475,8 @@ nimf_settings_page_key_build_string (NimfSettingsPageKey *page_key,
       if (g_str_has_prefix (schemas[i], "org.nimf.engines."))
         schema_list = g_list_prepend (schema_list, schemas[i]);
 
-    for (schema_list = g_list_sort (schema_list, (GCompareFunc) on_comparison);
-         schema_list != NULL;
-         schema_list = schema_list->next)
+    schema_list = g_list_sort (schema_list, (GCompareFunc) on_comparison);
+    for (GList *item = schema_list; item != NULL; item = item->next)
     {
       GSettingsSchema *schema;
       GSettings       *gsettings;
@@ -485,20 +484,20 @@ nimf_settings_page_key_build_string (NimfSettingsPageKey *page_key,
       const gchar     *id2;
 
       schema = g_settings_schema_source_lookup (schema_source,
-                                                schema_list->data, TRUE);
+                                                item->data, TRUE);
       
       /* Try to lookup schema with XDG_DATA_DIRS fallback */
       if (schema == NULL)
       {
-        schema = nimf_settings_lookup_schema_with_fallback (schema_source, schema_list->data);
+        schema = nimf_settings_lookup_schema_with_fallback (schema_source, item->data);
       }
       
       if (schema == NULL)
         continue;
         
-      gsettings = g_settings_new (schema_list->data);
+      gsettings = g_settings_new (item->data);
       name = g_settings_get_string (gsettings, "hidden-schema-name");
-      id2 = schema_list->data + strlen ("org.nimf.engines.");
+      id2 = item->data + strlen ("org.nimf.engines.");
 
       if (g_settings_schema_has_key (schema, "active-engine") == FALSE ||
           g_settings_get_boolean (gsettings, "active-engine"))
@@ -1019,7 +1018,7 @@ static NimfSettingsPage *
 nimf_settings_page_new (const gchar  *schema_id)
 {
   NimfSettingsPage *page;
-  GSettingsSchema  *schema;
+  g_autoptr(GSettingsSchema) schema = NULL;
   GList            *key_list = NULL;
   gchar           **keys;
   GList            *l;
@@ -1043,7 +1042,7 @@ nimf_settings_page_new (const gchar  *schema_id)
   }
 
   page = g_slice_new0 (NimfSettingsPage);
-  page->gsettings = g_settings_new (schema_id);
+  page->gsettings = g_settings_new_full (schema, NULL, NULL);
   page->box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 15);
   page->page_keys = g_ptr_array_new_with_free_func ((GDestroyNotify) nimf_settings_page_key_free);
   g_object_set_data_full (G_OBJECT (page->box), "free", page, (GDestroyNotify) nimf_settings_page_free);
@@ -1059,8 +1058,6 @@ nimf_settings_page_new (const gchar  *schema_id)
   gtk_widget_set_margin_top    (page->box, 15);
   gtk_widget_set_margin_bottom (page->box, 15);
 
-  GSettingsSchemaSource *default_source = g_settings_schema_source_get_default ();
-  schema = nimf_settings_lookup_schema_with_fallback (default_source, schema_id);
 #if GLIB_CHECK_VERSION (2, 46, 0)
   keys = g_settings_schema_list_keys (schema);
 #else
@@ -1143,7 +1140,6 @@ nimf_settings_page_new (const gchar  *schema_id)
 
   g_strfreev (keys);
   g_list_free (key_list);
-  g_settings_schema_unref (schema);
 
   return page;
 }
@@ -1315,7 +1311,7 @@ nimf_xkb_free (NimfXkb *xkb)
     g_object_unref  (xkb->engine);
 */
   g_slist_free (xkb->toggle_buttons);
-  g_slist_free (xkb->radio_group);
+  /* The radio buttons own their group list. */
   g_slist_free (xkb->expanders);
   g_slice_free (NimfXkb, xkb);
 }
@@ -1481,11 +1477,14 @@ nimf_settings_build_keyboard_page (void)
 #endif
   {
     NimfSettingsPage *general = nimf_settings_page_new ("org.nimf");
+    if (general)
+    {
 #if GTK_CHECK_VERSION(4, 0, 0)
     gtk_box_append (GTK_BOX (page), general->box);
 #else
     gtk_box_pack_start (GTK_BOX (page), general->box, FALSE, FALSE, 0);
 #endif
+    }
   }
 
   /* 기본 엔진 선택 섹션 */
@@ -1497,11 +1496,14 @@ nimf_settings_build_keyboard_page (void)
 #endif
   {
     NimfSettingsPage *engines_root = nimf_settings_page_new ("org.nimf.engines");
+    if (engines_root)
+    {
 #if GTK_CHECK_VERSION(4, 0, 0)
     gtk_box_append (GTK_BOX (page), engines_root->box);
 #else
     gtk_box_pack_start (GTK_BOX (page), engines_root->box, FALSE, FALSE, 0);
 #endif
+    }
   }
 
   /* XKB 옵션 섹션 */
@@ -1752,13 +1754,15 @@ nimf_settings_build_clients_page (void)
 
   for (guint i = 0; i < G_N_ELEMENTS (sections); i++)
   {
+    NimfSettingsPage *sec = nimf_settings_page_new (sections[i].schema);
+    if (sec == NULL)
+      continue;
     GtkWidget *title = build_group_title (sections[i].title);
 #if GTK_CHECK_VERSION(4, 0, 0)
     gtk_box_append (GTK_BOX (page), title);
 #else
     gtk_box_pack_start (GTK_BOX (page), title, FALSE, FALSE, 0);
 #endif
-    NimfSettingsPage *sec = nimf_settings_page_new (sections[i].schema);
 #if GTK_CHECK_VERSION(4, 0, 0)
     gtk_box_append (GTK_BOX (page), sec->box);
 #else

@@ -47,7 +47,7 @@ _Xi18nNeedSwap (NimfXim *xim, CARD16 connect_id)
 {
     Xi18nClient *client = _Xi18nFindClient (xim, connect_id);
 
-    return (client->byte_order != xim->byte_order);
+    return client && (client->byte_order != xim->byte_order);
 }
 
 Xi18nClient *_Xi18nNewClient (NimfXim *xim)
@@ -64,7 +64,7 @@ Xi18nClient *_Xi18nNewClient (NimfXim *xim)
     }
     else
     {
-        client = (Xi18nClient *) malloc (sizeof (Xi18nClient));
+        client = g_new (Xi18nClient, 1);
 	new_connect_id = ++connect_id;
     }
     /*endif*/
@@ -113,6 +113,15 @@ void _Xi18nDeleteClient (NimfXim *xim, CARD16 connect_id)
             else
                 ccp0->next = ccp->next;
             /*endif*/
+            g_clear_pointer (&target->trans_rec, g_free);
+            g_clear_pointer (&target->offset_cache.data, g_free);
+            while (target->pending)
+            {
+                XIMPending *pending = target->pending;
+                target->pending = pending->next;
+                g_free (pending->p);
+                g_free (pending);
+            }
             /* put it back to free list */
             target->next = xim->address.free_clients;
             xim->address.free_clients = target;

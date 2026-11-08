@@ -160,14 +160,13 @@ helper_read_line (NimfMozcHelper *helper)
 static NimfMozcSexp *
 helper_read_reply (NimfMozcHelper *helper)
 {
-  gchar        *line  = helper_read_line (helper);
+  g_autofree gchar *line = helper_read_line (helper);
   NimfMozcSexp *reply;
 
   if (line == NULL)
     return NULL;
 
   reply = nimf_mozc_sexp_parse (line);
-  g_free (line);
 
   if (reply == NULL)
     helper_fail (helper, "malformed reply");
@@ -178,7 +177,7 @@ helper_read_reply (NimfMozcHelper *helper)
 static NimfMozcSexp *
 helper_request (NimfMozcHelper *helper, const gchar *command)
 {
-  gchar        *line;
+  g_autofree gchar *line = NULL;
   gboolean      written;
   NimfMozcSexp *reply;
 
@@ -186,7 +185,6 @@ helper_request (NimfMozcHelper *helper, const gchar *command)
   line = g_strdup_printf ("(%u %s)\n", helper->event_id, command);
   written = g_output_stream_write_all (helper->input, line, strlen (line),
                                        NULL, NULL, NULL);
-  g_free (line);
 
   if (!written)
   {
@@ -213,14 +211,13 @@ helper_request (NimfMozcHelper *helper, const gchar *command)
 static gboolean
 helper_read_greeting (NimfMozcHelper *helper)
 {
-  NimfMozcSexp *greeting = helper_read_reply (helper);
+  g_autoptr(NimfMozcSexp) greeting = helper_read_reply (helper);
   gboolean      is_valid;
 
   if (greeting == NULL)
     return FALSE;
 
   is_valid = nimf_mozc_sexp_lookup (greeting, "mozc-emacs-helper") != NULL;
-  nimf_mozc_sexp_free (greeting);
 
   if (!is_valid)
     helper_fail (helper, "unexpected greeting");
@@ -231,13 +228,12 @@ helper_read_greeting (NimfMozcHelper *helper)
 static gboolean
 helper_create_session (NimfMozcHelper *helper)
 {
-  NimfMozcSexp *reply = helper_request (helper, "CreateSession");
+  g_autoptr(NimfMozcSexp) reply = helper_request (helper, "CreateSession");
 
   if (reply == NULL)
     return FALSE;
 
   helper->session_id = nimf_mozc_sexp_get_int (reply, "emacs-session-id", 0);
-  nimf_mozc_sexp_free (reply);
 
   return TRUE;
 }
@@ -245,7 +241,7 @@ helper_create_session (NimfMozcHelper *helper)
 static gboolean
 helper_start (NimfMozcHelper *helper)
 {
-  GError *error = NULL;
+  g_autoptr(GError) error = NULL;
 
   if (helper->process)
     return TRUE;
@@ -264,7 +260,6 @@ helper_start (NimfMozcHelper *helper)
   if (helper->process == NULL)
   {
     helper_fail (helper, error->message);
-    g_error_free (error);
     return FALSE;
   }
 
@@ -327,7 +322,7 @@ nimf_mozc_helper_free (NimfMozcHelper *helper)
 NimfMozcSexp *
 nimf_mozc_helper_send_key (NimfMozcHelper *helper, const gchar *tokens)
 {
-  gchar        *command;
+  g_autofree gchar *command = NULL;
   NimfMozcSexp *reply;
 
   if (!helper_start (helper))
@@ -335,7 +330,6 @@ nimf_mozc_helper_send_key (NimfMozcHelper *helper, const gchar *tokens)
 
   command = g_strdup_printf ("SendKey %u %s", helper->session_id, tokens);
   reply   = helper_request (helper, command);
-  g_free (command);
 
   return reply;
 }

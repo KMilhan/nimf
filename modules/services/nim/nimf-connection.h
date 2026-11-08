@@ -65,6 +65,7 @@ void            nimf_connection_change_engine_by_id
 void            nimf_connection_change_engine    (NimfConnection  *connection,
                                                   const gchar     *engine_id,
                                                   const gchar     *method_id);
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (NimfConnection, g_object_unref)
 G_END_DECLS
 
 #endif /* __NIMF_CONNECTION_H__ */

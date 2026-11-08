@@ -1,0 +1,39 @@
+name: Memory safety
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: memory-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  memory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [ubuntu, arch]
+        mode: [sanitize, analyze]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build and check in isolation
+        run: bash tests/memory/run.sh '${{ matrix.distro }}' '${{ matrix.mode }}'
+      - name: Preserve diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: memory-${{ matrix.distro }}-${{ matrix.mode }}
+          path: build/memory-${{ matrix.distro }}-${{ matrix.mode }}-*/
+          if-no-files-found: warn
+          retention-days: 7
