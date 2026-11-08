@@ -24,6 +24,10 @@
 #include <nimf.h>
 #include <gio/gio.h>
 
+#ifdef GDK_WINDOWING_X11
+#include <gdk/x11/gdkx.h>
+#endif
+
 #define NIMF_GTK4_TYPE_IM_CONTEXT  (nimf_gtk4_im_context_get_type ())
 #define NIMF_GTK4_IM_CONTEXT(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), NIMF_GTK4_TYPE_IM_CONTEXT, NimfGtk4IMContext))
 #define NIMF_GTK4_IM_CONTEXT_CLASS(klass)  (G_TYPE_CHECK_CLASS_CAST ((klass), NIMF_GTK4_TYPE_IM_CONTEXT, NimfGtk4IMContextClass))
@@ -39,6 +43,7 @@ struct _NimfGtk4IMContext
 
   NimfIM       *im;
   GtkIMContext *simple;
+  GtkWidget    *client_widget;
   GdkSurface   *client_surface;
   GSettings    *settings;
   GtkEventController *key_controller;
@@ -264,6 +269,15 @@ nimf_gtk4_im_context_set_client_widget (GtkIMContext *context, GtkWidget *widget
 
   NimfGtk4IMContext *nimf_context = NIMF_GTK4_IM_CONTEXT (context);
 
+  /* GTK can attach the client before it has a native surface. */
+  if (nimf_context->client_widget)
+    g_object_remove_weak_pointer (G_OBJECT (nimf_context->client_widget),
+                                  (gpointer *) &nimf_context->client_widget);
+  nimf_context->client_widget = widget;
+  if (widget)
+    g_object_add_weak_pointer (G_OBJECT (widget),
+                               (gpointer *) &nimf_context->client_widget);
+
   /* Clean up previous resources */
   if (nimf_context->client_surface)
   {
@@ -471,6 +485,40 @@ nimf_gtk4_im_context_reset (GtkIMContext *context)
 }
 
 static void
+nimf_gtk4_im_context_get_root_cursor (NimfGtk4IMContext *context,
+                                     NimfRectangle     *area)
+{
+#ifdef GDK_WINDOWING_X11
+  GtkWidget *widget = context->client_widget;
+  GtkNative *native = widget ? gtk_widget_get_native (widget) : NULL;
+  GdkSurface *surface = native ? gtk_native_get_surface (native) : NULL;
+  graphene_point_t point = {area->x, area->y};
+  graphene_point_t native_point;
+  double surface_x, surface_y;
+  int root_x, root_y, scale;
+  Window child;
+
+  if (!surface || !GDK_IS_X11_SURFACE (surface) ||
+      gdk_surface_is_destroyed (surface) ||
+      !gtk_widget_compute_point (widget, GTK_WIDGET (native), &point, &native_point))
+    return;
+
+  GdkDisplay *display = gdk_surface_get_display (surface);
+  Display *xdisplay = gdk_x11_display_get_xdisplay (display);
+  if (!XTranslateCoordinates (xdisplay, gdk_x11_surface_get_xid (surface),
+                              DefaultRootWindow (xdisplay), 0, 0,
+                              &root_x, &root_y, &child))
+    return;
+
+  /* The candidate service uses logical screen coordinates, as GTK3 does. */
+  scale = gdk_surface_get_scale_factor (surface);
+  gtk_native_get_surface_transform (native, &surface_x, &surface_y);
+  area->x = root_x / scale + native_point.x + surface_x;
+  area->y = root_y / scale + native_point.y + surface_y;
+#endif
+}
+
+static void
 nimf_gtk4_im_context_set_cursor_location (GtkIMContext *context, GdkRectangle *area)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -480,6 +528,7 @@ nimf_gtk4_im_context_set_cursor_location (GtkIMContext *context, GdkRectangle *a
   if (nimf_context->im && area)
   {
     NimfRectangle nimf_area = {area->x, area->y, area->width, area->height};
+    nimf_gtk4_im_context_get_root_cursor (nimf_context, &nimf_area);
     nimf_im_set_cursor_location (nimf_context->im, &nimf_area);
   }
 
@@ -634,6 +683,9 @@ nimf_gtk4_im_context_finalize (GObject *object)
   }
 
   /* STEP 5: Clean up resources */
+  if (context->client_widget)
+    g_object_remove_weak_pointer (G_OBJECT (context->client_widget),
+                                  (gpointer *) &context->client_widget);
   g_clear_object (&context->client_surface);
   g_clear_object (&context->im);
   g_clear_object (&context->simple);

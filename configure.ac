@@ -73,15 +73,16 @@ dnl nimf-m17n
 dnl ***************************************************************************
 
 AC_ARG_ENABLE([nimf-m17n],
-  AS_HELP_STRING([--disable-nimf-m17n], [Disable nimf-m17n]))
+  AS_HELP_STRING([--enable-nimf-m17n], [Build the legacy m17n engine (default: no)]),
+  [], [enable_nimf_m17n=no])
 
-AS_IF([test "x$enable_nimf_m17n" != "xno"],
+AS_IF([test "x$enable_nimf_m17n" = "xyes"],
       [PKG_CHECK_MODULES(NIMF_M17N_DEPS, [m17n-shell >= 1.7.0 m17n-db >= 1.7.0
-                                          $LIBNIMF_REQUIRES])])
+                                          $LIBNIMF_REQUIRES])
+       PKG_CHECK_EXISTS([m17n-db >= 1.8.0], [m17n_1_8_0_available=yes])])
 
-AM_CONDITIONAL([ENABLE_NIMF_M17N], [test "x$enable_nimf_m17n" != "xno"])
+AM_CONDITIONAL([ENABLE_NIMF_M17N], [test "x$enable_nimf_m17n" = "xyes"])
 
-PKG_CHECK_EXISTS([m17n-db >= 1.8.0], [m17n_1_8_0_available="yes"])
 AM_CONDITIONAL([M17N_1_8_0_AVAILABLE], [test "x$m17n_1_8_0_available" = "xyes"])
 
 dnl ***************************************************************************
@@ -95,6 +96,18 @@ AS_IF([test "x$enable_nimf_rime" != "xno"],
       [PKG_CHECK_MODULES(NIMF_RIME_DEPS, [rime >= 1.2.9 $LIBNIMF_REQUIRES])])
 
 AM_CONDITIONAL([ENABLE_NIMF_RIME], [test "x$enable_nimf_rime" != "xno"])
+
+dnl ***************************************************************************
+dnl nimf-mozc
+dnl ***************************************************************************
+
+AC_ARG_ENABLE([nimf-mozc],
+              AS_HELP_STRING([--disable-nimf-mozc], [Disable nimf-mozc]))
+
+AS_IF([test "x$enable_nimf_mozc" != "xno"],
+      [PKG_CHECK_MODULES(NIMF_MOZC_DEPS, [$LIBNIMF_REQUIRES])])
+
+AM_CONDITIONAL([ENABLE_NIMF_MOZC], [test "x$enable_nimf_mozc" != "xno"])
 
 dnl ***************************************************************************
 dnl nimf-anthy
@@ -288,6 +301,12 @@ else
 fi
 
 AM_CONDITIONAL([HAVE_GTK4], [test "x$have_gtk4" = "xyes"])
+
+AS_IF([test "x$have_gtk4" = "xyes"], [
+  PKG_CHECK_EXISTS([gtk4-x11], [
+    PKG_CHECK_MODULES(IM_NIMF_GTK4_X11_DEPS, [x11])
+  ])
+])
 
 case `uname -m` in
   x86_64)
@@ -511,6 +530,7 @@ AC_OUTPUT([
   modules/engines/nimf-libhangul/Makefile
   modules/engines/nimf-m17n/Makefile
   modules/engines/nimf-m17n/icons/Makefile
+  modules/engines/nimf-mozc/Makefile
   modules/engines/nimf-rime/Makefile
   modules/engines/nimf-system-keyboard/Makefile
   modules/services/Makefile

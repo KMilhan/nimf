@@ -37,8 +37,6 @@ RUN zypper install -y \
  qt6-base-private-devel \
  rsvg-convert \
  librime-devel \
- m17n-lib-devel \
- m17n-db \
  git
 
 # libhangul is already installed via libhangul-devel package above

@@ -42,8 +42,6 @@ RUN apt-get install --no-install-recommends -y \
         libanthy-dev \
         anthy \
         librime-dev \
-        libm17n-dev \
-        m17n-db \
         libxklavier-dev \
         libayatana-appindicator3-dev \
         librsvg2-bin \
@@ -58,7 +56,9 @@ WORKDIR /src
 RUN yes | mk-build-deps --install --root-cmd sudo --remove /src/debian/control
 
 # Build the entire project
-RUN autoreconf --force --install --verbose \
+RUN mkdir -p m4 \
+ && gtkdocize \
+ && autoreconf --force --install --verbose \
  && ./configure --prefix=/usr \
  && make -j $(nproc)
 

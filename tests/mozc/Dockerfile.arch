@@ -1,0 +1,32 @@
+FROM archlinux:latest
+
+RUN pacman -Syu --noconfirm --needed \
+    base-devel git curl python glib2-devel gtk3 gtk4 qt5-base qt6-base \
+    libayatana-appindicator librsvg noto-fonts-cjk libhangul anthy librime \
+    libxkbcommon wayland wayland-protocols libxklavier \
+    gtk-doc intltool xorg-server-xvfb xorg-xauth xorg-xdpyinfo xdotool \
+    openbox imagemagick x11vnc dbus
+
+# Match the upstream revision used by AUR emacs-mozc 3.34.6345-1.
+# Build the server and helper together so their protocols match.
+ARG MOZC_REV=18e76511af9371a9a4409b1d13c3e30884b53e9c
+RUN git init /opt/mozc \
+ && git -C /opt/mozc remote add origin https://github.com/google/mozc.git \
+ && git -C /opt/mozc fetch --depth 1 origin "$MOZC_REV" \
+ && git -C /opt/mozc checkout --detach FETCH_HEAD \
+ && curl -fL https://github.com/bazelbuild/bazel/releases/download/9.0.2/bazel-9.0.2-linux-x86_64 -o /usr/local/bin/bazel \
+ && echo '83457d476468763e9e94ce6ea3ee7abf9ad123887e24c304067993922f0b4430786da797c27bf5b15acba57a30c5c7472fd0ff285089368b9b51ce085f33c254  /usr/local/bin/bazel' | b2sum -c - \
+ && chmod +x /usr/local/bin/bazel
+RUN cd /opt/mozc/src \
+ && bazel --batch build --config release_build --config stable_channel \
+      --jobs=8 --features=-supports_start_end_lib --linkopt=-fuse-ld=bfd \
+      unix/emacs:mozc_emacs_helper server:mozc_server \
+ && install -Dm755 bazel-bin/unix/emacs/mozc_emacs_helper /usr/bin/mozc_emacs_helper \
+ && install -Dm755 bazel-bin/server/mozc_server /usr/lib/mozc/mozc_server
+
+COPY . /src
+WORKDIR /src
+RUN bash tests/mozc/build.sh
+USER tester
+ENV XDG_RUNTIME_DIR=/tmp/nimf-runtime LANG=C.UTF-8
+CMD ["bash", "/src/tests/mozc/session.sh"]

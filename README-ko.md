@@ -47,13 +47,14 @@ Nimf는 가볍고 빠르며 확장 가능한 입력기 프레임워크입니다.
 ## 🆕 주요 변경사항
 
 - **GTK4 지원** (GTK2/GTK3/GTK4 동시 환경 지원)
-- **데비안 패키지 분리**:
+- **기본 패키지 구성**:
   - `nimf`: 코어 + 한글(libhangul), 일본어(anthy), 중국어(rime)
-  - `nimf-i18n`: 다국어 엔진(m17n) 추가 패키지
+  - m17n은 기본 지원 및 검증 대상에서 제외
 - **빌드 옵션 업데이트**:
   - `--enable-gtk4`: GTK4 IM 모듈 빌드
   - `--with-gtk=3|4`: `nimf-settings`의 GTK 버전 선택
-  - 엔진 토글: `--disable-nimf-{libhangul,anthy,m17n,rime}`
+  - 엔진 토글: `--disable-nimf-{libhangul,anthy,mozc,rime}`
+  - 기존 m17n 소스를 빌드하려면 명시적으로 `--enable-nimf-m17n` 사용
   - `--disable-x11`: Wayland 전용 빌드
   - 통합 옵션: `--with-im-config-data`, `--with-imsettings-data`
 
@@ -65,9 +66,9 @@ Nimf는 가볍고 빠르며 확장 가능한 입력기 프레임워크입니다.
 ### 언어 엔진
 - **시스템 키보드**: 기본 키보드 입력
 - **한글 입력**: libhangul 기반 (두벌식, 세벌식 등)
-- **일본어 입력**: anthy 기반
+- **일본어 입력**: anthy 기반, 선택적으로 Mozc 지원 (`mozc_emacs_helper` 설치 후 nimf-settings에서 활성화, Debian/Ubuntu 패키지: `emacs-mozc-bin`)
 - **중국어 입력**: librime 기반
-- **다국어 입력**: m17n 기반 (`nimf-i18n` 설치 시)
+- **기존 m17n 엔진**: 기본 빌드와 지원·검증 대상에서 제외
 
 ### 서비스 모듈
 - **인디케이터**: ayatana-appindicator 기반 시스템 트레이
@@ -137,10 +138,7 @@ sudo apt install nimf
 im-config -n nimf
 ```
 
-**다국어 엔진 추가(m17n)**
-```bash
-sudo apt install nimf-i18n
-```
+m17n은 기본 패키지에서 제외됩니다. 기존 소스의 명시적 빌드 옵션은 [빌드 문서](BUILD.md)를 참고하세요.
 
 #### Arch Linux, Manjaro
 
@@ -242,7 +240,8 @@ sudo make install
 **주요 설정 옵션:**
 - `--enable-gtk4`: GTK4 IM 모듈 빌드(기본 자동 감지)
 - `--with-gtk=3|4`: `nimf-settings`의 GTK 버전 선택(기본 3)
-- `--disable-nimf-libhangul`, `--disable-nimf-anthy`, `--disable-nimf-m17n`, `--disable-nimf-rime`
+- `--disable-nimf-libhangul`, `--disable-nimf-anthy`, `--disable-nimf-mozc`, `--disable-nimf-rime`
+- `--enable-nimf-m17n`: 기본 지원 대상이 아닌 기존 m17n 엔진 빌드
 - `--disable-x11`: X11 제외(Wayland 전용)
 - `--with-im-config-data`, `--with-imsettings-data`: 통합 데이터 설치
 

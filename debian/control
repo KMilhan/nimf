@@ -24,8 +24,8 @@ Build-Depends: debhelper (>= 11),
                libanthy-dev,
                anthy,
                librime-dev (>= 1.2.9),
-               libm17n-dev (>= 1.7.0),
-               m17n-db (>= 1.7.0),
+               libm17n-dev (>= 1.7.0) <pkg.nimf.m17n>,
+               m17n-db (>= 1.7.0) <pkg.nimf.m17n>,
                libxkbcommon-dev (>= 0.5.0),
                libwayland-dev,
                wayland-protocols,
@@ -62,7 +62,7 @@ Provides: libnimf1,
           nimf-libhangul,
           nimf-anthy,
           nimf-rime
-Suggests: nimf-i18n
+Suggests: emacs-mozc-bin
 Description: Modern Input Method Framework
  Nimf is a lightweight, fast and extensible input method framework that supports
  various input methods and platforms.
@@ -73,7 +73,6 @@ Description: Modern Input Method Framework
   * Korean input (libhangul)
   * Japanese input (anthy)
   * Chinese input (rime)
-  * Optional multilingual input via separate package `nimf-i18n` (m17n)
   * System keyboard integration
   * Wayland support
   * Modern UI with system tray indicator
@@ -83,6 +82,7 @@ Description: Modern Input Method Framework
 
 Package: nimf-i18n
 Architecture: any
+Build-Profiles: <pkg.nimf.m17n>
 Depends: ${shlibs:Depends}, ${misc:Depends},
          nimf (= ${binary:Version}),
          libm17n-0 (>= 1.7.0),

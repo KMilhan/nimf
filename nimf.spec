@@ -56,13 +56,6 @@ BuildRequires: libxklavier-devel
 BuildRequires: gtk-doc
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires: librime-devel
-BuildRequires: m17n-lib-devel
-%endif
-%if 0%{?fedora}
-BuildRequires: m17n-db-devel >= 1.7.0
-%endif
-%if 0%{?suse_version}
-BuildRequires: m17n-db >= 1.7.0
 %endif
 
 Requires: anthy
@@ -78,8 +71,6 @@ Requires: libxklavier16
 Requires: libqt5-qtbase
 Requires: qt6-qtbase
 Requires: librime1
-Requires: m17n-lib >= 1.7.0
-Requires: m17n-db >= 1.7.0
 %else
 Requires: im-chooser
 Requires: libappindicator-gtk3
@@ -91,7 +82,6 @@ Requires: libxklavier
 Requires: qt5-qtbase
 Requires: qt6-qtbase
 Requires: librime
-Requires: m17n-lib >= 1.7.0, m17n-db >= 1.7.0
 %endif
 
 Requires(post):   %{_sbindir}/alternatives
@@ -118,10 +108,10 @@ autoreconf -ivf
 
 %build
 %if 0%{?rhel}
-./autogen.sh --prefix=/usr --libdir=%{_libdir} --enable-gtk-doc \
+./autogen.sh --prefix=/usr --libdir=%{_libdir} --enable-gtk-doc --disable-nimf-m17n \
   --with-imsettings-data
 %else
-./autogen.sh --prefix=/usr --libdir=%{_libdir} --with-imsettings-data --enable-gtk-doc
+./autogen.sh --prefix=/usr --libdir=%{_libdir} --with-imsettings-data --enable-gtk-doc --disable-nimf-m17n
 %endif
 make %{?_smp_mflags}
 

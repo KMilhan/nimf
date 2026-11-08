@@ -29,8 +29,6 @@ RUN dnf update -y && \
     libayatana-appindicator-gtk3-devel \
     librsvg2-tools \
     google-noto-cjk-fonts \
-    m17n-lib-devel \
-    m17n-db-devel \
     anthy-devel \
     qt5-qtbase-devel \
     qt5-qttools-devel \

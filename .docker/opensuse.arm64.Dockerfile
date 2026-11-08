@@ -30,8 +30,6 @@ RUN zypper install -y \
  qt6-base-private-devel \
  rsvg-convert \
  librime-devel \
- m17n-lib-devel \
- m17n-db \
  git
 
 # Copy the source code and set the working directory

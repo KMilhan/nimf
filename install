@@ -238,35 +238,6 @@ install_debian() {
         exit 1
     fi
     
-    # Download i18n package (optional)
-    local i18n_patterns=()
-
-    if [[ "$pkg_arch" == "arm64" ]]; then
-        # ARM64 i18n packages use arm64 prefix in filename
-        i18n_patterns=(
-            "nimf-i18n_${version_num}_arm64-${pkg_suffix}.arm64.deb"
-            "nimf-i18n_${version_num}_amd64-${pkg_suffix}.deb"
-        )
-    else
-        # x86_64 i18n packages use amd64 prefix in filename
-        i18n_patterns=(
-            "nimf-i18n_${version_num}_amd64-${pkg_suffix}.deb"
-        )
-    fi
-    
-    local i18n_downloaded=0
-    for pattern in "${i18n_patterns[@]}"; do
-        if wget --timeout=30 --tries=1 -q "${base_url}/${pattern}" 2>/dev/null; then
-            print_info "Downloaded i18n package: $pattern"
-            i18n_downloaded=1
-            break
-        fi
-    done
-    
-    if [ $i18n_downloaded -eq 0 ]; then
-        print_info "i18n package not found (optional - provides additional language support)"
-    fi
-    
     # Verify downloaded packages
     local deb_count=$(ls -1 *.deb 2>/dev/null | wc -l)
     if [ $deb_count -eq 0 ]; then
@@ -301,7 +272,7 @@ install_debian() {
         print_error "Nimf installation verification failed"
         print_info "Expected version: ${version_num}"
         print_info "Installed version: ${installed_version:-not installed}"
-        print_info "Try removing the old package first: sudo apt remove --purge nimf nimf-i18n"
+        print_info "Try removing the old package first: sudo apt remove --purge nimf"
         exit 1
     fi
     

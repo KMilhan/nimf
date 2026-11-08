@@ -25,8 +25,6 @@ RUN yum install -y \
     libayatana-appindicator-gtk3-devel.x86_64 \
     librsvg2-tools \
     google-noto-cjk-fonts \
-    m17n-lib-devel \
-    m17n-db-devel \
     anthy-devel \
     qt5-qtbase-devel \
     qt5-qttools-devel \

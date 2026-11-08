@@ -7,7 +7,7 @@ To build a Debian package for Nimf, follow these steps:
 
 ```
 sudo apt-get update
-sudo apt-get install build-essential devscripts debhelper autoconf automake libglib2.0-dev intltool gtk-doc-tools libgtk-3-dev libgtk2.0-dev libqt5core5a libqt5gui5 libqt5widgets5 qtbase5-dev libayatana-appindicator3-dev librsvg2-bin libhangul-dev anthy libxkbcommon-dev libxklavier-dev libm17n-dev m17n-db librime-dev
+sudo apt-get install build-essential devscripts debhelper autoconf automake libglib2.0-dev intltool gtk-doc-tools libgtk-3-dev libgtk2.0-dev libqt5core5a libqt5gui5 libqt5widgets5 qtbase5-dev libayatana-appindicator3-dev librsvg2-bin libhangul-dev anthy libxkbcommon-dev libxklavier-dev librime-dev
 
 ```
 
@@ -36,7 +36,7 @@ To build an RPM package for Nimf, follow these steps:
 # fedora
 sudo dnf install anthy-devel gcc-c++ glib2-devel gtk-doc gtk2-devel gtk3-devel intltool \
     libappindicator-gtk3-devel libhangul-devel librime-devel librsvg2-tools libtool \
-    libxkbcommon-devel libxklavier-devel m17n-db-devel m17n-lib-devel \
+    libxkbcommon-devel libxklavier-devel \
     qt5-qtbase-devel qt5-qtbase-private-devel qt6-qtbase-devel qt6-qtbase-private-devel \
     wayland-devel naver-nanum-fonts-all wayland-protocols-devel expat expat-devel \
     libayatana-appindicator-gtk3-devel.x86_64 im-chooser rpm-build rpmdevtools
@@ -47,7 +47,7 @@ sudo zypper install -y rpm-build rpmdevtools anthy anthy-devel libexpat-devel \
     libtool libxkbcommon-devel libxklavier-devel wayland-devel wayland-protocols-devel \
     google-noto-sans-cjk-fonts libappindicator3-devel libayatana-appindicator3-devel librsvg-devel \
     libqt5-qtbase-devel libqt5-qtbase-private-headers-devel \
-    qt6-base-devel qt6-base-private-devel rsvg-convert librime-devel m17n-lib-devel rpm-build rpmdevtools
+    qt6-base-devel qt6-base-private-devel rsvg-convert librime-devel rpm-build rpmdevtools
 
 ```
 
@@ -72,7 +72,7 @@ To build an Arch Linux package for Nimf, follow these steps:
 ### Install Dependencies:
 
 ```
-sudo pacman -S --needed base-devel git glib2 gtk3 gtk2 qt5-base qt6-base libappindicator-gtk3 librsvg noto-fonts-cjk libhangul anthy librime libxkbcommon wayland libxklavier m17n-lib m17n-db gtk-doc
+sudo pacman -S --needed base-devel git glib2 gtk3 gtk2 qt5-base qt6-base libappindicator-gtk3 librsvg noto-fonts-cjk libhangul anthy librime libxkbcommon wayland libxklavier gtk-doc
 ```
 
 ### Clone the Repository:
@@ -101,7 +101,7 @@ sudo zypper install -y rpm-build rpmdevtools anthy anthy-devel libexpat-devel \
     libtool libxkbcommon-devel libxklavier-devel wayland-devel wayland-protocols-devel \
     google-noto-sans-cjk-fonts libappindicator3-devel libayatana-appindicator3-devel librsvg-devel \
     libqt5-qtbase-devel libqt5-qtbase-private-headers-devel \
-    qt6-base-devel qt6-base-private-devel rsvg-convert librime-devel m17n-lib-devel
+    qt6-base-devel qt6-base-private-devel rsvg-convert librime-devel
 
 rpmdev-setuptree
 
@@ -137,12 +137,12 @@ Open the terminal and run the following commands step by step.
 sudo apt-get install build-essential devscripts debhelper autoconf automake libglib2.0-dev \
     intltool gtk-doc-tools libgtk-3-dev libgtk2.0-dev libqt5core5a libqt5gui5 libqt5widgets5 \
     qtbase5-dev libayatana-appindicator3-dev librsvg2-bin libhangul-dev anthy libxkbcommon-dev \
-    libxklavier-dev libm17n-dev m17n-db librime-dev
+    libxklavier-dev librime-dev
 
 # fedora
 sudo dnf install anthy-devel gcc-c++ glib2-devel gtk-doc gtk2-devel gtk3-devel intltool \
     libappindicator-gtk3-devel libhangul-devel librime-devel librsvg2-tools libtool \
-    libxkbcommon-devel libxklavier-devel m17n-db-devel m17n-lib-devel \
+    libxkbcommon-devel libxklavier-devel \
     qt5-qtbase-devel qt5-qtbase-private-devel qt6-qtbase-devel qt6-qtbase-private-devel \
     wayland-devel naver-nanum-fonts-all wayland-protocols-devel expat expat-devel \
     libayatana-appindicator-gtk3-devel.x86_64 im-chooser rpm-build rpmdevtools
@@ -153,7 +153,7 @@ sudo zypper install rpm-build rpmdevtools anthy anthy-devel libexpat-devel \
     libtool libxkbcommon-devel libxklavier-devel wayland-devel wayland-protocols-devel \
     google-noto-sans-cjk-fonts libappindicator3-devel libayatana-appindicator3-devel librsvg-devel \
     libqt5-qtbase-devel libqt5-qtbase-private-headers-devel \
-    qt6-base-devel qt6-base-private-devel rsvg-convert librime-devel m17n-lib-devel rpm-build rpmdevtools
+    qt6-base-devel qt6-base-private-devel rsvg-convert librime-devel rpm-build rpmdevtools
 
 ```
 
@@ -172,17 +172,24 @@ echo -e "\nexport GTK_IM_MODULE=nimf\nexport QT4_IM_MODULE=xim\nexport QT_IM_MOD
  && echo -e "\nexport GTK_IM_MODULE=nimf\nexport QT4_IM_MODULE=xim\nexport QT_IM_MODULE=nimf\nexport XMODIFIERS=@im=nimf" >> ~/.zshrc
 ```
 
+m17n is excluded from default builds, packages, support, and validation.
+Its existing source can still be selected with `--enable-nimf-m17n` after
+installing the m17n development libraries. Debian's legacy `nimf-i18n` binary
+and its build dependencies require the explicit `pkg.nimf.m17n` build profile.
+This profile is outside the default validation scope.
+
 There are configuration options. Use it for your situation.
 ```
 --disable-hardening     Disable hardening
 --disable-nimf-anthy    Disable nimf-anthy
---disable-nimf-m17n     Disable nimf-m17n
+--disable-nimf-mozc     Disable nimf-mozc
+--enable-nimf-m17n      Build legacy m17n support (disabled by default)
 --disable-nimf-rime     Disable nimf-rime
 --with-im-config-data   Install im-config data
 --with-imsettings-data  Install imsettings data
 
 ex)
-./configure --disable-nimf-m17n
+./configure --enable-gtk4
 ```
 If you are using im-config
 ```

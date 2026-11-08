@@ -104,3 +104,6 @@ debian/qtbase-abi-5-15-13-dummy/
 dist/
 bin/nimf-settings/nimf-settings
 !docs/nimf-ko.png
+
+# Crash dumps
+core.[0-9]*

@@ -1,0 +1,12 @@
+FROM nimf-mozc-ubuntu:build
+
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      emacs-mozc-bin xvfb xauth x11-utils xdotool openbox imagemagick \
+      x11vnc dbus-x11
+COPY tests/mozc /src/tests/mozc
+RUN bash tests/mozc/build.sh
+USER tester
+ENV XDG_RUNTIME_DIR=/tmp/nimf-runtime LANG=C.UTF-8
+ENTRYPOINT []
+CMD ["bash", "/src/tests/mozc/session.sh"]

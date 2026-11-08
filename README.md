@@ -17,7 +17,7 @@
 
 ---
 
-Nimf is a lightweight, fast and extensible input method framework that supports Korean, Japanese, Chinese, and many other languages through multilingual input engines.
+Nimf is a lightweight, fast and extensible input method framework for Korean, Japanese, and Chinese.
 
 ![nimf](docs/nimf.png)
 
@@ -35,7 +35,7 @@ Nimf is maintained by the **HamoniKR Team** as a continuation of the original ni
 
 ### What's New
 - **Full GTK4 support** with backwards compatibility (GTK2/3/4)
-- **Modular packaging**: Core package + optional multilingual extension (`nimf-i18n`)
+- **Default engines**: Korean, Japanese, and Chinese; legacy m17n is disabled
 - **Enhanced platform support** across major Linux distributions
 - **Improved Wayland compatibility** and environment integration
 
@@ -45,7 +45,7 @@ Nimf is maintained by the **HamoniKR Team** as a continuation of the original ni
 - **Korean**: Advanced Hangul input with libhangul (Dubeolsik, Sebeolsik, etc.)
 - **Japanese**: Comprehensive hiragana/katakana/kanji input via Anthy
 - **Chinese**: Traditional and simplified Chinese with librime engine  
-- **100+ Languages**: Extended multilingual support through m17n library
+- **Legacy m17n**: Available only through an explicit source build option; excluded from default support and validation
 
 ### 🖥️ **Universal Compatibility**
 - **Toolkit Support**: GTK2, GTK3, GTK4, Qt5, Qt6

@@ -42,8 +42,6 @@ RUN apt-get install --no-install-recommends -y \
         libanthy-dev \
         anthy \
         librime-dev \
-        libm17n-dev \
-        m17n-db \
         libxklavier-dev \
         libayatana-appindicator3-dev \
         librsvg2-bin \

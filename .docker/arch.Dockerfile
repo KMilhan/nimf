@@ -23,8 +23,6 @@ RUN pacman -Syu --noconfirm \
     wayland \
     wayland-protocols \
     libxklavier \
-    m17n-lib \
-    m17n-db \
     gtk-doc \
     git \
     base-devel \

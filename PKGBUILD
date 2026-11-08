@@ -10,10 +10,9 @@ license=('LGPL3')
 makedepends=('binutils' 'autoconf' 'automake' 'gcc' 'make' 'glib2' 'glib2-devel' 'intltool'
              'gtk3' 'qt5-base' 'qt6-base' 'libappindicator-gtk3' 'libayatana-appindicator' 'librsvg'
              'noto-fonts-cjk' 'anthy' 'librime' 'libxkbcommon'
-             'wayland' 'wayland-protocols' 'libxklavier' 'm17n-lib' 'm17n-db' 'gtk-doc')
+             'wayland' 'wayland-protocols' 'libxklavier' 'gtk-doc')
 depends=('glib2' 'gtk3' 'qt5-base' 'qt6-base' 'libappindicator-gtk3'
-         'anthy' 'librime' 'libxkbcommon' 'wayland' 'libxklavier' 'm17n-lib'
-         'm17n-db')
+         'anthy' 'librime' 'libxkbcommon' 'wayland' 'libxklavier')
 provides=('nimf-git')
 conflicts=('nimf-git')         
 optdepends=('brise: Rime schema repository'
@@ -23,7 +22,7 @@ md5sums=('SKIP')
 
 build() {
 	cd nimf
-	./autogen.sh --prefix=/usr --enable-gtk-doc
+	./autogen.sh --prefix=/usr --enable-gtk-doc --disable-nimf-m17n
 	make -j $(nproc)
 }
 

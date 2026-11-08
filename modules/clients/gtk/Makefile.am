@@ -23,8 +23,8 @@ gtk4_im_moduledir = $(GTK4_LIBDIR)/gtk-4.0/$(GTK4_BINARY_VERSION)/immodules
 gtk4_im_module_LTLIBRARIES = libim-nimf-gtk4.la
 
 libim_nimf_gtk4_la_SOURCES  = im-nimf-gtk4.c
-libim_nimf_gtk4_la_CFLAGS   = $(IM_NIMF_GTK4_DEPS_CFLAGS) $(AM_CFLAGS)
-libim_nimf_gtk4_la_LDFLAGS  = $(IM_NIMF_GTK4_DEPS_LIBS) -avoid-version -module
+libim_nimf_gtk4_la_CFLAGS   = $(IM_NIMF_GTK4_DEPS_CFLAGS) $(IM_NIMF_GTK4_X11_DEPS_CFLAGS) $(AM_CFLAGS)
+libim_nimf_gtk4_la_LDFLAGS  = $(IM_NIMF_GTK4_DEPS_LIBS) $(IM_NIMF_GTK4_X11_DEPS_LIBS) -avoid-version -module
 libim_nimf_gtk4_la_LIBADD   = $(top_builddir)/libnimf/libnimf.la
 endif
 
