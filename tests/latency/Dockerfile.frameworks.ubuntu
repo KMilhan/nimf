@@ -1,0 +1,12 @@
+# IBus and Fcitx5 packages for framework comparison. Layered on the Nimf latency image.
+ARG BASE_IMAGE=nimf-latency-ubuntu:test
+FROM ${BASE_IMAGE}
+# Ubuntu ships packaged Mozc for all three frameworks, so this layer installs the
+# same packages for every framework and language. The two tags only differ by name.
+ARG IM_FRAMEWORK
+ARG INPUT_LANGUAGE
+USER root
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      ibus ibus-gtk3 ibus-gtk4 ibus-mozc ibus-hangul \
+      fcitx5 fcitx5-frontend-gtk3 fcitx5-frontend-gtk4 fcitx5-mozc fcitx5-hangul
+USER tester

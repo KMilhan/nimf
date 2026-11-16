@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <glib-unix.h>
 #include <stdio.h>
 #if GTK_MAJOR_VERSION >= 4
 #include <gdk/x11/gdkx.h>
@@ -131,6 +132,13 @@ activate (GtkApplication *app, gpointer data)
   g_timeout_add (250, ready, window);
 }
 
+static gboolean
+quit_probe (gpointer data)
+{
+  g_application_quit (G_APPLICATION (data));
+  return G_SOURCE_REMOVE;
+}
+
 int
 main (int argc, char **argv)
 {
@@ -138,5 +146,6 @@ main (int argc, char **argv)
   g_autoptr(GtkApplication) app = gtk_application_new ("org.nimf.LatencyProbe",
                                                       G_APPLICATION_NON_UNIQUE);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  g_unix_signal_add (SIGTERM, quit_probe, app);
   return g_application_run (G_APPLICATION (app), argc, argv);
 }

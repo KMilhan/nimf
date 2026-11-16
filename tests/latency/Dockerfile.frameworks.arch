@@ -1,0 +1,28 @@
+# IBus and Fcitx5 packages for framework comparison. Layered on the Nimf latency image.
+# Arch ships Mozc separately, so the selected framework decides the engine setup.
+ARG BASE_IMAGE=nimf-latency-arch:test
+FROM ${BASE_IMAGE}
+ARG IM_FRAMEWORK=nimf
+ARG INPUT_LANGUAGE=ja
+USER root
+RUN set -eu; case "$IM_FRAMEWORK" in \
+      ibus) \
+        pacman -Syu --noconfirm --needed ibus ibus-hangul; \
+        if [ "$INPUT_LANGUAGE" = ja ]; then \
+            cd /opt/mozc/src; \
+            bazel --batch build --config release_build --config stable_channel --jobs=8 \
+                --features=-supports_start_end_lib --linkopt=-fuse-ld=bfd \
+                unix/ibus:ibus_mozc unix/ibus:gen_mozc_xml; \
+            install -Dm755 bazel-bin/unix/ibus/ibus_mozc /usr/lib/ibus-mozc/ibus-engine-mozc; \
+            install -Dm644 bazel-bin/unix/ibus/mozc.xml /usr/share/ibus/component/mozc.xml; \
+        fi; \
+        ;; \
+      fcitx5) \
+        pacman -Syu --noconfirm --needed fcitx5 fcitx5-gtk fcitx5-hangul; \
+        if [ "$INPUT_LANGUAGE" = ja ]; then \
+            pacman -S --noconfirm --needed --overwrite usr/lib/mozc/mozc_server fcitx5-mozc; \
+        fi; \
+        ;; \
+      *) echo "IM_FRAMEWORK must be ibus or fcitx5" >&2; exit 1 ;; \
+    esac
+USER tester

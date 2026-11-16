@@ -142,13 +142,56 @@ sample budgets may need a longer timeout. The standalone driver also accepts
 No machine-independent latency threshold is enforced.
 Set `TOOLKIT=gtk3` or `TOOLKIT=gtk4` to run one toolkit; the default runs both.
 
+`CPUSET` restricts the container to the listed CPUs, for example `CPUSET=0-3` or
+`CPUSET=2,5`. The default leaves placement to the host scheduler, and `cpuset.txt`
+records what a run used. Host core type moves these numbers by more than any
+measured code change, so keep pinned and unpinned rows apart and label them.
+
 ## Comparing frameworks
 
-`session.sh` also accepts `IM_FRAMEWORK=ibus` or `IM_FRAMEWORK=fcitx5` when the
-selected framework, GTK3/GTK4 modules, and language engine are installed in the
-container image. The default is `nimf`. `run.sh` builds only Nimf dependencies;
-comparison images need IBus Mozc/Hangul and Fcitx5 Mozc/Hangul packages added
-separately. The same probe and driver binaries must be used for every framework.
+```sh
+IM_FRAMEWORK=ibus INPUT_LANGUAGE=ja bash tests/latency/run.sh ubuntu
+IM_FRAMEWORK=fcitx5 INPUT_LANGUAGE=ko REUSE_BASE=1 bash tests/latency/run.sh arch
+```
+
+`IM_FRAMEWORK` selects `nimf`, `ibus`, `fcitx5`, or `upstream` for the whole run. The default
+is `nimf`. The runner rejects an unknown `IM_FRAMEWORK` or `INPUT_LANGUAGE`
+before it builds anything, then passes the selected framework to the container.
+A comparison run builds `nimf-latency-<distro>:frameworks-<framework>` on top of
+`nimf-latency-<distro>:test`, so Nimf images stay free of IBus and Fcitx5
+packages. `tests/latency/Dockerfile.frameworks.ubuntu` and
+`tests/latency/Dockerfile.frameworks.arch` install the framework, its GTK3 and
+GTK4 modules, and the language engine. The layer build writes
+`frameworks-build.log`. `REUSE_BASE=1` skips only the dependency images, so the
+Nimf image and the comparison layer still build. The same probe and driver
+binaries serve every framework.
+
+`IM_FRAMEWORK=upstream` measures this fork's direct upstream, `hamonikr/nimf`.
+`tests/latency/Dockerfile.upstream` clones the revision pinned in
+`UPSTREAM_REVISION` (default `b4a141aec1c833541f163da8b1beb9ab1e0c0615`, the
+revision used by the 2026-11-08 archive) and installs its library, server, GTK3
+and GTK4 modules, and Hangul engine over `nimf-latency-<distro>:test` with `-g
+-O2`. The tag is `nimf-latency-<distro>:upstream` and the build log is
+`upstream-build.log`. Upstream has no Mozc engine, so `IM_FRAMEWORK=upstream`
+with `INPUT_LANGUAGE=ja` exits before any image build; Anthy is not
+substituted. `versions.txt` copies the repository, revision, and flags from
+`/opt/upstream-info`. Upstream keeps the `nimf` daemon and socket path, so the
+same driver and readiness check apply. Upstream does not exit on SIGTERM, so
+its runs record `forced` in `shutdown.txt`.
+
+Arch IBus Japanese builds the IBus Mozc engine from the same source revision as
+the Mozc server that Nimf uses, so both frameworks talk to one server binary.
+Arch Fcitx5 Japanese installs the packaged Mozc engine instead, which replaces
+`/usr/lib/mozc/mozc_server` in that image only. Korean keeps the source-built
+server. `versions.txt` records package versions plus server and helper hashes, so
+the engine difference stays visible in the evidence. Ubuntu uses packaged Mozc for
+all three frameworks.
+
+`PROFILE=1` is Nimf only. Combining it with `ibus`, `fcitx5`, or `upstream` fails before an
+image build, and the container session rejects the same combination. The known
+Ubuntu IBus 1.5.29 failure of the Japanese GTK4 commit gate needs `TOOLKIT=gtk3`
+for that combination. `bash tests/latency/check.sh` verifies runner argument
+passing and these rejections without starting a container.
 
 `framework.sh` configures each fresh profile before starting its daemon. Korean
 uses Dubeolsik with word commit and automatic reordering disabled. Japanese uses
@@ -165,7 +208,19 @@ Report first-input startup separately because frameworks initialize engines at
 different times. Use injection-to-screen timing as the primary comparison;
 neither widget callbacks nor these whole-stack results isolate framework CPU cost.
 
+## Related checks
+
+`bash tests/cursor/run.sh nimf-latency-ubuntu:test` reuses the images built here to prove
+that a window move still produces a fresh cursor location. It is the correctness gate for
+the cached root coordinates in the GTK client modules, described in tests/cursor/README.md.
+
 ## Recorded results
+
+The [2026-11-16 framework comparison](RESULTS.md) records Nimf against packaged IBus and Fcitx5 on Ubuntu and Arch in GTK3 and GTK4, with engine parity notes.
+
+For internal hotspots, use the [optional input-path profiler](../profile/README.md).
+It separates IPC waits, toolkit callbacks, engine work, and helper requests.
+The existing framebuffer timing bounds remain unchanged.
 
 The [2026-11-08 benchmark archive](../benchmarks/2026-11-08/README.md) includes
 Korean and Japanese comparisons, upstream Nimf, O2/O3 measurements, and memory

@@ -7,13 +7,22 @@ result=${1:?Result directory is required}
 framework=${IM_FRAMEWORK:-nimf}
 language=${INPUT_LANGUAGE:-ja}
 case "$language" in ja|ko) ;; *) echo 'INPUT_LANGUAGE must be ja or ko' >&2; exit 2 ;; esac
+if [[ $framework == upstream && $language == ja ]]; then
+    echo 'Upstream Nimf has no Mozc engine; set INPUT_LANGUAGE=ko or use IM_FRAMEWORK=nimf' >&2
+    exit 2
+fi
 case "$framework" in
-    nimf)
+    nimf|upstream)
         export GTK_IM_MODULE=nimf
-        engine=mozc
-        if [[ $language == ko ]]; then engine=libhangul; fi
+        engine=libhangul
+        candidates=(rime anthy libhangul)
+        if [[ $framework == nimf ]]; then
+            engine=mozc
+            if [[ $language == ko ]]; then engine=libhangul; fi
+            candidates=(rime anthy libhangul mozc)
+        fi
         gsettings set org.nimf setup-environment-variables false
-        for candidate in rime anthy libhangul mozc; do
+        for candidate in "${candidates[@]}"; do
             active=false
             if [[ $candidate == "$engine" ]]; then active=true; fi
             gsettings set "org.nimf.engines.nimf-$candidate" active-engine "$active"
@@ -84,5 +93,5 @@ EOF
         fcitx5 -D --disable=wayland > "$result/fcitx5.log" 2>&1 &
         server=$!
         ;;
-    *) echo 'IM_FRAMEWORK must be nimf, ibus, or fcitx5' >&2; exit 2 ;;
+    *) echo 'IM_FRAMEWORK must be nimf, upstream, ibus, or fcitx5' >&2; exit 2 ;;
 esac

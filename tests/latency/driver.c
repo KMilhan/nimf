@@ -6,6 +6,7 @@
 #include <X11/extensions/XTest.h>
 #include <errno.h>
 #include <locale.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -259,6 +260,34 @@ print_summary (const Step *step, GArray *samples)
   }
 }
 
+static gboolean
+force_probe_exit (gpointer data)
+{
+  g_subprocess_force_exit (G_SUBPROCESS (data));
+  return G_SOURCE_REMOVE;
+}
+
+static void
+probe_exited (GObject *object, GAsyncResult *result, gpointer data)
+{
+  g_subprocess_wait_finish (G_SUBPROCESS (object), result, NULL);
+  g_main_loop_quit (data);
+}
+
+static void
+stop_probe (GSubprocess *child)
+{
+  g_autoptr(GMainLoop) loop = g_main_loop_new (NULL, FALSE);
+  g_autoptr(GSource) timeout = g_timeout_source_new (2000);
+  g_source_set_callback (timeout, force_probe_exit, child, NULL);
+  g_source_attach (timeout, NULL);
+  if (g_subprocess_get_identifier (child))
+    g_subprocess_send_signal (child, SIGTERM);
+  g_subprocess_wait_async (child, NULL, probe_exited, loop);
+  g_main_loop_run (loop);
+  g_source_destroy (timeout);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -401,8 +430,7 @@ cleanup:
   if (csv && fclose (csv) != 0) status = EXIT_FAILURE;
   g_free (probe.preedit);
   g_free (probe.text);
-  g_subprocess_force_exit (child);
-  g_subprocess_wait (child, NULL, NULL);
+  stop_probe (child);
   XCloseDisplay (display);
   return status;
 }

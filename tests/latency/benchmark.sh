@@ -10,7 +10,7 @@ trap cleanup EXIT
 for ((attempt=0; attempt<100; attempt++)); do
     kill -0 "$server"
     case "$framework" in
-        nimf) [[ -S $XDG_RUNTIME_DIR/nimf/socket ]] && break ;;
+        nimf|upstream) [[ -S $XDG_RUNTIME_DIR/nimf/socket ]] && break ;;
         ibus) ibus engine "$engine" 2>/dev/null && break ;;
         fcitx5)
             # Query the bus itself to avoid activating a competing daemon.

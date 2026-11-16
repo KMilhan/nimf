@@ -1,0 +1,25 @@
+# Upstream hamonikr/nimf for fork-versus-upstream comparison. Layered on the Nimf latency image.
+# The pinned revision matches the 2026-11-08 archive so both records stay comparable.
+# Upstream has no Mozc engine, so this image only serves INPUT_LANGUAGE=ko.
+ARG BASE_IMAGE=nimf-latency-ubuntu:test
+FROM ${BASE_IMAGE}
+ARG UPSTREAM_REPOSITORY=https://github.com/hamonikr/nimf.git
+ARG UPSTREAM_REVISION=b4a141aec1c833541f163da8b1beb9ab1e0c0615
+USER root
+RUN git init /opt/upstream-nimf \
+ && git -C /opt/upstream-nimf remote add origin "$UPSTREAM_REPOSITORY" \
+ && git -C /opt/upstream-nimf fetch --depth 1 origin "$UPSTREAM_REVISION" \
+ && git -C /opt/upstream-nimf checkout --detach FETCH_HEAD \
+ && git -C /opt/upstream-nimf rev-parse HEAD > /opt/upstream-revision
+WORKDIR /opt/upstream-nimf
+ENV CFLAGS="-g -O2" CXXFLAGS="-g -O2" LDFLAGS=""
+RUN mkdir -p m4 && gtkdocize && autoreconf --force --install \
+ && ./configure --prefix=/usr --enable-gtk4 --disable-gtk2 --disable-nimf-m17n \
+ && make -j8 && make install && ldconfig \
+ && glib-compile-schemas /usr/share/glib-2.0/schemas && make update-gtk-im-cache \
+ && printf "repository=%s\\nrevision=%s\\ncflags=%s\\n" "$UPSTREAM_REPOSITORY" "$(cat /opt/upstream-revision)" "$CFLAGS" > /opt/upstream-info
+RUN for directory in /usr/lib/gtk-4.0/4.0.0/immodules /usr/lib/x86_64-linux-gnu/gtk-4.0/4.0.0/immodules; do \
+      if test -d "$directory"; then gio-querymodules "$directory"; fi; \
+    done
+WORKDIR /src
+USER tester
