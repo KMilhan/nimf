@@ -658,7 +658,10 @@ nimf_server_load_engines (NimfServer *server)
         NimfEngine *engine;
         gchar      *path;
 
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+        /* Module file names still follow the libtool layout. */
         path = g_module_build_path (NIMF_MODULE_DIR, engine_id);
+        G_GNUC_END_IGNORE_DEPRECATIONS
         module = nimf_module_new (path);
 
         if (!g_type_module_use (G_TYPE_MODULE (module)))
@@ -726,7 +729,9 @@ on_changed_active_engines (GSettings  *settings,
       {
         gchar *path;
 
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
         path = g_module_build_path (NIMF_MODULE_DIR, engine_ids[i]);
+        G_GNUC_END_IGNORE_DEPRECATIONS
         module = nimf_module_new (path);
 
         if (!g_type_module_use (G_TYPE_MODULE (module)))

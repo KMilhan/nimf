@@ -597,11 +597,14 @@ nimf_gtk4_im_context_get_root_cursor (NimfGtk4IMContext *context,
   }
 
   GdkDisplay *display = gdk_surface_get_display (surface);
+  G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  /* GTK4 has no supported X11 handle, and the X11 path needs the surface XID. */
   Display *xdisplay = gdk_x11_display_get_xdisplay (display);
   if (!XTranslateCoordinates (xdisplay, gdk_x11_surface_get_xid (surface),
                               DefaultRootWindow (xdisplay), 0, 0,
                               &root_x, &root_y, &child))
     return;
+  G_GNUC_END_IGNORE_DEPRECATIONS
 
   /* The candidate service uses logical screen coordinates, as GTK3 does. */
   nimf_gtk4_im_context_set_cursor_base (context, surface, scale, surface_x,

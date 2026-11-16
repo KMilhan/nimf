@@ -28,6 +28,9 @@
 #include <gdk/gdkx.h>
 #include "nimf-utils-private.h"
 
+/* The tray keeps both the Ayatana AppIndicator and GtkStatusIcon backends. */
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 #define NIMF_TYPE_INDICATOR             (nimf_indicator_get_type ())
 #define NIMF_INDICATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), NIMF_TYPE_INDICATOR, NimfIndicator))
 #define NIMF_INDICATOR_CLASS(class)     (G_TYPE_CHECK_CLASS_CAST ((class), NIMF_TYPE_INDICATOR, NimfIndicatorClass))
@@ -633,3 +636,5 @@ GType module_get_type ()
 
   return nimf_indicator_get_type ();
 }
+
+G_GNUC_END_IGNORE_DEPRECATIONS
