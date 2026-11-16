@@ -289,15 +289,13 @@ static void nimf_rime_update (NimfEngine    *engine,
 
   /* commit text */
   RIME_STRUCT (RimeCommit, commit);
-  gboolean has_commit = FALSE;
 
   if (RimeGetCommit (rime->session_id, &commit))
   {
     g_debug ("RIME: Committing text: %s", commit.text);
     nimf_engine_emit_commit (engine, target, commit.text);
     RimeFreeCommit (&commit);
-    has_commit = TRUE;
-    
+
     /* Hide candidatable immediately after commit and clear all content */
     g_debug ("RIME: Hiding candidatable after commit");
     nimf_candidatable_clear (rime->candidatable, target);
@@ -474,8 +472,9 @@ nimf_rime_filter_event (NimfEngine    *engine,
     return FALSE;
   }
 
-  g_debug ("RIME: Processing key - keyval=%d (%c), state=%d, session_id=%d", 
-           event->key.keyval, (char)event->key.keyval, event->key.state, rime->session_id);
+  g_debug ("RIME: Processing key - keyval=%d (%c), state=%d, session_id=%lu",
+           event->key.keyval, (char) event->key.keyval, event->key.state,
+           (gulong) rime->session_id);
   
   /* Check if candidatable is visible for special key handling */
   gboolean candidatable_visible = nimf_candidatable_is_visible (rime->candidatable);
@@ -660,7 +659,7 @@ nimf_rime_init (NimfRime *rime)
   nimf_rime_ref_count++;
 
   rime->session_id = RimeCreateSession();
-  g_message ("RIME: Created session with ID=%d", rime->session_id);
+  g_message ("RIME: Created session with ID=%lu", (gulong) rime->session_id);
   
   if (rime->session_id) {
     RimeSetOption (rime->session_id, "simplification", rime->is_simplified);
