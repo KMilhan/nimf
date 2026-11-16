@@ -539,7 +539,10 @@ nimf_settings_page_key_build_string (NimfSettingsPageKey *page_key,
       gchar  *p;
 
       engine_id = schema_id + strlen ("org.nimf.engines.");
+      G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+      /* Module file names still follow the libtool layout. */
       path   = g_module_build_path (NIMF_MODULE_DIR, engine_id);
+      G_GNUC_END_IGNORE_DEPRECATIONS
       module = g_module_open (path, G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
 
       symbol_name = g_strdup_printf ("%s_%s", engine_id, page_key->key);
@@ -1376,60 +1379,6 @@ nimf_settings_build_xkb_options_ui ()
   return scrolled;
 }
 
-static void
-on_row_selected (GtkListBox    *box,
-                 GtkListBoxRow *row,
-                 gpointer       user_data)
-{
-  NimfSettingsPage *page;
-  const gchar      *schema_id;
-  GtkWidget        *content = user_data;
-  GtkWidget        *child;
-
-#if GTK_CHECK_VERSION(4, 0, 0)
-  if ((child = gtk_scrolled_window_get_child (GTK_SCROLLED_WINDOW (content))))
-    gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (content), NULL);
-#else
-  if ((child = gtk_bin_get_child (GTK_BIN (content))))
-    gtk_container_remove (GTK_CONTAINER (content), child);
-#endif
-
-  schema_id = gtk_widget_get_name (GTK_WIDGET (row));
-
-  if (schema_id == NULL || *schema_id == '\0')
-  {
-    g_warning ("Empty schema_id for row widget, skipping");
-    return;
-  }
-
-  if (g_strcmp0 (schema_id, "xkb-options"))
-  {
-    page = nimf_settings_page_new (schema_id);
-    if (page != NULL)
-    {
-#if GTK_CHECK_VERSION(4, 0, 0)
-      gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (content), page->box);
-#else
-      gtk_container_add (GTK_CONTAINER (content), page->box);
-#endif
-    }
-  }
-  else
-  {
-    GtkWidget *xkb = nimf_settings_build_xkb_options_ui ();
-    if (xkb)
-    {
-#if GTK_CHECK_VERSION(4, 0, 0)
-      gtk_scrolled_window_set_child (GTK_SCROLLED_WINDOW (content), xkb);
-#else
-      gtk_container_add (GTK_CONTAINER (content), xkb);
-#endif
-    }
-  }
-
-  gtk_widget_show_all (content);
-}
-
 /* -----------------------------
  * 새 UI 구성 요소 (GTK3/GTK4 겸용)
  * - 좌측 사이드바는 범주 단위로만 구성하고,
@@ -1593,7 +1542,7 @@ on_engine_settings_clicked (GtkButton *button, gpointer user_data)
   gtk_widget_show_all (content_area);
 
   /* Run dialog and validate parent window state */
-  gint response = gtk_dialog_run (GTK_DIALOG (dialog));
+  gtk_dialog_run (GTK_DIALOG (dialog));
 
   /* Check if parent window still exists after dialog closes */
   if (!nimf_settings_window || !GTK_IS_WINDOW (nimf_settings_window))
@@ -1771,28 +1720,6 @@ nimf_settings_build_clients_page (void)
   }
 
   return page;
-}
-
-static void
-append_xkb_menu_after_nimf_menu (GtkWidget *listbox)
-{
-  GtkWidget *label;
-  GtkWidget *row;
-  label = gtk_label_new (_("XKB Options"));
-  row   = gtk_list_box_row_new ();
-  gtk_widget_set_name (row, "xkb-options");
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (row), FALSE);
-#if GTK_CHECK_VERSION(4, 0, 0)
-  gtk_list_box_row_set_child (GTK_LIST_BOX_ROW (row), label);
-#else
-  gtk_container_add (GTK_CONTAINER (row), label);
-#endif
-  gtk_widget_set_halign (label, GTK_ALIGN_START);
-  gtk_widget_set_margin_start  (label, 15);
-  gtk_widget_set_margin_end    (label, 15);
-  gtk_widget_set_margin_top    (label, 5);
-  gtk_widget_set_margin_bottom (label, 5);
-  gtk_list_box_insert (GTK_LIST_BOX (listbox), row, 1);
 }
 
 static GtkWidget *
