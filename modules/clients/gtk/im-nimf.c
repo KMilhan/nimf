@@ -45,6 +45,24 @@ struct _NimfGtkIMContext
   NimfIM       *im;
   GtkIMContext *simple;
   GdkWindow    *client_window;
+  /* Root coordinates of client_window (0, 0). Reusing them skips an X round
+   * trip while the geometry below stays the way GDK already tracks it. */
+  GdkWindow    *cursor_window;
+  gboolean      has_cursor_origin;
+  gint          cursor_origin_x;
+  gint          cursor_origin_y;
+  /* Geometry GDK already knows about, taken together with the origin. A move
+   * or a resize changes it, so the cached origin stops being usable. GDK keeps
+   * these values in its own cache, so checking them costs no round trip. */
+  GdkWindow    *cursor_toplevel;
+  gint          cursor_window_x;
+  gint          cursor_window_y;
+  gint          cursor_window_width;
+  gint          cursor_window_height;
+  gint          cursor_toplevel_x;
+  gint          cursor_toplevel_y;
+  gint          cursor_toplevel_width;
+  gint          cursor_toplevel_height;
   GSettings    *settings;
   gboolean      is_reset_on_gdk_button_press_event;
   gboolean      is_hook_gdk_event_key;
@@ -185,6 +203,79 @@ on_gdk_x_event (XEvent           *xevent,
 }
 
 static void
+nimf_gtk_im_context_clear_cursor_origin (NimfGtkIMContext *context)
+{
+  g_clear_object (&context->cursor_window);
+  context->has_cursor_origin = FALSE;
+  context->cursor_toplevel = NULL;
+}
+
+/* The cached origin belongs to the window it was taken from. It stays usable
+ * while the client window and its toplevel keep the position and size that GDK
+ * already tracks, so a move or a resize forces a fresh coordinate lookup. */
+static gboolean
+nimf_gtk_im_context_cursor_origin_is_usable (NimfGtkIMContext *context)
+{
+  GdkWindow *window = context->client_window;
+  GdkWindow *toplevel = window ? gdk_window_get_toplevel (window) : NULL;
+  gint x, y;
+
+  if (!context->has_cursor_origin || context->cursor_window != window ||
+      context->cursor_toplevel != toplevel)
+    return FALSE;
+
+  gdk_window_get_position (window, &x, &y);
+
+  if (context->cursor_window_x != x || context->cursor_window_y != y ||
+      context->cursor_window_width  != gdk_window_get_width (window) ||
+      context->cursor_window_height != gdk_window_get_height (window))
+    return FALSE;
+
+  gdk_window_get_position (toplevel, &x, &y);
+
+  if (context->cursor_toplevel_x != x || context->cursor_toplevel_y != y ||
+      context->cursor_toplevel_width  != gdk_window_get_width (toplevel) ||
+      context->cursor_toplevel_height != gdk_window_get_height (toplevel))
+    return FALSE;
+
+  return TRUE;
+}
+
+static void
+nimf_gtk_im_context_set_cursor_origin (NimfGtkIMContext *context,
+                                       gint              origin_x,
+                                       gint              origin_y)
+{
+  GdkWindow *window = context->client_window;
+  GdkWindow *toplevel = window ? gdk_window_get_toplevel (window) : NULL;
+  gint x, y;
+
+  if (context->cursor_window != context->client_window)
+  {
+    g_clear_object (&context->cursor_window);
+    if (context->client_window)
+      context->cursor_window = g_object_ref (context->client_window);
+  }
+
+  context->has_cursor_origin = TRUE;
+  context->cursor_origin_x = origin_x;
+  context->cursor_origin_y = origin_y;
+  context->cursor_toplevel = toplevel;
+
+  gdk_window_get_position (window, &x, &y);
+  context->cursor_window_x = x;
+  context->cursor_window_y = y;
+  context->cursor_window_width = gdk_window_get_width (window);
+  context->cursor_window_height = gdk_window_get_height (window);
+
+  gdk_window_get_position (toplevel, &x, &y);
+  context->cursor_toplevel_x = x;
+  context->cursor_toplevel_y = y;
+  context->cursor_toplevel_width = gdk_window_get_width (toplevel);
+  context->cursor_toplevel_height = gdk_window_get_height (toplevel);
+}
+
+static void
 nimf_gtk_im_context_set_client_window (GtkIMContext *context,
                                        GdkWindow    *window)
 {
@@ -197,6 +288,8 @@ nimf_gtk_im_context_set_client_window (GtkIMContext *context,
     g_object_unref (a_context->client_window);
     a_context->client_window = NULL;
   }
+
+  nimf_gtk_im_context_clear_cursor_origin (a_context);
 
   if (window)
     a_context->client_window = g_object_ref (window);
@@ -294,11 +387,22 @@ nimf_gtk_im_context_set_cursor_location (GtkIMContext *context,
   if (nimf_context->client_window)
   {
     NIMF_PROFILE_SCOPE (NIMF_PROFILE_GTK_CURSOR, 0);
-    gdk_window_get_root_coords (nimf_context->client_window,
-                                area->x,
-                                area->y,
-                                &root_area.x,
-                                &root_area.y);
+
+    if (nimf_gtk_im_context_cursor_origin_is_usable (nimf_context))
+    {
+      root_area.x = nimf_context->cursor_origin_x + area->x;
+      root_area.y = nimf_context->cursor_origin_y + area->y;
+    }
+    else
+    {
+      gint origin_x, origin_y;
+      gdk_window_get_root_coords (nimf_context->client_window, 0, 0,
+                                  &origin_x, &origin_y);
+      nimf_gtk_im_context_set_cursor_origin (nimf_context, origin_x,
+                                             origin_y);
+      root_area.x = origin_x + area->x;
+      root_area.y = origin_y + area->y;
+    }
   }
 
   nimf_im_set_cursor_location (NIMF_GTK_IM_CONTEXT (context)->im,
@@ -594,6 +698,7 @@ nimf_gtk_im_context_dispose (GObject *object)
   g_clear_object (&context->simple);
   g_clear_object (&context->settings);
 
+  g_clear_object (&context->cursor_window);
   g_clear_object (&context->client_window);
 
   /* STEP 6: Chain up to parent */

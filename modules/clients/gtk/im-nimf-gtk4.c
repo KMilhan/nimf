@@ -35,6 +35,12 @@
 #define NIMF_GTK4_IS_IM_CONTEXT(obj)  (G_TYPE_CHECK_INSTANCE_TYPE ((obj), NIMF_GTK4_TYPE_IM_CONTEXT))
 #define NIMF_GTK4_IS_IM_CONTEXT_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), NIMF_GTK4_TYPE_IM_CONTEXT))
 
+/* GTK4 tracks no surface position and a window move reaches neither the widget
+ * nor GdkSurface, so a cached root origin cannot prove itself fresh. It expires
+ * after this many microseconds, which bounds how long a moved window keeps a
+ * stale candidate position. */
+#define NIMF_GTK4_CURSOR_BASE_TTL_US 250000
+
 typedef struct _NimfGtk4IMContext      NimfGtk4IMContext;
 typedef struct _NimfGtk4IMContextClass NimfGtk4IMContextClass;
 
@@ -46,6 +52,19 @@ struct _NimfGtk4IMContext
   GtkIMContext *simple;
   GtkWidget    *client_widget;
   GdkSurface   *client_surface;
+  /* Root coordinates of a surface combined with its surface transform and the
+   * time they were taken. Reusing them skips an X round trip while the same
+   * surface keeps its scale factor and size, and while the entry is new. */
+  GdkSurface   *cursor_surface;
+  gboolean      has_cursor_base;
+  gdouble       cursor_base_x;
+  gdouble       cursor_base_y;
+  gint          cursor_scale;
+  gdouble       cursor_transform_x;
+  gdouble       cursor_transform_y;
+  gint          cursor_surface_width;
+  gint          cursor_surface_height;
+  gint64        cursor_base_time;
   GSettings    *settings;
   GtkEventController *key_controller;
   gboolean      is_reset_on_button_press_event;
@@ -263,6 +282,61 @@ on_key_released (GtkEventControllerKey *controller,
 }
 
 /* IM Context method implementations */
+#ifdef GDK_WINDOWING_X11
+static void
+nimf_gtk4_im_context_clear_cursor_base (NimfGtk4IMContext *context)
+{
+  g_clear_object (&context->cursor_surface);
+  context->has_cursor_base = FALSE;
+  context->cursor_base_x = 0;
+  context->cursor_base_y = 0;
+}
+
+static gboolean
+nimf_gtk4_im_context_cursor_base_is_usable (NimfGtk4IMContext *context,
+                                            GdkSurface        *surface,
+                                            gint               scale,
+                                            gdouble            transform_x,
+                                            gdouble            transform_y)
+{
+  return context->has_cursor_base &&
+         g_get_monotonic_time () - context->cursor_base_time < NIMF_GTK4_CURSOR_BASE_TTL_US &&
+         context->cursor_surface == surface &&
+         context->cursor_scale == scale &&
+         context->cursor_transform_x == transform_x &&
+         context->cursor_transform_y == transform_y &&
+         context->cursor_surface_width  == gdk_surface_get_width (surface) &&
+         context->cursor_surface_height == gdk_surface_get_height (surface);
+}
+
+static void
+nimf_gtk4_im_context_set_cursor_base (NimfGtk4IMContext *context,
+                                      GdkSurface        *surface,
+                                      gint               scale,
+                                      gdouble            transform_x,
+                                      gdouble            transform_y,
+                                      gint               root_x,
+                                      gint               root_y)
+{
+  if (context->cursor_surface != surface)
+  {
+    g_clear_object (&context->cursor_surface);
+    if (surface)
+      context->cursor_surface = g_object_ref (surface);
+  }
+
+  context->has_cursor_base = TRUE;
+  context->cursor_base_time = g_get_monotonic_time ();
+  context->cursor_scale = scale;
+  context->cursor_transform_x = transform_x;
+  context->cursor_transform_y = transform_y;
+  context->cursor_surface_width = gdk_surface_get_width (surface);
+  context->cursor_surface_height = gdk_surface_get_height (surface);
+  context->cursor_base_x = root_x / scale + transform_x;
+  context->cursor_base_y = root_y / scale + transform_y;
+}
+#endif
+
 static void
 nimf_gtk4_im_context_set_client_widget (GtkIMContext *context, GtkWidget *widget)
 {
@@ -285,6 +359,10 @@ nimf_gtk4_im_context_set_client_widget (GtkIMContext *context, GtkWidget *widget
     g_object_unref (nimf_context->client_surface);
     nimf_context->client_surface = NULL;
   }
+
+#ifdef GDK_WINDOWING_X11
+  nimf_gtk4_im_context_clear_cursor_base (nimf_context);
+#endif
 
   if (nimf_context->key_controller)
   {
@@ -493,19 +571,30 @@ nimf_gtk4_im_context_get_root_cursor (NimfGtk4IMContext *context,
                                      NimfRectangle     *area)
 {
 #ifdef GDK_WINDOWING_X11
+  int scale, root_x, root_y;
+  Window child;
   GtkWidget *widget = context->client_widget;
   GtkNative *native = widget ? gtk_widget_get_native (widget) : NULL;
   GdkSurface *surface = native ? gtk_native_get_surface (native) : NULL;
   graphene_point_t point = {area->x, area->y};
   graphene_point_t native_point;
   double surface_x, surface_y;
-  int root_x, root_y, scale;
-  Window child;
 
   if (!surface || !GDK_IS_X11_SURFACE (surface) ||
       gdk_surface_is_destroyed (surface) ||
       !gtk_widget_compute_point (widget, GTK_WIDGET (native), &point, &native_point))
     return;
+
+  scale = gdk_surface_get_scale_factor (surface);
+  gtk_native_get_surface_transform (native, &surface_x, &surface_y);
+
+  if (nimf_gtk4_im_context_cursor_base_is_usable (context, surface, scale,
+                                                  surface_x, surface_y))
+  {
+    area->x = context->cursor_base_x + native_point.x;
+    area->y = context->cursor_base_y + native_point.y;
+    return;
+  }
 
   GdkDisplay *display = gdk_surface_get_display (surface);
   Display *xdisplay = gdk_x11_display_get_xdisplay (display);
@@ -515,10 +604,10 @@ nimf_gtk4_im_context_get_root_cursor (NimfGtk4IMContext *context,
     return;
 
   /* The candidate service uses logical screen coordinates, as GTK3 does. */
-  scale = gdk_surface_get_scale_factor (surface);
-  gtk_native_get_surface_transform (native, &surface_x, &surface_y);
-  area->x = root_x / scale + native_point.x + surface_x;
-  area->y = root_y / scale + native_point.y + surface_y;
+  nimf_gtk4_im_context_set_cursor_base (context, surface, scale, surface_x,
+                                        surface_y, root_x, root_y);
+  area->x = context->cursor_base_x + native_point.x;
+  area->y = context->cursor_base_y + native_point.y;
 #endif
 }
 
@@ -688,6 +777,7 @@ nimf_gtk4_im_context_dispose (GObject *object)
   /* STEP 5: Clean up resources */
   g_clear_weak_pointer (&context->client_widget);
   g_clear_object (&context->client_surface);
+  g_clear_object (&context->cursor_surface);
   g_clear_object (&context->im);
   g_clear_object (&context->simple);
   g_clear_object (&context->settings);
