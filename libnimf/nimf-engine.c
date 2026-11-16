@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-engine.h"
 #include "nimf-server.h"
 #include "nimf-server-private.h"
@@ -110,6 +111,7 @@ nimf_engine_filter_event (NimfEngine    *engine,
                           NimfServiceIC *ic,
                           NimfEvent     *event)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_ENGINE_FILTER, event ? event->key.type : -1);
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   g_autoptr(GObject) retained = g_object_ref (G_OBJECT (engine));

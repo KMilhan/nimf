@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-nim-ic.h"
 #include <string.h>
 #include "nimf-connection.h"
@@ -31,6 +32,7 @@ static gboolean
 nimf_nim_ic_request (NimfNimIC *nic, NimfMessageType type,
                      gpointer data, gsize size, GDestroyNotify destroy)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_SERVER_EMIT, type);
   g_autoptr(NimfConnection) connection = nic->connection ?
     g_object_ref (nic->connection) : NULL;
   if (connection == NULL || connection->result->cancelled)

@@ -17,6 +17,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-mozc-helper.h"
 #include <gio/gio.h>
 #include <gio/gunixinputstream.h>
@@ -109,6 +110,7 @@ helper_poll (NimfMozcHelper *helper, gint timeout_ms)
 static gchar *
 helper_read_line (NimfMozcHelper *helper)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_MOZC_READ, 0);
   GPollableInputStream *stream = G_POLLABLE_INPUT_STREAM (helper->output);
   gint64 deadline = g_get_monotonic_time () +
                     (gint64) helper->timeout_ms * G_TIME_SPAN_MILLISECOND;
@@ -177,6 +179,7 @@ helper_read_reply (NimfMozcHelper *helper)
 static NimfMozcSexp *
 helper_request (NimfMozcHelper *helper, const gchar *command)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_MOZC_REQUEST, 0);
   g_autofree gchar *line = NULL;
   gboolean      written;
   NimfMozcSexp *reply;
@@ -241,6 +244,7 @@ helper_create_session (NimfMozcHelper *helper)
 static gboolean
 helper_start (NimfMozcHelper *helper)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_MOZC_START, 0);
   g_autoptr(GError) error = NULL;
 
   if (helper->process)
@@ -322,6 +326,7 @@ nimf_mozc_helper_free (NimfMozcHelper *helper)
 NimfMozcSexp *
 nimf_mozc_helper_send_key (NimfMozcHelper *helper, const gchar *tokens)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_MOZC_KEY, 0);
   g_autofree gchar *command = NULL;
   NimfMozcSexp *reply;
 

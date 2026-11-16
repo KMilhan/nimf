@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-service-ic.h"
 #include "nimf-module-private.h"
 #include <string.h>
@@ -410,6 +411,7 @@ gboolean
 nimf_service_ic_filter_event (NimfServiceIC *ic,
                               NimfEvent     *event)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_SERVER_FILTER, event ? event->key.type : -1);
   g_autoptr(GObject) retained_context = ic ? g_object_ref (G_OBJECT (ic)) : NULL;
 
   g_debug (G_STRLOC ": %s", G_STRFUNC);

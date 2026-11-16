@@ -17,6 +17,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-mozc-sexp.h"
 #include <string.h>
 
@@ -207,6 +208,7 @@ parse_value (const gchar **cursor, guint depth)
 NimfMozcSexp *
 nimf_mozc_sexp_parse (const gchar *text)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_MOZC_PARSE, 0);
   const gchar  *cursor = text;
   NimfMozcSexp *sexp   = parse_value (&cursor, 0);
 

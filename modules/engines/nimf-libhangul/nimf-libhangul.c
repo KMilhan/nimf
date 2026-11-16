@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "config.h"
 #include <nimf.h>
 #include <hangul.h>
@@ -598,7 +599,10 @@ nimf_libhangul_filter_event (NimfEngine    *engine,
       nimf_libhangul_filter_leading_consonant (engine, target, keyval))
     return TRUE;
 
-  retval = hangul_ic_process (hangul->context, keyval);
+  {
+    NIMF_PROFILE_SCOPE (NIMF_PROFILE_HANGUL_PROCESS, 0);
+    retval = hangul_ic_process (hangul->context, keyval);
+  }
 
   ucs_commit  = hangul_ic_get_commit_string  (hangul->context);
   ucs_preedit = hangul_ic_get_preedit_string (hangul->context);

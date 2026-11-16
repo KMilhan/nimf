@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <nimf.h>
@@ -334,6 +335,7 @@ nimf_gtk4_im_context_get_preedit_string (GtkIMContext   *context,
                                          PangoAttrList **attrs,
                                          gint           *cursor_pos)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_GTK_PREEDIT, 0);
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   NimfGtk4IMContext *nimf_context = NIMF_GTK4_IM_CONTEXT (context);
@@ -530,7 +532,10 @@ nimf_gtk4_im_context_set_cursor_location (GtkIMContext *context, GdkRectangle *a
   if (nimf_context->im && area)
   {
     NimfRectangle nimf_area = {area->x, area->y, area->width, area->height};
-    nimf_gtk4_im_context_get_root_cursor (nimf_context, &nimf_area);
+    {
+      NIMF_PROFILE_SCOPE (NIMF_PROFILE_GTK_CURSOR, 0);
+      nimf_gtk4_im_context_get_root_cursor (nimf_context, &nimf_area);
+    }
     nimf_im_set_cursor_location (nimf_context->im, &nimf_area);
   }
 

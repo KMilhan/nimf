@@ -6,11 +6,16 @@ cd /src
 mkdir -p m4
 gtkdocize
 autoreconf --force --install
-./configure --prefix=/usr --enable-gtk4 --disable-gtk2
+profile_option=--disable-profiling
+if [[ ${NIMF_BUILD_PROFILING:-0} == 1 ]]; then profile_option=--enable-profiling; fi
+./configure --prefix=/usr --enable-gtk4 --disable-gtk2 "$profile_option"
 make -j8
 if ! make check; then
     cat libnimf/test-suite.log modules/engines/nimf-mozc/test-suite.log 2>/dev/null || true
     exit 1
+fi
+if [[ ${NIMF_BUILD_PROFILING:-0} == 1 ]]; then
+    bash tests/profile/check.sh
 fi
 make install
 ldconfig
@@ -22,7 +27,7 @@ read -r -a cflags <<< "${CFLAGS:-}"
 read -r -a cxxflags <<< "${CXXFLAGS:-}"
 read -r -a ldflags <<< "${LDFLAGS:-}"
 read -r -a flags <<< "$(pkg-config --cflags --libs gio-unix-2.0)"
-"${CC:-cc}" "${cflags[@]}" -Wall -Wextra -Imodules/engines/nimf-mozc tests/mozc/helper-probe.c \
+"${CC:-cc}" "${cflags[@]}" -Wall -Wextra -Ilibnimf -Imodules/engines/nimf-mozc tests/mozc/helper-probe.c \
     modules/engines/nimf-mozc/nimf-mozc-helper.c \
     modules/engines/nimf-mozc/nimf-mozc-sexp.c \
     -o /usr/local/bin/nimf-helper-probe "${flags[@]}" "${ldflags[@]}"

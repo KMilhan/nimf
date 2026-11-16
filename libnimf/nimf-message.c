@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-message-private.h"
 #include "nimf-types.h"
 #include "nimf-message-enum-types-private.h"
@@ -201,6 +202,7 @@ nimf_result_iteration_until (NimfResult      *result,
                              guint16          icid,
                              NimfMessageType  type)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_WAIT, type);
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   g_autoptr(NimfResult) retained = nimf_result_ref (result);
@@ -242,6 +244,7 @@ nimf_send_message (GSocket         *socket,
                    gsize            data_len,
                    GDestroyNotify   data_destroy_func)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_SEND, type);
   g_debug (G_STRLOC ": %s: fd = %d", G_STRFUNC, g_socket_get_fd (socket));
 
   g_autoptr(NimfMessage) message = NULL;
@@ -357,6 +360,7 @@ message_body_is_valid (const NimfMessage *message)
 
 NimfMessage *nimf_recv_message (GSocket *socket)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_RECEIVE, 0);
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   g_autoptr(NimfMessage) message = nimf_message_new ();

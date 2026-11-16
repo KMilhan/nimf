@@ -29,6 +29,12 @@ AS_IF([test "x$enable_hardening" != "xno"],
 
 AC_SUBST(EXTRA_CFLAGS)
 
+AC_ARG_ENABLE([profiling],
+  AS_HELP_STRING([--enable-profiling], [Enable private input-path profiling]),
+  [], [enable_profiling=no])
+AS_IF([test "x$enable_profiling" = "xyes"],
+  [AC_DEFINE([NIMF_ENABLE_PROFILING], [1], [Enable input-path profiling])])
+
 dnl ***************************************************************************
 dnl Internationalization
 dnl ***************************************************************************

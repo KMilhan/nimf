@@ -19,6 +19,7 @@
  * along with this program;  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "nimf-profile-private.h"
 #include "nimf-im.h"
 #include <string.h>
 #include "nimf-marshalers-private.h"
@@ -94,6 +95,45 @@ nimf_im_is_connected ()
   return nimf_im_socket && g_socket_is_connected (nimf_im_socket);
 }
 
+/* Profiled separately from the toolkit handlers that the emission runs. */
+#define EMIT_PROFILED(message, ...) G_STMT_START { \
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_CLIENT_SIGNAL, (message)->header.type); \
+  g_signal_emit (__VA_ARGS__); \
+} G_STMT_END
+
+static void
+update_preedit_state (NimfIM *im, const NimfMessage *message)
+{
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_CLIENT_STATE, message->header.type);
+  gint i;
+
+  g_free (im->priv->preedit_string);
+  im->priv->preedit_string = g_strndup (message->data,
+                                        message->header.data_len - 1 - sizeof (gint));
+
+  gint str_len = strlen (message->data);
+  gint n_attr = (message->header.data_len - str_len - 1 - sizeof (gint)) /
+                 sizeof (NimfPreeditAttr);
+
+  nimf_preedit_attr_freev (im->priv->preedit_attrs);
+  im->priv->preedit_attrs = g_malloc0_n (n_attr + 1, sizeof (NimfPreeditAttr *));
+
+  for (i = 0; i < n_attr; i++)
+#if GLIB_CHECK_VERSION(2, 68, 0)
+    im->priv->preedit_attrs[i] = g_memdup2 (message->data + str_len + 1 + i * sizeof (NimfPreeditAttr),
+                                           sizeof (NimfPreeditAttr));
+#else
+    im->priv->preedit_attrs[i] = g_memdup (message->data + str_len + 1 + i * sizeof (NimfPreeditAttr),
+                                          sizeof (NimfPreeditAttr));
+#endif
+
+  im->priv->preedit_attrs[n_attr] = NULL;
+
+  memcpy (&im->priv->cursor_pos,
+          message->data + message->header.data_len - sizeof (gint),
+          sizeof (gint));
+}
+
 static gboolean
 dispatch_incoming_message (GSocket      *socket,
                      GIOCondition  condition,
@@ -139,6 +179,7 @@ dispatch_incoming_message (GSocket      *socket,
     return G_SOURCE_REMOVE;
   }
 
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_CLIENT_DISPATCH, message->header.type);
   nimf_im_result->reply = nimf_message_ref (message);
   gboolean retval;
 
@@ -175,71 +216,42 @@ dispatch_incoming_message (GSocket      *socket,
   {
     /* signals */
     case NIMF_MESSAGE_PREEDIT_START:
-      g_signal_emit (im, im_signals[PREEDIT_START], 0);
+      EMIT_PROFILED (message, im, im_signals[PREEDIT_START], 0);
       nimf_send_message (socket, im->priv->id, NIMF_MESSAGE_PREEDIT_START_REPLY,
                          NULL, 0, NULL);
       break;
     case NIMF_MESSAGE_PREEDIT_END:
-      g_signal_emit (im, im_signals[PREEDIT_END], 0);
+      EMIT_PROFILED (message, im, im_signals[PREEDIT_END], 0);
       nimf_send_message (socket, im->priv->id, NIMF_MESSAGE_PREEDIT_END_REPLY,
                          NULL, 0, NULL);
       break;
     case NIMF_MESSAGE_PREEDIT_CHANGED:
-      {
-        gint    i;
-
-        g_free (im->priv->preedit_string);
-        im->priv->preedit_string = g_strndup (message->data,
-                                              message->header.data_len - 1 - sizeof (gint));
-
-        gint str_len = strlen (message->data);
-        gint n_attr = (message->header.data_len - str_len - 1 - sizeof (gint)) /
-                       sizeof (NimfPreeditAttr);
-
-        nimf_preedit_attr_freev (im->priv->preedit_attrs);
-        im->priv->preedit_attrs = g_malloc0_n (n_attr + 1,
-                                               sizeof (NimfPreeditAttr *));
-
-        for (i = 0; i < n_attr; i++)
-#if GLIB_CHECK_VERSION(2, 68, 0)
-          im->priv->preedit_attrs[i] = g_memdup2 (message->data + str_len + 1 + i * sizeof (NimfPreeditAttr),
-                                                 sizeof (NimfPreeditAttr));
-#else
-          im->priv->preedit_attrs[i] = g_memdup (message->data + str_len + 1 + i * sizeof (NimfPreeditAttr),
-                                                sizeof (NimfPreeditAttr));
-#endif
-
-        im->priv->preedit_attrs[n_attr] = NULL;
-
-        memcpy (&im->priv->cursor_pos,
-                message->data + message->header.data_len - sizeof (gint),
-                sizeof (gint));
-        g_signal_emit (im, im_signals[PREEDIT_CHANGED], 0);
-        nimf_send_message (socket, im->priv->id,
-                           NIMF_MESSAGE_PREEDIT_CHANGED_REPLY, NULL, 0, NULL);
-      }
+      update_preedit_state (im, message);
+      EMIT_PROFILED (message, im, im_signals[PREEDIT_CHANGED], 0);
+      nimf_send_message (socket, im->priv->id,
+                         NIMF_MESSAGE_PREEDIT_CHANGED_REPLY, NULL, 0, NULL);
       break;
     case NIMF_MESSAGE_COMMIT:
-      g_signal_emit (im, im_signals[COMMIT], 0, (const gchar *) message->data);
+      EMIT_PROFILED (message, im, im_signals[COMMIT], 0, (const gchar *) message->data);
       nimf_send_message (socket, im->priv->id, NIMF_MESSAGE_COMMIT_REPLY,
                          NULL, 0, NULL);
       break;
     case NIMF_MESSAGE_RETRIEVE_SURROUNDING:
-      g_signal_emit (im, im_signals[RETRIEVE_SURROUNDING], 0, &retval);
+      EMIT_PROFILED (message, im, im_signals[RETRIEVE_SURROUNDING], 0, &retval);
       nimf_send_message (socket, im->priv->id,
                          NIMF_MESSAGE_RETRIEVE_SURROUNDING_REPLY,
                          &retval, sizeof (gboolean), NULL);
       break;
     case NIMF_MESSAGE_DELETE_SURROUNDING:
-      g_signal_emit (im, im_signals[DELETE_SURROUNDING], 0,
-                             ((gint *) message->data)[0],
-                             ((gint *) message->data)[1], &retval);
+      EMIT_PROFILED (message, im, im_signals[DELETE_SURROUNDING], 0,
+                     ((gint *) message->data)[0],
+                     ((gint *) message->data)[1], &retval);
       nimf_send_message (socket, im->priv->id,
                          NIMF_MESSAGE_DELETE_SURROUNDING_REPLY,
                          &retval, sizeof (gboolean), NULL);
       break;
     case NIMF_MESSAGE_BEEP:
-      g_signal_emit (im, im_signals[BEEP], 0);
+      EMIT_PROFILED (message, im, im_signals[BEEP], 0);
       nimf_send_message (socket, im->priv->id, NIMF_MESSAGE_BEEP_REPLY,
                          NULL, 0, NULL);
       break;
@@ -394,6 +406,7 @@ static gboolean
 nimf_im_request (NimfIM *im, NimfMessageType type, gpointer data,
                  gsize size, GDestroyNotify destroy)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_CLIENT_REQUEST, type);
   g_autoptr(NimfResult) result = nimf_result_ref (nimf_im_result);
   if (!nimf_send_message (nimf_im_socket, im->priv->id, type, data, size, destroy))
   {
@@ -667,9 +680,13 @@ gboolean
 nimf_im_filter_event (NimfIM    *im,
                       NimfEvent *event)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_CLIENT_FILTER, event ? event->key.type : -1);
   g_debug (G_STRLOC ":%s", G_STRFUNC);
 
-  g_rec_mutex_lock (&nimf_im_mutex);
+  {
+    NIMF_PROFILE_SCOPE (NIMF_PROFILE_CLIENT_LOCK, 0);
+    g_rec_mutex_lock (&nimf_im_mutex);
+  }
   if (!NIMF_IS_IM (im) || !nimf_im_is_connected ())
   {
     g_rec_mutex_unlock (&nimf_im_mutex);

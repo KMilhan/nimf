@@ -26,6 +26,8 @@ libnimf_la_SOURCES = \
 	nimf-module-private.h \
 	nimf-preeditable.c \
 	nimf-preeditable.h \
+	nimf-profile.c \
+	nimf-profile-private.h \
 	nimf-server.c \
 	nimf-server.h \
 	nimf-server-private.h \

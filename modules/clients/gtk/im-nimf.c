@@ -20,6 +20,7 @@
  */
 
 #include "config.h"
+#include "nimf-profile-private.h"
 #include <gtk/gtk.h>
 #include <gtk/gtkimmodule.h>
 #include <glib/gi18n.h>
@@ -207,6 +208,7 @@ nimf_gtk_im_context_get_preedit_string (GtkIMContext   *context,
                                         PangoAttrList **attrs,
                                         gint           *cursor_pos)
 {
+  NIMF_PROFILE_SCOPE (NIMF_PROFILE_GTK_PREEDIT, 0);
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   NimfPreeditAttr **preedit_attrs;
@@ -290,11 +292,14 @@ nimf_gtk_im_context_set_cursor_location (GtkIMContext *context,
   GdkRectangle root_area = *area;
 
   if (nimf_context->client_window)
+  {
+    NIMF_PROFILE_SCOPE (NIMF_PROFILE_GTK_CURSOR, 0);
     gdk_window_get_root_coords (nimf_context->client_window,
                                 area->x,
                                 area->y,
                                 &root_area.x,
                                 &root_area.y);
+  }
 
   nimf_im_set_cursor_location (NIMF_GTK_IM_CONTEXT (context)->im,
                                (const NimfRectangle *) &root_area);
