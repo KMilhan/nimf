@@ -72,6 +72,7 @@ test-*.trs
 test-suite.log
 test-nimf-m17n
 /libnimf/test-memory
+/libnimf/test-im
 # vscode
 .vscode/
 *.stamp

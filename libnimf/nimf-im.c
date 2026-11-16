@@ -64,6 +64,9 @@ struct _NimfIMPrivate
   gulong        monitor_handler;
   uid_t         uid;
   gboolean      created;
+  /* Last location sent to the current server context. */
+  NimfRectangle cursor_area;
+  gboolean      has_cursor_area;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (NimfIM, nimf_im, G_TYPE_OBJECT);
@@ -85,6 +88,13 @@ get_login_uid (void)
     return -1;
   else
     return uid;
+}
+
+static gboolean
+rectangle_equal (const NimfRectangle *a, const NimfRectangle *b)
+{
+  return a->x == b->x && a->y == b->y &&
+         a->width == b->width && a->height == b->height;
 }
 
 static gboolean
@@ -431,6 +441,8 @@ nimf_im_create_context (NimfIM *im)
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
   g_rec_mutex_lock (&nimf_im_mutex);
+  /* A new server context has no cursor location yet. */
+  im->priv->has_cursor_area = FALSE;
   im->priv->created = nimf_im_request (im, NIMF_MESSAGE_CREATE_CONTEXT, NULL, 0, NULL);
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
@@ -498,6 +510,7 @@ nimf_im_focus_out (NimfIM *im)
  *
  * Notifies the input method that a change in cursor position has been made. The
  * location is the position of a window position in root window coordinates.
+ * A location equal to the last one sent to the input method is not sent again.
  */
 void
 nimf_im_set_cursor_location (NimfIM              *im,
@@ -505,15 +518,21 @@ nimf_im_set_cursor_location (NimfIM              *im,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  g_return_if_fail (area != NULL);
   g_rec_mutex_lock (&nimf_im_mutex);
-  if (!NIMF_IS_IM (im) || !nimf_im_is_connected ())
+  if (!NIMF_IS_IM (im) || !nimf_im_is_connected () ||
+      (im->priv->has_cursor_area && rectangle_equal (&im->priv->cursor_area, area)))
   {
     g_rec_mutex_unlock (&nimf_im_mutex);
     return;
   }
   g_autoptr(GObject) retained = g_object_ref (G_OBJECT (im));
-  nimf_im_request (im, NIMF_MESSAGE_SET_CURSOR_LOCATION,
-                     (gchar *) area, sizeof (NimfRectangle), NULL);
+  /* Record before the request: nested dispatch can send a newer location. */
+  im->priv->cursor_area     = *area;
+  im->priv->has_cursor_area = TRUE;
+  if (!nimf_im_request (im, NIMF_MESSAGE_SET_CURSOR_LOCATION,
+                        (gchar *) area, sizeof (NimfRectangle), NULL))
+    im->priv->has_cursor_area = FALSE;
   g_rec_mutex_unlock (&nimf_im_mutex);
 }
 

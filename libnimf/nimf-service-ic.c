@@ -114,6 +114,9 @@ nimf_service_ic_emit_preedit_changed (NimfServiceIC    *ic,
       !nimf_candidatable_is_visible (server->priv->candidatable) &&
       text[0] != '\0')
   {
+    /* Other contexts can move the shared window; position it for this one. */
+    nimf_preeditable_set_cursor_location (server->priv->preeditable,
+                                          &ic->priv->cursor_area);
     nimf_preeditable_set_text (server->priv->preeditable,
                                text, cursor_pos);
     nimf_preeditable_show (server->priv->preeditable);
@@ -583,11 +586,13 @@ nimf_service_ic_set_cursor_location (NimfServiceIC       *ic,
 
   g_return_if_fail (ic != NULL);
 
+  /* Clients send unchanged locations once, so keep them even without an engine. */
+  ic->priv->cursor_area = *area;
+
   if (G_UNLIKELY (ic->priv->engine == NULL))
     return;
 
   NimfServer *server = nimf_server_get_default ();
-  ic->priv->cursor_area = *area;
 
   if (!ic->priv->use_preedit)
     nimf_preeditable_set_cursor_location (server->priv->preeditable, area);
