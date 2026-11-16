@@ -512,7 +512,7 @@ dnl ***************************************************************************
 
 GLIB_GSETTINGS
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
   Makefile
   bin/Makefile
   bin/nimf/Makefile
@@ -548,3 +548,5 @@ AC_OUTPUT([
   modules/services/xim/Makefile
   po/Makefile.in
 ])
+
+AC_OUTPUT
