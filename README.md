@@ -163,6 +163,7 @@ find dist/ -name "*.deb" -o -name "*.rpm" -o -name "*.pkg.tar.*"
 **📚 Detailed Documentation:**
 - **Docker builds**: [DOCKER-BUILD.md](DOCKER-BUILD.md)
 - **Source builds**: [BUILD.md](BUILD.md)
+- **Latency benchmarks**: [BENCHMARK.md](BENCHMARK.md)
 - **Platform guides**: [Wiki](https://github.com/hamonikr/nimf/wiki)
 
 ## 🤝 Contributing
