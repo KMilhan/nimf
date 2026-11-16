@@ -55,7 +55,7 @@ export DISPLAY=:99
 
 for toolkit in gtk3 gtk4; do
     if [[ $toolkit == gtk3 ]]; then flags=$(pkg-config --cflags --libs gtk+-3.0); else flags=$(pkg-config --cflags --libs gtk4 x11); fi
-    if ! gcc -Wall -o "/tmp/cursor-move-$toolkit" "/tmp/cursor-move-$toolkit.c" $flags > "$result/build-$toolkit.log" 2>&1; then
+    if ! gcc -Wall -Wextra -Werror -Wno-error=deprecated-declarations -o "/tmp/cursor-move-$toolkit" "/tmp/cursor-move-$toolkit.c" $flags > "$result/build-$toolkit.log" 2>&1; then
         echo "Build failed for $toolkit" >&2
         cat "$result/build-$toolkit.log" >&2
         exit 1
