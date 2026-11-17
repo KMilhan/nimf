@@ -131,6 +131,14 @@ static void unlink_socket_file ()
   g_free (path);
 }
 
+/* g_unix_signal_add wants a GSourceFunc, and g_main_loop_quit returns void. */
+static gboolean
+on_quit_signal (gpointer user_data)
+{
+  g_main_loop_quit (user_data);
+  return G_SOURCE_CONTINUE;
+}
+
 static void
 nimf_log_default_handler (const gchar    *log_domain,
                           GLogLevelFlags  log_level,
@@ -307,8 +315,8 @@ main (int argc, char **argv)
 
   loop = g_main_loop_new (NULL, FALSE);
 
-  g_unix_signal_add (SIGINT,  (GSourceFunc) g_main_loop_quit, loop);
-  g_unix_signal_add (SIGTERM, (GSourceFunc) g_main_loop_quit, loop);
+  g_unix_signal_add (SIGINT,  on_quit_signal, loop);
+  g_unix_signal_add (SIGTERM, on_quit_signal, loop);
   signal (SIGTSTP, SIG_IGN);
 
   g_main_loop_run (loop);
