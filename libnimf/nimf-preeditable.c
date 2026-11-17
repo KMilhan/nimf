@@ -24,7 +24,7 @@
 G_DEFINE_INTERFACE (NimfPreeditable, nimf_preeditable, G_TYPE_OBJECT)
 
 static void
-nimf_preeditable_default_init (NimfPreeditableInterface *iface)
+nimf_preeditable_default_init (G_GNUC_UNUSED NimfPreeditableInterface *iface)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

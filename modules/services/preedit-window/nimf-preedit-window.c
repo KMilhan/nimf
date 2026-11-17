@@ -167,7 +167,7 @@ static gboolean nimf_preedit_window_is_active (NimfService *service)
 static gboolean
 on_entry_draw (GtkWidget *widget,
                cairo_t   *cr,
-               gpointer   user_data)
+               G_GNUC_UNUSED gpointer   user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -273,7 +273,7 @@ nimf_preedit_window_class_init (NimfPreeditWindowClass *class)
 }
 
 static void
-nimf_preedit_window_class_finalize (NimfPreeditWindowClass *class)
+nimf_preedit_window_class_finalize (G_GNUC_UNUSED NimfPreeditWindowClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

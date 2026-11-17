@@ -338,7 +338,7 @@ on_comparing_engine_with_id (NimfEngine *engine, const gchar *id)
 }
 
 static GList *
-nimf_service_ic_load_engines (NimfServiceIC *ic)
+nimf_service_ic_load_engines (G_GNUC_UNUSED NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -807,7 +807,7 @@ nimf_service_ic_load_engine (NimfServiceIC *ic,
 void
 nimf_service_ic_unload_engine (NimfServiceIC *ic,
                                const gchar   *engine_id,
-                               NimfEngine    *singleton_engine,
+                               G_GNUC_UNUSED NimfEngine    *singleton_engine,
                                NimfServer    *server)
 {
   gboolean active = ic->priv->engine &&

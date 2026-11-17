@@ -120,7 +120,7 @@ nimf_nim_ic_emit_beep (NimfServiceIC *ic)
 }
 
 const gchar *
-nimf_nim_ic_get_service_id (NimfServiceIC *ic)
+nimf_nim_ic_get_service_id (G_GNUC_UNUSED NimfServiceIC *ic)
 {
   return "nimf-nim";
 }
@@ -140,7 +140,7 @@ nimf_nim_ic_new (guint16         icid,
 }
 
 static void
-nimf_nim_ic_init (NimfNimIC *nic)
+nimf_nim_ic_init (G_GNUC_UNUSED NimfNimIC *nic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

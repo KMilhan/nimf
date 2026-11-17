@@ -83,7 +83,7 @@ nimf_module_unload (GTypeModule *gmodule)
 }
 
 static void
-nimf_module_init (NimfModule *module)
+nimf_module_init (G_GNUC_UNUSED NimfModule *module)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

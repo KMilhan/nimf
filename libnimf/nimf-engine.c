@@ -219,7 +219,7 @@ nimf_engine_set_method (NimfEngine  *engine,
  * Emits the #NimfIM::preedit-start signal.
  */
 void
-nimf_engine_emit_preedit_start (NimfEngine    *engine,
+nimf_engine_emit_preedit_start (G_GNUC_UNUSED NimfEngine    *engine,
                                 NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -238,7 +238,7 @@ nimf_engine_emit_preedit_start (NimfEngine    *engine,
  * Emits the #NimfIM::preedit-changed signal.
  */
 void
-nimf_engine_emit_preedit_changed (NimfEngine       *engine,
+nimf_engine_emit_preedit_changed (G_GNUC_UNUSED NimfEngine       *engine,
                                   NimfServiceIC    *ic,
                                   const gchar      *preedit_string,
                                   NimfPreeditAttr **attrs,
@@ -257,7 +257,7 @@ nimf_engine_emit_preedit_changed (NimfEngine       *engine,
  * Emits the #NimfIM::preedit-end signal.
  */
 void
-nimf_engine_emit_preedit_end (NimfEngine    *engine,
+nimf_engine_emit_preedit_end (G_GNUC_UNUSED NimfEngine    *engine,
                               NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -274,7 +274,7 @@ nimf_engine_emit_preedit_end (NimfEngine    *engine,
  * Emits the #NimfIM::commit signal.
  */
 void
-nimf_engine_emit_commit (NimfEngine    *engine,
+nimf_engine_emit_commit (G_GNUC_UNUSED NimfEngine    *engine,
                          NimfServiceIC *ic,
                          const gchar   *text)
 {
@@ -294,7 +294,7 @@ nimf_engine_emit_commit (NimfEngine    *engine,
  * Emits the #NimfIM::delete-surrounding signal.
  */
 gboolean
-nimf_engine_emit_delete_surrounding (NimfEngine    *engine,
+nimf_engine_emit_delete_surrounding (G_GNUC_UNUSED NimfEngine    *engine,
                                      NimfServiceIC *ic,
                                      gint           offset,
                                      gint           n_chars)
@@ -312,7 +312,7 @@ nimf_engine_emit_delete_surrounding (NimfEngine    *engine,
  * Emits the #NimfIM::retrieve-surrounding signal.
  */
 gboolean
-nimf_engine_emit_retrieve_surrounding (NimfEngine    *engine,
+nimf_engine_emit_retrieve_surrounding (G_GNUC_UNUSED NimfEngine    *engine,
                                        NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -344,7 +344,7 @@ nimf_engine_status_changed (NimfEngine *engine)
  * Emits the #NimfIM::beep signal.
  */
 void
-nimf_engine_emit_beep (NimfEngine    *engine,
+nimf_engine_emit_beep (G_GNUC_UNUSED NimfEngine    *engine,
                        NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -401,7 +401,7 @@ nimf_engine_get_id (NimfEngine *engine)
  * Returns: (transfer none): a #NimfCandidatable
  */
 NimfCandidatable *
-nimf_engine_get_candidatable (NimfEngine *engine)
+nimf_engine_get_candidatable (G_GNUC_UNUSED NimfEngine *engine)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 

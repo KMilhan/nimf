@@ -153,7 +153,7 @@ nimf_libhangul_reset (NimfEngine    *engine,
 
 void
 nimf_libhangul_focus_in (NimfEngine    *engine,
-                         NimfServiceIC *target)
+                         G_GNUC_UNUSED NimfServiceIC *target)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -175,7 +175,7 @@ static void
 on_candidate_clicked (NimfEngine    *engine,
                       NimfServiceIC *target,
                       gchar         *text,
-                      gint           index)
+                      G_GNUC_UNUSED gint           index)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -871,7 +871,7 @@ nimf_libhangul_class_init (NimfLibhangulClass *class)
 }
 
 static void
-nimf_libhangul_class_finalize (NimfLibhangulClass *class)
+nimf_libhangul_class_finalize (G_GNUC_UNUSED NimfLibhangulClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

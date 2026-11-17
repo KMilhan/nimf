@@ -450,9 +450,9 @@ nimf_candidate_is_active (NimfService *service)
 }
 
 static void
-on_tree_view_row_activated (GtkTreeView       *tree_view,
+on_tree_view_row_activated (G_GNUC_UNUSED GtkTreeView       *tree_view,
                             GtkTreePath       *path,
-                            GtkTreeViewColumn *column,
+                            G_GNUC_UNUSED GtkTreeViewColumn *column,
                             NimfCandidate     *candidate)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -483,7 +483,7 @@ on_tree_view_row_activated (GtkTreeView       *tree_view,
 
 static gboolean
 on_range_change_value (GtkRange      *range,
-                       GtkScrollType  scroll,
+                       G_GNUC_UNUSED GtkScrollType  scroll,
                        gdouble        value,
                        NimfCandidate *candidate)
 {
@@ -521,7 +521,7 @@ on_range_change_value (GtkRange      *range,
 static gboolean
 on_entry_draw (GtkWidget *widget,
                cairo_t   *cr,
-               gpointer   user_data)
+               G_GNUC_UNUSED gpointer   user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -700,7 +700,7 @@ nimf_candidate_class_init (NimfCandidateClass *class)
 }
 
 static void
-nimf_candidate_class_finalize (NimfCandidateClass *class)
+nimf_candidate_class_finalize (G_GNUC_UNUSED NimfCandidateClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

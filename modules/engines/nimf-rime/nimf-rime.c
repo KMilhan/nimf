@@ -151,8 +151,8 @@ void nimf_rime_reset (NimfEngine    *engine,
 }
 
 void
-nimf_rime_focus_in (NimfEngine    *engine,
-                    NimfServiceIC *context)
+nimf_rime_focus_in (G_GNUC_UNUSED NimfEngine    *engine,
+                    G_GNUC_UNUSED NimfServiceIC *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
@@ -378,7 +378,7 @@ static void nimf_rime_update (NimfEngine    *engine,
 static void
 on_candidate_clicked (NimfEngine    *engine,
                       NimfServiceIC *target,
-                      gchar         *text,
+                      G_GNUC_UNUSED gchar         *text,
                       gint           index)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -582,7 +582,7 @@ on_changed_simplification (GSettings *settings,
 }
 
 static void on_notification (void          *context_object,
-                             RimeSessionId  session_id,
+                             G_GNUC_UNUSED RimeSessionId  session_id,
                              const char    *message_type,
                              const char    *message_value)
 {
@@ -772,7 +772,7 @@ nimf_rime_class_init (NimfRimeClass *class)
 }
 
 static void
-nimf_rime_class_finalize (NimfRimeClass *class)
+nimf_rime_class_finalize (G_GNUC_UNUSED NimfRimeClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

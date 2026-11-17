@@ -166,7 +166,7 @@ nimf_gtk_im_context_reset (GtkIMContext *context)
 
 static GdkFilterReturn
 on_gdk_x_event (XEvent           *xevent,
-                GdkEvent         *event,
+                G_GNUC_UNUSED GdkEvent         *event,
                 NimfGtkIMContext *context)
 {
   g_debug (G_STRLOC ": %s: %p, %" G_GINT64_FORMAT, G_STRFUNC, context,
@@ -439,7 +439,7 @@ nimf_gtk_im_context_new (void)
 }
 
 static void
-on_commit (NimfIM           *im,
+on_commit (G_GNUC_UNUSED NimfIM           *im,
            const gchar      *text,
            NimfGtkIMContext *context)
 {
@@ -456,7 +456,7 @@ on_commit (NimfIM           *im,
 }
 
 static gboolean
-on_delete_surrounding (NimfIM           *im,
+on_delete_surrounding (G_GNUC_UNUSED NimfIM           *im,
                        gint              offset,
                        gint              n_chars,
                        NimfGtkIMContext *context)
@@ -477,7 +477,7 @@ on_delete_surrounding (NimfIM           *im,
 }
 
 static void
-on_preedit_changed (NimfIM           *im,
+on_preedit_changed (G_GNUC_UNUSED NimfIM           *im,
                     NimfGtkIMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -493,7 +493,7 @@ on_preedit_changed (NimfIM           *im,
 }
 
 static void
-on_preedit_end (NimfIM           *im,
+on_preedit_end (G_GNUC_UNUSED NimfIM           *im,
                 NimfGtkIMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -509,7 +509,7 @@ on_preedit_end (NimfIM           *im,
 }
 
 static void
-on_preedit_start (NimfIM           *im,
+on_preedit_start (G_GNUC_UNUSED NimfIM           *im,
                   NimfGtkIMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -525,7 +525,7 @@ on_preedit_start (NimfIM           *im,
 }
 
 static gboolean
-on_retrieve_surrounding (NimfIM           *im,
+on_retrieve_surrounding (G_GNUC_UNUSED NimfIM           *im,
                          NimfGtkIMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -544,7 +544,7 @@ on_retrieve_surrounding (NimfIM           *im,
 }
 
 static void
-on_beep (NimfIM           *im,
+on_beep (G_GNUC_UNUSED NimfIM           *im,
          NimfGtkIMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -584,7 +584,7 @@ nimf_gtk_im_context_update_event_filter (NimfGtkIMContext *context)
 }
 
 static void
-on_changed_reset_on_gdk_button_press_event (GSettings        *settings,
+on_changed_reset_on_gdk_button_press_event (G_GNUC_UNUSED GSettings        *settings,
                                             gchar            *key,
                                             NimfGtkIMContext *context)
 {
@@ -597,7 +597,7 @@ on_changed_reset_on_gdk_button_press_event (GSettings        *settings,
 }
 
 static void
-on_changed_hook_gdk_event_key (GSettings        *settings,
+on_changed_hook_gdk_event_key (G_GNUC_UNUSED GSettings        *settings,
                                gchar            *key,
                                NimfGtkIMContext *context)
 {
@@ -727,7 +727,7 @@ nimf_gtk_im_context_class_init (NimfGtkIMContextClass *class)
 }
 
 static void
-nimf_gtk_im_context_class_finalize (NimfGtkIMContextClass *class)
+nimf_gtk_im_context_class_finalize (G_GNUC_UNUSED NimfGtkIMContextClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

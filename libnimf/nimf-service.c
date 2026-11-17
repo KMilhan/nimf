@@ -30,7 +30,7 @@ enum
 };
 
 static void
-nimf_service_init (NimfService *service)
+nimf_service_init (G_GNUC_UNUSED NimfService *service)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

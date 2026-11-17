@@ -170,9 +170,9 @@ nimf_system_keyboard_update_preedit (NimfEngine    *engine,
 }
 
 static gboolean
-nimf_system_keyboard_filter_event (NimfEngine    *engine,
-                                   NimfServiceIC *target,
-                                   NimfEvent     *event)
+nimf_system_keyboard_filter_event (G_GNUC_UNUSED NimfEngine    *engine,
+                                   G_GNUC_UNUSED NimfServiceIC *target,
+                                   G_GNUC_UNUSED NimfEvent     *event)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -212,7 +212,7 @@ nimf_system_keyboard_class_init (NimfSystemKeyboardClass *class)
 }
 
 static void
-nimf_system_keyboard_class_finalize (NimfSystemKeyboardClass *class)
+nimf_system_keyboard_class_finalize (G_GNUC_UNUSED NimfSystemKeyboardClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

@@ -99,7 +99,7 @@ G_DEFINE_TYPE (NimfGtk4IMContext, nimf_gtk4_im_context, GTK_TYPE_IM_CONTEXT)
 
 /* Signal handlers */
 static void
-on_commit (NimfIM *im, const gchar *text, NimfGtk4IMContext *context)
+on_commit (G_GNUC_UNUSED NimfIM *im, const gchar *text, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -114,7 +114,7 @@ on_commit (NimfIM *im, const gchar *text, NimfGtk4IMContext *context)
 }
 
 static void
-on_preedit_start (NimfIM *im, NimfGtk4IMContext *context)
+on_preedit_start (G_GNUC_UNUSED NimfIM *im, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -129,7 +129,7 @@ on_preedit_start (NimfIM *im, NimfGtk4IMContext *context)
 }
 
 static void
-on_preedit_end (NimfIM *im, NimfGtk4IMContext *context)
+on_preedit_end (G_GNUC_UNUSED NimfIM *im, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -144,7 +144,7 @@ on_preedit_end (NimfIM *im, NimfGtk4IMContext *context)
 }
 
 static void
-on_preedit_changed (NimfIM *im, NimfGtk4IMContext *context)
+on_preedit_changed (G_GNUC_UNUSED NimfIM *im, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -159,7 +159,7 @@ on_preedit_changed (NimfIM *im, NimfGtk4IMContext *context)
 }
 
 static void
-on_retrieve_surrounding (NimfIM *im, NimfGtk4IMContext *context)
+on_retrieve_surrounding (G_GNUC_UNUSED NimfIM *im, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -175,7 +175,7 @@ on_retrieve_surrounding (NimfIM *im, NimfGtk4IMContext *context)
 }
 
 static void
-on_delete_surrounding (NimfIM *im, gint offset, gint n_chars, NimfGtk4IMContext *context)
+on_delete_surrounding (G_GNUC_UNUSED NimfIM *im, gint offset, gint n_chars, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -191,7 +191,7 @@ on_delete_surrounding (NimfIM *im, gint offset, gint n_chars, NimfGtk4IMContext 
 }
 
 static void
-on_beep (NimfIM *im, NimfGtk4IMContext *context)
+on_beep (G_GNUC_UNUSED NimfIM *im, NimfGtk4IMContext *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -260,9 +260,9 @@ on_key_pressed (GtkEventControllerKey *controller,
 
 static gboolean
 on_key_released (GtkEventControllerKey *controller,
-                 guint                  keyval,
-                 guint                  keycode,
-                 GdkModifierType        state,
+                 G_GNUC_UNUSED guint                  keyval,
+                 G_GNUC_UNUSED guint                  keycode,
+                 G_GNUC_UNUSED GdkModifierType        state,
                  NimfGtk4IMContext     *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);

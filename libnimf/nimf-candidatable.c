@@ -24,7 +24,7 @@
 G_DEFINE_INTERFACE (NimfCandidatable, nimf_candidatable, G_TYPE_OBJECT)
 
 static void
-nimf_candidatable_default_init (NimfCandidatableInterface *iface)
+nimf_candidatable_default_init (G_GNUC_UNUSED NimfCandidatableInterface *iface)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

@@ -198,7 +198,7 @@ private:
 
 /* nimf signal callbacks */
 void
-NimfInputContext::on_preedit_start (NimfIM *im, gpointer user_data)
+NimfInputContext::on_preedit_start (G_GNUC_UNUSED NimfIM *im, G_GNUC_UNUSED gpointer user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -206,7 +206,7 @@ NimfInputContext::on_preedit_start (NimfIM *im, gpointer user_data)
 }
 
 void
-NimfInputContext::on_preedit_end (NimfIM *im, gpointer user_data)
+NimfInputContext::on_preedit_end (G_GNUC_UNUSED NimfIM *im, G_GNUC_UNUSED gpointer user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -214,7 +214,7 @@ NimfInputContext::on_preedit_end (NimfIM *im, gpointer user_data)
 }
 
 void
-NimfInputContext::on_preedit_changed (NimfIM *im, gpointer user_data)
+NimfInputContext::on_preedit_changed (NimfIM *im, G_GNUC_UNUSED gpointer user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -298,9 +298,9 @@ NimfInputContext::on_preedit_changed (NimfIM *im, gpointer user_data)
 }
 
 void
-NimfInputContext::on_commit (NimfIM      *im,
+NimfInputContext::on_commit (G_GNUC_UNUSED NimfIM      *im,
                              const gchar *text,
-                             gpointer     user_data)
+                             G_GNUC_UNUSED gpointer     user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -319,7 +319,7 @@ NimfInputContext::on_commit (NimfIM      *im,
 }
 
 gboolean
-NimfInputContext::on_retrieve_surrounding (NimfIM *im, gpointer user_data)
+NimfInputContext::on_retrieve_surrounding (G_GNUC_UNUSED NimfIM *im, gpointer user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -353,10 +353,10 @@ NimfInputContext::on_retrieve_surrounding (NimfIM *im, gpointer user_data)
 }
 
 gboolean
-NimfInputContext::on_delete_surrounding (NimfIM   *im,
+NimfInputContext::on_delete_surrounding (G_GNUC_UNUSED NimfIM   *im,
                                          gint      offset,
                                          gint      n_chars,
-                                         gpointer  user_data)
+                                         G_GNUC_UNUSED gpointer  user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -375,7 +375,7 @@ NimfInputContext::on_delete_surrounding (NimfIM   *im,
 }
 
 void
-NimfInputContext::on_beep (NimfIM *im, gpointer user_data)
+NimfInputContext::on_beep (G_GNUC_UNUSED NimfIM *im, G_GNUC_UNUSED gpointer user_data)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -609,7 +609,7 @@ NimfInputContext::update (Qt::InputMethodQueries queries)
 }
 
 void
-NimfInputContext::invokeAction(QInputMethod::Action, int cursorPosition)
+NimfInputContext::invokeAction(QInputMethod::Action, G_GNUC_UNUSED int cursorPosition)
 {
 #ifndef USE_DLFCN
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -878,8 +878,8 @@ public:
     return QStringList () <<  "nimf";
   }
 
-  virtual QPlatformInputContext *create (const QString     &key,
-                                         const QStringList &paramList)
+  virtual QPlatformInputContext *create (G_GNUC_UNUSED const QString     &key,
+                                         G_GNUC_UNUSED const QStringList &paramList)
   {
 #ifndef USE_DLFCN
     g_debug (G_STRLOC ": %s", G_STRFUNC);

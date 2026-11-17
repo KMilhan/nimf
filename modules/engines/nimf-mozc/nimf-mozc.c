@@ -308,7 +308,7 @@ nimf_mozc_reset (NimfEngine *engine, NimfServiceIC *target)
 }
 
 static void
-nimf_mozc_focus_in (NimfEngine *engine, NimfServiceIC *target)
+nimf_mozc_focus_in (G_GNUC_UNUSED NimfEngine *engine, G_GNUC_UNUSED NimfServiceIC *target)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
@@ -341,7 +341,7 @@ nimf_mozc_page_down (NimfEngine *engine, NimfServiceIC *target)
 static void
 on_candidate_clicked (NimfEngine    *engine,
                       NimfServiceIC *target,
-                      gchar         *text,
+                      G_GNUC_UNUSED gchar         *text,
                       gint           index)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -374,7 +374,7 @@ on_candidate_scrolled (NimfEngine    *engine,
 }
 
 static const gchar *
-nimf_mozc_get_id (NimfEngine *engine)
+nimf_mozc_get_id (G_GNUC_UNUSED NimfEngine *engine)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -382,7 +382,7 @@ nimf_mozc_get_id (NimfEngine *engine)
 }
 
 static const gchar *
-nimf_mozc_get_icon_name (NimfEngine *engine)
+nimf_mozc_get_icon_name (G_GNUC_UNUSED NimfEngine *engine)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -454,7 +454,7 @@ nimf_mozc_class_init (NimfMozcClass *class)
 }
 
 static void
-nimf_mozc_class_finalize (NimfMozcClass *class)
+nimf_mozc_class_finalize (G_GNUC_UNUSED NimfMozcClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

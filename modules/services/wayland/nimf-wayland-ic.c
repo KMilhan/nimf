@@ -52,7 +52,7 @@ nimf_wayland_ic_emit_commit (NimfServiceIC *ic,
                                              text);
 }
 
-void nimf_wayland_ic_emit_preedit_start (NimfServiceIC *ic)
+void nimf_wayland_ic_emit_preedit_start (G_GNUC_UNUSED NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
@@ -60,7 +60,7 @@ void nimf_wayland_ic_emit_preedit_start (NimfServiceIC *ic)
 void
 nimf_wayland_ic_emit_preedit_changed (NimfServiceIC    *ic,
                                       const gchar      *preedit_string,
-                                      NimfPreeditAttr **attrs,
+                                      G_GNUC_UNUSED NimfPreeditAttr **attrs,
                                       gint              cursor_pos)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -75,13 +75,13 @@ nimf_wayland_ic_emit_preedit_changed (NimfServiceIC    *ic,
                wayland->serial, preedit_string, preedit_string);
 }
 
-void nimf_wayland_ic_emit_preedit_end (NimfServiceIC *ic)
+void nimf_wayland_ic_emit_preedit_end (G_GNUC_UNUSED NimfServiceIC *ic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
 
 static void
-nimf_wayland_ic_init (NimfWaylandIC *wic)
+nimf_wayland_ic_init (G_GNUC_UNUSED NimfWaylandIC *wic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
