@@ -145,7 +145,8 @@ nimf_xim_ic_emit_preedit_changed (NimfServiceIC    *ic,
   XTextProperty     text_property;
 
   static XIMFeedback *feedback;
-  gint i, j, len;
+  gint  i, len;
+  guint j;
 
   len = g_utf8_strlen (preedit_string, -1);
   feedback = g_malloc0 (sizeof (XIMFeedback) * (len + 1));
@@ -229,7 +230,7 @@ nimf_xim_ic_get_service_id (NimfServiceIC *ic)
 }
 
 static void
-nimf_xim_ic_init (NimfXimIC *xic)
+nimf_xim_ic_init (G_GNUC_UNUSED NimfXimIC *xic)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

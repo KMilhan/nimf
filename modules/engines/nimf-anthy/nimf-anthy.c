@@ -512,8 +512,8 @@ nimf_anthy_reset (NimfEngine    *engine,
 }
 
 void
-nimf_anthy_focus_in (NimfEngine    *engine,
-                     NimfServiceIC *target)
+nimf_anthy_focus_in (G_GNUC_UNUSED NimfEngine    *engine,
+                     G_GNUC_UNUSED NimfServiceIC *target)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
@@ -631,7 +631,7 @@ nimf_anthy_update_page (NimfEngine    *engine,
 static void
 on_candidate_clicked (NimfEngine    *engine,
                       NimfServiceIC *target,
-                      gchar         *text,
+                      G_GNUC_UNUSED gchar         *text,
                       gint           index)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -773,7 +773,7 @@ nimf_anthy_update_candidate (NimfEngine    *engine,
 
 static gboolean
 nimf_anthy_filter_event_romaji (NimfEngine    *engine,
-                                NimfServiceIC *target,
+                                G_GNUC_UNUSED NimfServiceIC *target,
                                 NimfEvent     *event)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -864,7 +864,7 @@ nimf_anthy_preedit_offset_has_suffix (NimfAnthy *anthy, const gchar *suffix)
 
 static gboolean
 nimf_anthy_filter_event_pc104 (NimfEngine    *engine,
-                               NimfServiceIC *target,
+                               G_GNUC_UNUSED NimfServiceIC *target,
                                NimfEvent     *event)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -1374,7 +1374,7 @@ nimf_anthy_filter_event (NimfEngine    *engine,
   else if (event->key.keyval == NIMF_KEY_Delete ||
            event->key.keyval == NIMF_KEY_KP_Delete)
   {
-    if (anthy->preedit_offset + anthy->preedit_dx < anthy->preedit->len)
+    if ((gsize) (anthy->preedit_offset + anthy->preedit_dx) < anthy->preedit->len)
     {
       const gchar *next;
       gint         len;
@@ -1420,7 +1420,7 @@ nimf_anthy_filter_event (NimfEngine    *engine,
   {
     const gchar *next;
 
-    if (anthy->preedit_offset + anthy->preedit_dx < anthy->preedit->len)
+    if ((gsize) (anthy->preedit_offset + anthy->preedit_dx) < anthy->preedit->len)
     {
       next = g_utf8_next_char (anthy->preedit->str + anthy->preedit_offset + anthy->preedit_dx);
       anthy->preedit_offset = next - anthy->preedit->str;
@@ -1546,7 +1546,7 @@ nimf_anthy_init (NimfAnthy *anthy)
   {
     nimf_anthy_romaji = g_hash_table_new (g_str_hash, g_str_equal);
 
-    gint i;
+    guint i;
     for (i = 0; i < G_N_ELEMENTS (romaji_map); i++)
       g_hash_table_insert (nimf_anthy_romaji, romaji_map[i].key,
                                               romaji_map[i].value);
@@ -1675,7 +1675,7 @@ nimf_anthy_class_init (NimfAnthyClass *class)
 }
 
 static void
-nimf_anthy_class_finalize (NimfAnthyClass *class)
+nimf_anthy_class_finalize (G_GNUC_UNUSED NimfAnthyClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

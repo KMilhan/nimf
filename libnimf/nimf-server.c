@@ -167,8 +167,8 @@ on_changed_hotkeys (GSettings  *settings,
 }
 
 static void
-on_use_singleton (GSettings  *settings,
-                  gchar      *key,
+on_use_singleton (G_GNUC_UNUSED GSettings  *settings,
+                  G_GNUC_UNUSED gchar      *key,
                   NimfServer *server)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -723,7 +723,7 @@ on_changed_active_engines (GSettings  *settings,
       NimfEngine *engine;
       NimfServer *server = nimf_server_get_default ();
       NimfModule *module = g_hash_table_lookup (server->priv->modules, engine_ids[i]);
-      gint        index;
+      guint       index;
 
       if (!module)
       {
@@ -785,7 +785,7 @@ on_changed_active_engines (GSettings  *settings,
         !g_strv_contains ((const gchar * const *) engine_ids, engine_id))
     {
       NimfEngine *engine = l->data;
-      gint        index;
+      guint       index;
 
       g_hash_table_remove (server->priv->shortcuts, engine_id);
       server->priv->engines = g_list_delete_link (server->priv->engines, l);

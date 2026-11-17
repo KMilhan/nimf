@@ -110,7 +110,7 @@ nimf_key_newv (const gchar **keys)
     NimfKey *key = nimf_key_new_from_nicks ((const gchar **) nicks);
     g_strfreev (nicks);
 
-    nimf_keys = g_realloc_n (nimf_keys, sizeof (NimfKey *), i + 2);
+    nimf_keys = g_realloc_n (nimf_keys, i + 2, sizeof (NimfKey *));
     nimf_keys[i] = key;
     nimf_keys[i + 1] = NULL;
   }

@@ -150,7 +150,7 @@ G_DEFINE_TYPE (NimfSettings, nimf_settings, G_TYPE_OBJECT);
 
 static gboolean
 on_foreach (GtkTreeModel *model,
-            GtkTreePath  *path,
+            G_GNUC_UNUSED GtkTreePath  *path,
             GtkTreeIter  *iter,
             gpointer      user_data)
 {
@@ -360,7 +360,7 @@ on_active_engine_state_set (GtkSwitch           *widget,
 
 static void
 on_notify_active (GtkSwitch           *widget,
-                  GParamSpec          *pspec,
+                  G_GNUC_UNUSED GParamSpec          *pspec,
                   NimfSettingsPageKey *page_key)
 {
   gboolean active1;
@@ -442,7 +442,7 @@ nimf_settings_page_key_build_boolean (NimfSettingsPageKey *page_key,
 static GtkWidget *
 nimf_settings_page_key_build_string (NimfSettingsPageKey *page_key,
                                      const gchar         *schema_id,
-                                     GList               *key_list)
+                                     G_GNUC_UNUSED GList               *key_list)
 {
   GtkTreeStore *store;
   GtkWidget    *combo;
@@ -689,7 +689,7 @@ nimf_settings_page_key_update_gsettings_strv (NimfSettingsPageKey *page_key,
     i = 0;
     do {
       gtk_tree_model_get (model, &iter, 0, &vals[i], -1);
-      vals = g_realloc_n (vals, sizeof (gchar *), i + 2);
+      vals = g_realloc_n (vals, i + 2, sizeof (gchar *));
       vals[i + 1] = NULL;
       i++;
     } while (gtk_tree_model_iter_next (model, &iter));
@@ -702,7 +702,7 @@ nimf_settings_page_key_update_gsettings_strv (NimfSettingsPageKey *page_key,
 }
 
 static void
-on_button_clicked_add (GtkButton           *button,
+on_button_clicked_add (G_GNUC_UNUSED GtkButton           *button,
                        NimfSettingsPageKey *page_key)
 {
   GtkWidget *dialog;
@@ -766,7 +766,7 @@ on_button_clicked_add (GtkButton           *button,
 }
 
 static void
-on_button_clicked_remove (GtkButton           *button,
+on_button_clicked_remove (G_GNUC_UNUSED GtkButton           *button,
                           NimfSettingsPageKey *page_key)
 {
   GtkTreeSelection *selection;
@@ -931,7 +931,7 @@ xprofile_contains_generator (GFile *file)
 static void
 on_setup_environment (GSettings  *settings,
                       gchar      *key,
-                      gpointer    user_data)
+                      G_GNUC_UNUSED gpointer    user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -980,9 +980,11 @@ on_setup_environment (GSettings  *settings,
       {
         gsize count = strlen (EXPORT_ENVIRONMENT) + 1;
 
-        if (g_output_stream_write (G_OUTPUT_STREAM (fos),
-                                   EXPORT_ENVIRONMENT"\n", count,
-                                   NULL, NULL) == count)
+        gssize written = g_output_stream_write (G_OUTPUT_STREAM (fos),
+                                                EXPORT_ENVIRONMENT"\n", count,
+                                                NULL, NULL);
+
+        if (written == (gssize) count)
           success = TRUE;
 
         g_output_stream_close (G_OUTPUT_STREAM (fos), NULL, NULL);
@@ -1148,7 +1150,7 @@ nimf_settings_page_new (const gchar  *schema_id)
 }
 
 static void
-on_destroy (GtkWidget *widget, GApplication *app)
+on_destroy (G_GNUC_UNUSED GtkWidget *widget, GApplication *app)
 {
   g_application_release (app);
 }
@@ -1230,7 +1232,7 @@ configure_button (GtkWidget *button, const XklConfigItem *item, NimfXkb *xkb)
 }
 
 static void
-build_check_button_option (XklConfigRegistry   *config,
+build_check_button_option (G_GNUC_UNUSED XklConfigRegistry   *config,
                            const XklConfigItem *item,
                            NimfXkb             *xkb)
 {
@@ -1239,7 +1241,7 @@ build_check_button_option (XklConfigRegistry   *config,
 }
 
 static void
-build_radio_button_option (XklConfigRegistry   *config,
+build_radio_button_option (G_GNUC_UNUSED XklConfigRegistry   *config,
                            const XklConfigItem *item,
                            NimfXkb             *xkb)
 {
@@ -1253,7 +1255,7 @@ build_radio_button_option (XklConfigRegistry   *config,
 /* XKB 옵션 그룹 아코디언 동작: 하나만 펼쳐지도록 콜백 */
 static void
 on_xkb_expander_notify_expanded (GtkExpander *expander,
-                                 GParamSpec  *pspec,
+                                 G_GNUC_UNUSED GParamSpec  *pspec,
                                  gpointer     user_data)
 {
   NimfXkb *xkb = (NimfXkb *) user_data;
@@ -1483,7 +1485,7 @@ typedef struct
 } EngineDialogData;
 
 static void
-engine_dialog_data_free (gpointer data, GClosure *closure)
+engine_dialog_data_free (gpointer data, G_GNUC_UNUSED GClosure *closure)
 {
   EngineDialogData *dialog_data = (EngineDialogData *) data;
 
@@ -1497,7 +1499,7 @@ engine_dialog_data_free (gpointer data, GClosure *closure)
 }
 
 static void
-on_engine_settings_clicked (GtkButton *button, gpointer user_data)
+on_engine_settings_clicked (G_GNUC_UNUSED GtkButton *button, gpointer user_data)
 {
   EngineDialogData *data = (EngineDialogData *) user_data;
   NimfSettingsPage *page = nimf_settings_page_new (data->schema_id);
@@ -1555,8 +1557,15 @@ on_engine_settings_clicked (GtkButton *button, gpointer user_data)
   /* NOTE: data is NOT freed here - it will be auto-freed when button is destroyed */
 }
 
+/* GClosureNotify also receives the closure, so g_free needs a wrapper. */
 static void
-on_engine_active_toggled (GtkSwitch *sw, GParamSpec *pspec, gpointer user_data)
+free_string_notify (gpointer data, G_GNUC_UNUSED GClosure *closure)
+{
+  g_free (data);
+}
+
+static void
+on_engine_active_toggled (GtkSwitch *sw, G_GNUC_UNUSED GParamSpec *pspec, gpointer user_data)
 {
   const gchar *schema_id = (const gchar *) user_data;
   gboolean active = gtk_switch_get_active (sw);
@@ -1653,7 +1662,7 @@ nimf_settings_build_engines_page (void)
       gchar *schema_id_copy = g_strdup (schema_id);
       g_signal_connect_data (active_sw, "notify::active",
                              G_CALLBACK (on_engine_active_toggled), schema_id_copy,
-                             (GClosureNotify) g_free, 0);
+                             free_string_notify, 0);
     }
 
 #if GTK_CHECK_VERSION(4, 0, 0)
@@ -1793,10 +1802,10 @@ nimf_settings_build_main_window (NimfSettings *nsettings)
 }
 
 static void
-nimf_settings_open_help (GtkAccelGroup *accel,
-           GObject *acceleratoable,
-           guint keyval,
-           GdkModifierType modifier,
+nimf_settings_open_help (G_GNUC_UNUSED GtkAccelGroup *accel,
+           G_GNUC_UNUSED GObject *acceleratoable,
+           G_GNUC_UNUSED guint keyval,
+           G_GNUC_UNUSED GdkModifierType modifier,
            gpointer user_data)
 {
   gtk_show_uri_on_window (GTK_WINDOW(user_data), "https://github.com/hamonikr/nimf/wiki",
@@ -1804,7 +1813,7 @@ nimf_settings_open_help (GtkAccelGroup *accel,
 }
 
 static void
-nimf_settings_accel_init(NimfSettings *nsettings)
+nimf_settings_accel_init(G_GNUC_UNUSED NimfSettings *nsettings)
 {
   GtkAccelGroup *accel_group;
   guint accelerator_key;

@@ -67,7 +67,7 @@ GType nimf_indicator_get_type (void) G_GNUC_CONST;
 G_DEFINE_DYNAMIC_TYPE (NimfIndicator, nimf_indicator, NIMF_TYPE_SERVICE);
 
 static void
-on_menu_engine (GSimpleAction *action,
+on_menu_engine (G_GNUC_UNUSED GSimpleAction *action,
                 GVariant      *parameter,
                 gpointer       server)
 {
@@ -88,9 +88,9 @@ on_menu_engine (GSimpleAction *action,
 }
 
 static void
-on_menu_settings (GSimpleAction *action,
-                  GVariant      *parameter,
-                  gpointer       user_data)
+on_menu_settings (G_GNUC_UNUSED GSimpleAction *action,
+                  G_GNUC_UNUSED GVariant      *parameter,
+                  G_GNUC_UNUSED gpointer       user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -98,9 +98,9 @@ on_menu_settings (GSimpleAction *action,
 }
 
 static void
-on_menu_about (GSimpleAction *action,
-               GVariant      *parameter,
-               gpointer       user_data)
+on_menu_about (G_GNUC_UNUSED GSimpleAction *action,
+               G_GNUC_UNUSED GVariant      *parameter,
+               G_GNUC_UNUSED gpointer       user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -147,12 +147,12 @@ on_menu_about (GSimpleAction *action,
 }
 
 const GActionEntry entries[] = {
-  { "engine",   on_menu_engine,   "s",  NULL, NULL },
-  { "settings", on_menu_settings, NULL, NULL, NULL },
-  { "about",    on_menu_about,    NULL, NULL, NULL }
+  { .name = "engine",   .activate = on_menu_engine, .parameter_type = "s" },
+  { .name = "settings", .activate = on_menu_settings },
+  { .name = "about",    .activate = on_menu_about }
 };
 
-static void on_engine_changed (NimfServer    *server,
+static void on_engine_changed (G_GNUC_UNUSED NimfServer    *server,
                                const gchar   *engine_id,
                                const gchar   *icon_name,
                                NimfIndicator *indicator)
@@ -168,7 +168,7 @@ static void on_engine_changed (NimfServer    *server,
     gtk_status_icon_set_from_icon_name(indicator->status_icon, icon_name);
 }
 
-static void on_engine_status_changed (NimfServer    *server,
+static void on_engine_status_changed (G_GNUC_UNUSED NimfServer    *server,
                                       const gchar   *engine_id,
                                       const gchar   *icon_name,
                                       NimfIndicator *indicator)
@@ -201,7 +201,7 @@ static gboolean nimf_indicator_is_active (NimfService *service)
 }
 
 static GMenu *
-nimf_indicator_build_section1 (NimfIndicator *indicator,
+nimf_indicator_build_section1 (G_GNUC_UNUSED NimfIndicator *indicator,
                                NimfServer    *server)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -433,7 +433,7 @@ nimf_indicator_create_appindicator (NimfIndicator *indicator)
   }
 }
 
-static void on_status_icon_activate(GtkStatusIcon *status_icon, guint button, guint activate_time, gpointer user_data)
+static void on_status_icon_activate(G_GNUC_UNUSED GtkStatusIcon *status_icon, G_GNUC_UNUSED guint button, G_GNUC_UNUSED guint activate_time, gpointer user_data)
 {
   g_debug(G_STRLOC ": %s", G_STRFUNC);
 
@@ -459,9 +459,9 @@ static void nimf_indicator_create_status_icon(NimfIndicator *indicator)
 }
 
 static void
-on_name_appeared (GDBusConnection *connection,
-                  const gchar     *name,
-                  const gchar     *name_owner,
+on_name_appeared (G_GNUC_UNUSED GDBusConnection *connection,
+                  G_GNUC_UNUSED const gchar     *name,
+                  G_GNUC_UNUSED const gchar     *name_owner,
                   gpointer         user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -618,7 +618,7 @@ nimf_indicator_class_init (NimfIndicatorClass *class)
 }
 
 static void
-nimf_indicator_class_finalize (NimfIndicatorClass *class)
+nimf_indicator_class_finalize (G_GNUC_UNUSED NimfIndicatorClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

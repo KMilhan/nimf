@@ -129,8 +129,8 @@ static gboolean nimf_wayland_source_check (GSource *base)
 }
 
 static gboolean nimf_wayland_source_dispatch (GSource     *base,
-                                              GSourceFunc  callback,
-                                              gpointer     user_data)
+                                              G_GNUC_UNUSED GSourceFunc  callback,
+                                              G_GNUC_UNUSED gpointer     user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -165,10 +165,10 @@ static void nimf_wayland_source_finalize (GSource *base)
 }
 
 static GSourceFuncs event_funcs = {
-  nimf_wayland_source_prepare,
-  nimf_wayland_source_check,
-  nimf_wayland_source_dispatch,
-  nimf_wayland_source_finalize
+  .prepare  = nimf_wayland_source_prepare,
+  .check    = nimf_wayland_source_check,
+  .dispatch = nimf_wayland_source_dispatch,
+  .finalize = nimf_wayland_source_finalize,
 };
 
 GSource *
@@ -194,43 +194,43 @@ nimf_wayland_source_new (NimfWayland *wayland)
 }
 
 static void
-handle_surrounding_text (void *data,
-                         struct zwp_input_method_context_v1 *context,
-                         const char *text,
-                         uint32_t cursor,
-                         uint32_t anchor)
+handle_surrounding_text (G_GNUC_UNUSED void *data,
+                         G_GNUC_UNUSED struct zwp_input_method_context_v1 *context,
+                         G_GNUC_UNUSED const char *text,
+                         G_GNUC_UNUSED uint32_t cursor,
+                         G_GNUC_UNUSED uint32_t anchor)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
 
 static void
-handle_reset (void *data,
-              struct zwp_input_method_context_v1 *context)
+handle_reset (G_GNUC_UNUSED void *data,
+              G_GNUC_UNUSED struct zwp_input_method_context_v1 *context)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
 
 static void
-handle_content_type (void *data,
-                     struct zwp_input_method_context_v1 *context,
-                     uint32_t hint,
-                     uint32_t purpose)
+handle_content_type (G_GNUC_UNUSED void *data,
+                     G_GNUC_UNUSED struct zwp_input_method_context_v1 *context,
+                     G_GNUC_UNUSED uint32_t hint,
+                     G_GNUC_UNUSED uint32_t purpose)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
 
 static void
-handle_invoke_action (void *data,
-                      struct zwp_input_method_context_v1 *context,
-                      uint32_t button,
-                      uint32_t index)
+handle_invoke_action (G_GNUC_UNUSED void *data,
+                      G_GNUC_UNUSED struct zwp_input_method_context_v1 *context,
+                      G_GNUC_UNUSED uint32_t button,
+                      G_GNUC_UNUSED uint32_t index)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
 
 static void
 handle_commit_state (void *data,
-                     struct zwp_input_method_context_v1 *context,
+                     G_GNUC_UNUSED struct zwp_input_method_context_v1 *context,
                      uint32_t serial)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
@@ -241,9 +241,9 @@ handle_commit_state (void *data,
 }
 
 static void
-handle_preferred_language (void *data,
-                           struct zwp_input_method_context_v1 *context,
-                           const char *language)
+handle_preferred_language (G_GNUC_UNUSED void *data,
+                           G_GNUC_UNUSED struct zwp_input_method_context_v1 *context,
+                           G_GNUC_UNUSED const char *language)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
@@ -266,7 +266,7 @@ modifier_mask (struct xkb_keymap *keymap, const char *name)
 
 static void
 input_method_keyboard_keymap (void               *data,
-                              struct wl_keyboard *wl_keyboard,
+                              G_GNUC_UNUSED struct wl_keyboard *wl_keyboard,
                               uint32_t            format,
                               int32_t             fd,
                               uint32_t            size)
@@ -340,7 +340,7 @@ input_method_keyboard_keymap (void               *data,
 
 static void
 input_method_keyboard_key (void *data,
-                           struct wl_keyboard *wl_keyboard,
+                           G_GNUC_UNUSED struct wl_keyboard *wl_keyboard,
                            uint32_t serial,
                            uint32_t time,
                            uint32_t key,
@@ -392,7 +392,7 @@ input_method_keyboard_key (void *data,
 
 static void
 input_method_keyboard_modifiers (void *data,
-                                 struct wl_keyboard *wl_keyboard,
+                                 G_GNUC_UNUSED struct wl_keyboard *wl_keyboard,
                                  uint32_t serial,
                                  uint32_t mods_depressed,
                                  uint32_t mods_latched,
@@ -443,11 +443,9 @@ input_method_keyboard_modifiers (void *data,
 }
 
 static const struct wl_keyboard_listener input_method_keyboard_listener = {
-  input_method_keyboard_keymap,
-  NULL, /* enter */
-  NULL, /* leave */
-  input_method_keyboard_key,
-  input_method_keyboard_modifiers
+  .keymap    = input_method_keyboard_keymap,
+  .key       = input_method_keyboard_key,
+  .modifiers = input_method_keyboard_modifiers,
 };
 
 static void
@@ -498,7 +496,7 @@ registry_handle_global (void               *data,
                         struct wl_registry *registry,
                         uint32_t            name,
                         const char         *interface,
-                        uint32_t            version)
+                        G_GNUC_UNUSED uint32_t            version)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -514,8 +512,8 @@ registry_handle_global (void               *data,
 }
 
 static void
-registry_handle_global_remove (void *data, struct wl_registry *registry,
-                               uint32_t name)
+registry_handle_global_remove (G_GNUC_UNUSED void *data, G_GNUC_UNUSED struct wl_registry *registry,
+                               G_GNUC_UNUSED uint32_t name)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
@@ -630,7 +628,7 @@ nimf_wayland_class_init (NimfWaylandClass *class)
 }
 
 static void
-nimf_wayland_class_finalize (NimfWaylandClass *class)
+nimf_wayland_class_finalize (G_GNUC_UNUSED NimfWaylandClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }

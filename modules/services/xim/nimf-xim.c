@@ -73,7 +73,7 @@ static int nimf_xim_set_ic_values (NimfXim          *xim,
 
   for (i = 0; i < data->ic_attr_num; i++)
   {
-    if (data->ic_attr[i].value_length < sizeof (CARD32))
+    if (data->ic_attr[i].value_length < (int) sizeof (CARD32))
       return False;
     if (!g_strcmp0 (XNInputStyle, data->ic_attr[i].name))
     {
@@ -105,7 +105,7 @@ static int nimf_xim_set_ic_values (NimfXim          *xim,
     if (g_strcmp0 (XNPreeditState, data->preedit_attr[i].name) == 0)
     {
       CARD32 state;
-      if (data->preedit_attr[i].value_length < sizeof state)
+      if (data->preedit_attr[i].value_length < (int) sizeof state)
         return False;
       memcpy (&state, data->preedit_attr[i].value, sizeof state);
       switch (state)
@@ -127,7 +127,7 @@ static int nimf_xim_set_ic_values (NimfXim          *xim,
     else if (g_strcmp0 (XNSpotLocation, data->preedit_attr[i].name) == 0)
     {
       XPoint point;
-      if (data->preedit_attr[i].value_length < sizeof point)
+      if (data->preedit_attr[i].value_length < (int) sizeof point)
         return False;
       memcpy (&point, data->preedit_attr[i].value, sizeof point);
       nimf_xim_ic_set_cursor_location (xic, point.x, point.y);
@@ -445,8 +445,8 @@ static gboolean nimf_xevent_source_check (GSource *source)
 
 static gboolean
 nimf_xevent_source_dispatch (GSource     *source,
-                             GSourceFunc  callback,
-                             gpointer     user_data)
+                             G_GNUC_UNUSED GSourceFunc  callback,
+                             G_GNUC_UNUSED gpointer     user_data)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -490,16 +490,16 @@ nimf_xevent_source_dispatch (GSource     *source,
   return TRUE;
 }
 
-static void nimf_xevent_source_finalize (GSource *source)
+static void nimf_xevent_source_finalize (G_GNUC_UNUSED GSource *source)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
 
 static GSourceFuncs event_funcs = {
-  nimf_xevent_source_prepare,
-  nimf_xevent_source_check,
-  nimf_xevent_source_dispatch,
-  nimf_xevent_source_finalize
+  .prepare  = nimf_xevent_source_prepare,
+  .check    = nimf_xevent_source_check,
+  .dispatch = nimf_xevent_source_dispatch,
+  .finalize = nimf_xevent_source_finalize,
 };
 
 static GSource *nimf_xevent_source_new (NimfXim *xim)
@@ -753,7 +753,7 @@ nimf_xim_class_init (NimfXimClass *class)
 }
 
 static void
-nimf_xim_class_finalize (NimfXimClass *class)
+nimf_xim_class_finalize (G_GNUC_UNUSED NimfXimClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
