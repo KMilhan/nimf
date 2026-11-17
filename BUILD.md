@@ -172,6 +172,9 @@ echo -e "\nexport GTK_IM_MODULE=nimf\nexport QT4_IM_MODULE=xim\nexport QT_IM_MOD
  && echo -e "\nexport GTK_IM_MODULE=nimf\nexport QT4_IM_MODULE=xim\nexport QT_IM_MODULE=nimf\nexport XMODIFIERS=@im=nimf" >> ~/.zshrc
 ```
 
+Builds use -Wall -Wextra and the tree is expected to stay warning free. The
+vendored Xi18n sources under modules/services/xim/IMdkit keep their own flags.
+
 m17n is excluded from default builds, packages, support, and validation.
 Its existing source can still be selected with `--enable-nimf-m17n` after
 installing the m17n development libraries. Debian's legacy `nimf-i18n` binary
