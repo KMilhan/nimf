@@ -207,10 +207,10 @@ nimf_nim_add_connection (NimfNim        *nim,
 }
 
 static gboolean
-on_new_connection (GSocketService    *service,
-                   GSocketConnection *socket_connection,
-                   GObject           *source_object,
-                   NimfNim           *nim)
+on_new_connection (G_GNUC_UNUSED GSocketService *service,
+                   GSocketConnection             *socket_connection,
+                   G_GNUC_UNUSED GObject          *source_object,
+                   NimfNim                        *nim)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
@@ -222,9 +222,15 @@ on_new_connection (GSocketService    *service,
   connection->source = g_socket_create_source (connection->socket, G_IO_IN, NULL);
   connection->socket_connection = g_object_ref (socket_connection);
   g_source_set_can_recurse (connection->source, TRUE);
+  /* A socket source dispatches GSocketSourceFunc, but g_source_set_callback
+     only takes GSourceFunc. The service owns the connection, so keep the
+     GLib contract instead of carrying the pointers through user_data. */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
   g_source_set_callback (connection->source,
                          (GSourceFunc) on_incoming,
                          connection, NULL);
+#pragma GCC diagnostic pop
   g_source_attach (connection->source, NULL);
 
   return TRUE;
@@ -384,7 +390,7 @@ nimf_nim_class_init (NimfNimClass *class)
 }
 
 static void
-nimf_nim_class_finalize (NimfNimClass *class)
+nimf_nim_class_finalize (G_GNUC_UNUSED NimfNimClass *class)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 }
