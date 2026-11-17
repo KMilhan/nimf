@@ -9,7 +9,9 @@ FROM opensuse/leap:15.6 AS builder
 #  && zypper addrepo --priority 50 -f https://ftp.kaist.ac.kr/opensuse/update/leap/15.6/sle/ Kaist_Update_SUSE_Enterprise_Linux_Repo
 
 # Install the required packages
-RUN zypper install -y \
+# libxklavier-devel needs libxml2-devel, whose readline closure is older than
+# the ncurses library in the base image, so allow that downgrade
+RUN zypper install -y --allow-downgrade \
  rpm-build \
  rpmdevtools \
  anthy \
