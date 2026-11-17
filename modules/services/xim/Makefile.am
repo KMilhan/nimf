@@ -1,5 +1,6 @@
 moduledir = $(libdir)/nimf/modules/services
 module_LTLIBRARIES = libnimf-xim.la
+noinst_LTLIBRARIES = libimdkit.la
 
 IMdkit_SOURCES = \
 	IMdkit/FrameMgr.h \
@@ -20,12 +21,22 @@ IMdkit_SOURCES = \
 	IMdkit/i18nX.h \
 	$(NULL)
 
+# Xi18n is vendored X.Org code, so keep it unpatched and relax our own
+# warning flags for this convenience library only.
+libimdkit_la_SOURCES = $(IMdkit_SOURCES)
+libimdkit_la_CFLAGS = \
+	$(EXTRA_CFLAGS) \
+	-Wno-sign-compare \
+	-Wno-unused-parameter \
+	-I$(top_srcdir)/libnimf \
+	-DG_LOG_DOMAIN=\"nimf\" \
+	$(NIMF_XIM_DEPS_CFLAGS)
+
 libnimf_xim_la_SOURCES = \
 	nimf-xim.c \
 	nimf-xim.h \
 	nimf-xim-ic.c \
 	nimf-xim-ic.h \
-	$(IMdkit_SOURCES) \
 	$(NULL)
 
 libnimf_xim_la_CFLAGS = \
@@ -35,7 +46,7 @@ libnimf_xim_la_CFLAGS = \
 	$(NIMF_XIM_DEPS_CFLAGS)
 
 libnimf_xim_la_LDFLAGS = -avoid-version -module $(NIMF_XIM_DEPS_LIBS)
-libnimf_xim_la_LIBADD  = $(top_builddir)/libnimf/libnimf.la
+libnimf_xim_la_LIBADD  = libimdkit.la $(top_builddir)/libnimf/libnimf.la
 
 DISTCLEANFILES = Makefile.in
 
