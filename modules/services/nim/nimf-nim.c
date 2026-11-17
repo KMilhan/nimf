@@ -50,6 +50,11 @@ on_incoming (GSocket        *socket,
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
+  /* The connection table holds the only reference, so a source that stop()
+     already destroyed must not read the connection again. */
+  if (g_source_is_destroyed (g_main_current_source ()))
+    return G_SOURCE_REMOVE;
+
   /* Dispatch can recurse while an engine waits for a client reply. */
   g_autoptr(NimfConnection) retained = g_object_ref (connection);
   g_autoptr(NimfMessage) message = NULL;
