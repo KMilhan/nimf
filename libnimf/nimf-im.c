@@ -145,9 +145,8 @@ update_preedit_state (NimfIM *im, const NimfMessage *message)
 }
 
 static gboolean
-dispatch_incoming_message (GSocket      *socket,
-                     GIOCondition  condition,
-                     gpointer      user_data)
+dispatch_incoming_message (GSocket     *socket,
+                           GIOCondition condition)
 {
   g_debug (G_STRLOC ": %s: socket fd:%d", G_STRFUNC, g_socket_get_fd (socket));
 
@@ -285,19 +284,22 @@ dispatch_incoming_message (GSocket      *socket,
   return G_SOURCE_CONTINUE;
 }
 
+/* g_source_set_callback only takes GSourceFunc, so the source carries the
+   socket it was created for. The condition is rechecked under the lock. */
 static gboolean
-on_incoming_message (GSocket *socket, GIOCondition condition, gpointer user_data)
+on_incoming_message (gpointer user_data)
 {
-  /* Both main contexts watch this socket. Recheck readiness under the lock. */
+  GSocket *socket = user_data;
+
   if (!g_rec_mutex_trylock (&nimf_im_mutex))
     return G_SOURCE_CONTINUE;
 
   gboolean keep = G_SOURCE_REMOVE;
   if (socket == nimf_im_socket && nimf_im_result)
   {
-    condition = g_socket_is_closed (socket) ? G_IO_HUP :
+    GIOCondition condition = g_socket_is_closed (socket) ? G_IO_HUP :
       g_socket_condition_check (socket, G_IO_IN | G_IO_HUP | G_IO_ERR);
-    keep = condition ? dispatch_incoming_message (socket, condition, user_data) :
+    keep = condition ? dispatch_incoming_message (socket, condition) :
                        G_SOURCE_CONTINUE;
   }
   g_rec_mutex_unlock (&nimf_im_mutex);
@@ -392,14 +394,14 @@ nimf_im_connect (NimfIM *im)
       /* when g_main_context_iteration(), iterate only socket */
       nimf_im_socket_source = g_socket_create_source (nimf_im_socket, G_IO_IN, NULL);
       g_source_set_can_recurse (nimf_im_socket_source, TRUE);
-      g_source_set_callback (nimf_im_socket_source,
-                             (GSourceFunc) on_incoming_message, NULL, NULL);
+      g_source_set_callback (nimf_im_socket_source, on_incoming_message,
+                             g_object_ref (nimf_im_socket), g_object_unref);
       g_source_attach (nimf_im_socket_source, nimf_im_context);
 
       nimf_im_default_source = g_socket_create_source (nimf_im_socket, G_IO_IN, NULL);
       g_source_set_can_recurse (nimf_im_default_source, TRUE);
-      g_source_set_callback (nimf_im_default_source,
-                             (GSourceFunc) on_incoming_message, NULL, NULL);
+      g_source_set_callback (nimf_im_default_source, on_incoming_message,
+                             g_object_ref (nimf_im_socket), g_object_unref);
       g_source_attach (nimf_im_default_source, NULL);
     }
     else
@@ -448,9 +450,9 @@ nimf_im_create_context (NimfIM *im)
 }
 
 static void
-on_changed (GFileMonitor     *monitor,
-            GFile            *file,
-            GFile            *other_file,
+on_changed (G_GNUC_UNUSED GFileMonitor     *monitor,
+            G_GNUC_UNUSED GFile            *file,
+            G_GNUC_UNUSED GFile            *other_file,
             GFileMonitorEvent event_type,
             gpointer          user_data)
 {
@@ -474,7 +476,7 @@ on_changed (GFileMonitor     *monitor,
 }
 
 static void
-monitor_target_free (gpointer data, GClosure *closure)
+monitor_target_free (gpointer data, G_GNUC_UNUSED GClosure *closure)
 {
   g_weak_ref_clear (data);
   g_free (data);
