@@ -1,6 +1,7 @@
 # Nimf Input Method Framework
 
-[![Build Status](https://github.com/hamonikr/nimf/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/hamonikr/nimf/actions/workflows/build.yml)
+[![Build Status](https://github.com/KMilhan/nimf/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KMilhan/nimf/actions/workflows/build.yml)
+[![Memory safety](https://github.com/KMilhan/nimf/actions/workflows/memory.yml/badge.svg?branch=master)](https://github.com/KMilhan/nimf/actions/workflows/memory.yml)
 [![Donate Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://ko.liberapay.com/hamonikr/)
 
 ![version](https://img.shields.io/badge/version-1.4.19-blue)
