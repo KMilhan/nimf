@@ -25,6 +25,7 @@ RUN zypper install -y \
  libtool \
  libxkbcommon-devel \
  libxklavier-devel \
+ libxml2-devel \
  wayland-devel \
  wayland-protocols-devel \
  google-noto-sans-cjk-fonts \
