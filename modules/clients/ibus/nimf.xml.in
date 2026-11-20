@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component>
+  <name>org.freedesktop.IBus.Nimf</name>
+  <description>Nimf input method bridge</description>
+  <exec>@NIMF_IBUS_EXEC@</exec>
+  <engines>
+    <engine>
+      <name>nimf</name>
+      <longname>Nimf</longname>
+      <description>Nimf input method</description>
+      <language>other</language>
+      <layout>default</layout>
+      <symbol>N</symbol>
+    </engine>
+  </engines>
+</component>

@@ -272,6 +272,10 @@ dnl ***************************************************************************
 dnl  Check for im-nimf-gtk
 dnl ***************************************************************************
 
+PKG_CHECK_MODULES(IM_NIMF_IBUS_DEPS, [ibus-1.0],
+                  [have_ibus=yes], [have_ibus=no])
+AM_CONDITIONAL([HAVE_IBUS], [test "x$have_ibus" = xyes])
+
 PKG_CHECK_MODULES(IM_NIMF_GTK3_DEPS, [gtk+-3.0 gdk-x11-3.0])
 
 dnl Check for GTK2 support (optional, as it's no longer available in some distros)
@@ -527,6 +531,7 @@ AC_CONFIG_FILES([
   libnimf/nimf.pc
   modules/Makefile
   modules/clients/Makefile
+  modules/clients/ibus/Makefile
   modules/clients/gtk/Makefile
   modules/clients/qt5/Makefile
   modules/clients/qt6/Makefile  

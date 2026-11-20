@@ -1,5 +1,9 @@
 SUBDIRS = gtk
 
+if HAVE_IBUS
+SUBDIRS += ibus
+endif
+
 if HAVE_QT5
 SUBDIRS += qt5
 endif
