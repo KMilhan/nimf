@@ -27,6 +27,13 @@ for mode in no-client client-first server-first; do
         status=1
     fi
 done
+profile=$(mktemp -d /tmp/missing-helper-XXXXXX)
+mkdir -m 700 "$profile/config" "$profile/runtime"
+if ! env XDG_CONFIG_HOME="$profile/config" XDG_RUNTIME_DIR="$profile/runtime" \
+    dbus-run-session -- bash /src/tests/mozc/missing-helper.sh; then
+    echo "FAIL missing helper"
+    status=1
+fi
 for toolkit in gtk3 gtk4 qt5 qt6; do
     profile=$(mktemp -d "/tmp/mozc-$toolkit-XXXXXX")
     mkdir -m 700 "$profile/config" "$profile/runtime"

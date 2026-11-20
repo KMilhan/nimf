@@ -197,7 +197,10 @@ test_helper_send_key (void)
 
   for (i = 0; i < 3; i++)
   {
-    reply = nimf_mozc_helper_send_key (helper, "97");
+    g_autoptr(GError) error = NULL;
+
+    reply = nimf_mozc_helper_send_key (helper, "97", &error);
+    g_assert_no_error (error);
     g_assert_nonnull (reply);
     output = nimf_mozc_sexp_lookup (reply, "output");
     g_assert_cmpstr (nimf_mozc_sexp_get_text (output, "echo"), ==, "7 97)");
@@ -207,13 +210,23 @@ test_helper_send_key (void)
   nimf_mozc_helper_free (helper);
 }
 
+/* Sends one key that must fail with @code. */
 static void
-assert_mode_fails (const gchar *mode)
+assert_send_fails (NimfMozcHelper *helper, NimfMozcHelperError code)
+{
+  g_autoptr(GError) error = NULL;
+
+  g_assert_null (nimf_mozc_helper_send_key (helper, "97", &error));
+  g_assert_error (error, NIMF_MOZC_HELPER_ERROR, code);
+}
+
+static void
+assert_mode_fails (const gchar *mode, NimfMozcHelperError code)
 {
   NimfMozcHelper *helper = fake_helper_new (mode, 200, 0);
 
   g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*nimf-mozc:*");
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, code);
   g_test_assert_expected_messages ();
 
   nimf_mozc_helper_free (helper);
@@ -222,11 +235,11 @@ assert_mode_fails (const gchar *mode)
 static void
 test_helper_failures (void)
 {
-  assert_mode_fails ("exit");
-  assert_mode_fails ("hang");
-  assert_mode_fails ("garbage");
-  assert_mode_fails ("error");
-  assert_mode_fails ("wrong-event");
+  assert_mode_fails ("exit",        NIMF_MOZC_HELPER_ERROR_LOST);
+  assert_mode_fails ("hang",        NIMF_MOZC_HELPER_ERROR_FAILED);
+  assert_mode_fails ("garbage",     NIMF_MOZC_HELPER_ERROR_FAILED);
+  assert_mode_fails ("error",       NIMF_MOZC_HELPER_ERROR_FAILED);
+  assert_mode_fails ("wrong-event", NIMF_MOZC_HELPER_ERROR_FAILED);
 }
 
 static void
@@ -237,7 +250,26 @@ test_helper_missing_program (void)
   helper = nimf_mozc_helper_new ("/nonexistent/mozc_emacs_helper", 200, 0);
 
   g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*nimf-mozc:*");
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_NOT_FOUND);
+  g_test_assert_expected_messages ();
+
+  nimf_mozc_helper_free (helper);
+}
+
+/* A started session clears the old failure, so a later exit reads as LOST. */
+static void
+test_helper_recovery_clears_failure (void)
+{
+  NimfMozcHelper *helper = fake_helper_new ("garbage", 200, 0);
+
+  g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*malformed*");
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_FAILED);
+  g_test_assert_expected_messages ();
+
+  /* The fake helper starts a session in every mode, then exits on SendKey. */
+  g_setenv ("FAKE_MODE", "exit", TRUE);
+  g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*process exited*");
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_LOST);
   g_test_assert_expected_messages ();
 
   nimf_mozc_helper_free (helper);
@@ -248,14 +280,16 @@ static void
 test_helper_restarts_after_exit (void)
 {
   NimfMozcHelper *helper = fake_helper_new ("exit", 500, 60000);
+  g_autoptr(GError) error = NULL;
   NimfMozcSexp   *reply;
 
   g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*nimf-mozc:*");
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_LOST);
   g_test_assert_expected_messages ();
 
   g_setenv ("FAKE_MODE", "ok", TRUE);
-  reply = nimf_mozc_helper_send_key (helper, "97");
+  reply = nimf_mozc_helper_send_key (helper, "97", &error);
+  g_assert_no_error (error);
   g_assert_nonnull (reply);
   nimf_mozc_sexp_free (reply);
 
@@ -268,12 +302,12 @@ test_helper_timeout_delays_retry (void)
   NimfMozcHelper *helper = fake_helper_new ("hang", 200, 60000);
 
   g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*timed out*");
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_FAILED);
   g_test_assert_expected_messages ();
 
   /* No warning here: the delay blocks the restart without touching a process. */
   g_setenv ("FAKE_MODE", "ok", TRUE);
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_FAILED);
 
   nimf_mozc_helper_free (helper);
 }
@@ -286,10 +320,11 @@ test_helper_start_failure_delays_retry (void)
   helper = nimf_mozc_helper_new ("/nonexistent/mozc_emacs_helper", 200, 60000);
 
   g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*nimf-mozc:*");
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_NOT_FOUND);
   g_test_assert_expected_messages ();
 
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  /* The retry delay keeps the reason, so the caller still knows the fix. */
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_NOT_FOUND);
 
   nimf_mozc_helper_free (helper);
 }
@@ -303,7 +338,7 @@ test_helper_detects_exit_with_open_pipe (void)
   gint64          start  = g_get_monotonic_time ();
 
   g_test_expect_message ("nimf", G_LOG_LEVEL_WARNING, "*process exited*");
-  g_assert_null (nimf_mozc_helper_send_key (helper, "97"));
+  assert_send_fails (helper, NIMF_MOZC_HELPER_ERROR_LOST);
   g_test_assert_expected_messages ();
 
   g_assert_cmpint (g_get_monotonic_time () - start, <, 2 * G_TIME_SPAN_SECOND);
@@ -324,6 +359,8 @@ main (int argc, char **argv)
   g_test_add_func ("/mozc/helper/send-key", test_helper_send_key);
   g_test_add_func ("/mozc/helper/failures", test_helper_failures);
   g_test_add_func ("/mozc/helper/missing-program", test_helper_missing_program);
+  g_test_add_func ("/mozc/helper/recovery-clears-failure",
+                   test_helper_recovery_clears_failure);
   g_test_add_func ("/mozc/helper/restarts-after-exit", test_helper_restarts_after_exit);
   g_test_add_func ("/mozc/helper/timeout-delays-retry", test_helper_timeout_delays_retry);
   g_test_add_func ("/mozc/helper/start-failure-delays-retry",

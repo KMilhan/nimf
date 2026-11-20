@@ -18,6 +18,8 @@
  */
 
 #include <nimf.h>
+#include <gio/gio.h>
+#include <glib/gi18n.h>
 #include <string.h>
 #include "nimf-mozc-helper.h"
 #include "nimf-mozc-key.h"
@@ -37,6 +39,8 @@
 #define NIMF_MOZC_RETRY_DELAY_MS   30000
 #define NIMF_MOZC_DEFAULT_PAGE_SIZE 9
 #define NIMF_MOZC_MAX_SHORTCUTS    9
+#define NIMF_MOZC_ICON             "nimf-mozc"
+#define NIMF_MOZC_UNAVAILABLE_ICON "dialog-warning"
 
 typedef struct _NimfMozc      NimfMozc;
 typedef struct _NimfMozcClass NimfMozcClass;
@@ -54,6 +58,7 @@ struct _NimfMozc
   gint              current_page;
   gint              n_pages;
   gboolean          has_candidates;
+  gboolean          is_unavailable;
 };
 
 struct _NimfMozcClass
@@ -244,6 +249,73 @@ nimf_mozc_drop_composition (NimfEngine *engine, NimfServiceIC *target)
   nimf_candidatable_hide (mozc->candidatable);
 }
 
+static void
+on_notification_bus (G_GNUC_UNUSED GObject *source,
+                     GAsyncResult *result,
+                     gpointer      user_data)
+{
+  g_autoptr(GVariant)        parameters = user_data;
+  g_autoptr(GError)          error      = NULL;
+  g_autoptr(GDBusConnection) bus        = g_bus_get_finish (result, &error);
+
+  if (bus == NULL)
+  {
+    g_debug ("nimf-mozc: no session bus for the notification: %s", error->message);
+    return;
+  }
+
+  g_dbus_connection_call (bus, "org.freedesktop.Notifications",
+                          "/org/freedesktop/Notifications",
+                          "org.freedesktop.Notifications", "Notify",
+                          parameters, NULL, G_DBUS_CALL_FLAGS_NONE, -1,
+                          NULL, NULL, NULL);
+}
+
+/* Keys go to the application as plain text while mozc is off. Without this
+ * message the user sees Latin letters with no explanation. */
+static void
+nimf_mozc_notify_unavailable (const GError *error)
+{
+  g_autofree gchar *body = NULL;
+  GVariant         *parameters;
+
+  if (g_error_matches (error, NIMF_MOZC_HELPER_ERROR,
+                       NIMF_MOZC_HELPER_ERROR_NOT_FOUND))
+    body = g_strdup_printf (_("%s is not installed, so keys are entered as plain "
+                              "text. Install the Mozc Emacs helper, for example "
+                              "the emacs-mozc package."),
+                            NIMF_MOZC_HELPER_PROGRAM);
+  else
+    body = g_strdup_printf (_("Mozc stopped responding, so keys are entered as "
+                              "plain text. Nimf tries again after %d seconds."),
+                            NIMF_MOZC_RETRY_DELAY_MS / 1000);
+
+  /* The bus call is asynchronous, so a missing notification daemon cannot
+   * block key handling. */
+  parameters = g_variant_ref_sink (
+    g_variant_new ("(susssasa{sv}i)", "Nimf", 0, NIMF_MOZC_ICON,
+                   _("Mozc is unavailable"), body, NULL, NULL, -1));
+  g_bus_get (G_BUS_TYPE_SESSION, NULL, on_notification_bus, parameters);
+}
+
+/* NOT_FOUND and FAILED leave Japanese input off until a retry. LOST restarts
+ * on the next key, so it does not change the state. */
+static void
+nimf_mozc_update_availability (NimfEngine *engine, const GError *error)
+{
+  NimfMozc *mozc = NIMF_MOZC (engine);
+
+  if (g_error_matches (error, NIMF_MOZC_HELPER_ERROR, NIMF_MOZC_HELPER_ERROR_LOST) ||
+      mozc->is_unavailable == (error != NULL))
+    return;
+
+  mozc->is_unavailable = error != NULL;
+  nimf_engine_status_changed (engine);
+
+  if (error != NULL)
+    nimf_mozc_notify_unavailable (error);
+}
+
 /* Returns TRUE when mozc consumed the key. */
 static gboolean
 nimf_mozc_send_key (NimfEngine    *engine,
@@ -251,10 +323,12 @@ nimf_mozc_send_key (NimfEngine    *engine,
                     const gchar   *tokens)
 {
   g_autoptr(NimfMozcSexp) reply = NULL;
+  g_autoptr(GError)       error = NULL;
   const NimfMozcSexp *output;
   gboolean            consumed;
 
-  reply = nimf_mozc_helper_send_key (NIMF_MOZC (engine)->helper, tokens);
+  reply = nimf_mozc_helper_send_key (NIMF_MOZC (engine)->helper, tokens, &error);
+  nimf_mozc_update_availability (engine, error);
 
   if (reply == NULL)
   {
@@ -382,11 +456,12 @@ nimf_mozc_get_id (G_GNUC_UNUSED NimfEngine *engine)
 }
 
 static const gchar *
-nimf_mozc_get_icon_name (G_GNUC_UNUSED NimfEngine *engine)
+nimf_mozc_get_icon_name (NimfEngine *engine)
 {
   g_debug (G_STRLOC ": %s", G_STRFUNC);
 
-  return "nimf-mozc";
+  return NIMF_MOZC (engine)->is_unavailable ? NIMF_MOZC_UNAVAILABLE_ICON
+                                            : NIMF_MOZC_ICON;
 }
 
 static void

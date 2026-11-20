@@ -25,15 +25,33 @@
 
 G_BEGIN_DECLS
 
+#define NIMF_MOZC_HELPER_ERROR (nimf_mozc_helper_error_quark ())
+
+/**
+ * NimfMozcHelperError:
+ * @NIMF_MOZC_HELPER_ERROR_NOT_FOUND: the helper program is not installed
+ * @NIMF_MOZC_HELPER_ERROR_FAILED: the helper failed; a restart waits for the
+ *   retry delay, so Japanese input stays off until then
+ * @NIMF_MOZC_HELPER_ERROR_LOST: the helper exited; the next call restarts it
+ */
+typedef enum
+{
+  NIMF_MOZC_HELPER_ERROR_NOT_FOUND,
+  NIMF_MOZC_HELPER_ERROR_FAILED,
+  NIMF_MOZC_HELPER_ERROR_LOST
+} NimfMozcHelperError;
+
 /* Owns one mozc_emacs_helper child process and its mozc session. */
 typedef struct _NimfMozcHelper NimfMozcHelper;
 
+GQuark          nimf_mozc_helper_error_quark (void);
 NimfMozcHelper *nimf_mozc_helper_new      (const gchar    *program,
                                            gint            timeout_ms,
                                            gint            retry_delay_ms);
 void            nimf_mozc_helper_free     (NimfMozcHelper *helper);
 NimfMozcSexp   *nimf_mozc_helper_send_key (NimfMozcHelper *helper,
-                                           const gchar    *tokens);
+                                           const gchar    *tokens,
+                                           GError        **error);
 
 G_END_DECLS
 

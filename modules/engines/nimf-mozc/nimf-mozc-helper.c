@@ -40,7 +40,10 @@ struct _NimfMozcHelper
   guint          session_id;
   guint          event_id;
   gint64         retry_time;
+  GError        *failure;
 };
+
+G_DEFINE_QUARK (nimf-mozc-helper-error-quark, nimf_mozc_helper_error)
 
 static void
 helper_stop (NimfMozcHelper *helper)
@@ -55,12 +58,17 @@ helper_stop (NimfMozcHelper *helper)
 }
 
 /* A failure that costs time must not repeat on every key press. It can block
- * the server for timeout_ms each time. */
+ * the server for timeout_ms each time. The failure stays set until a session
+ * starts, so callers can tell why Japanese input is off. */
 static void
-helper_delay_retry (NimfMozcHelper *helper)
+helper_delay_retry (NimfMozcHelper     *helper,
+                    NimfMozcHelperError code,
+                    const gchar        *reason)
 {
   helper->retry_time = g_get_monotonic_time () +
                        (gint64) helper->retry_delay_ms * G_TIME_SPAN_MILLISECOND;
+  g_clear_error (&helper->failure);
+  g_set_error_literal (&helper->failure, NIMF_MOZC_HELPER_ERROR, code, reason);
 }
 
 /* The next key press restarts the helper at once. Japanese input stays
@@ -77,7 +85,7 @@ static void
 helper_fail (NimfMozcHelper *helper, const gchar *reason)
 {
   helper_lost (helper, reason);
-  helper_delay_retry (helper);
+  helper_delay_retry (helper, NIMF_MOZC_HELPER_ERROR_FAILED, reason);
 }
 
 static gchar *
@@ -263,7 +271,12 @@ helper_start (NimfMozcHelper *helper)
                                       &error, helper->program, NULL);
   if (helper->process == NULL)
   {
-    helper_fail (helper, error->message);
+    helper_lost (helper, error->message);
+    helper_delay_retry (helper,
+                        g_error_matches (error, G_SPAWN_ERROR, G_SPAWN_ERROR_NOENT) ?
+                          NIMF_MOZC_HELPER_ERROR_NOT_FOUND :
+                          NIMF_MOZC_HELPER_ERROR_FAILED,
+                        error->message);
     return FALSE;
   }
 
@@ -271,9 +284,14 @@ helper_start (NimfMozcHelper *helper)
   helper->output = g_subprocess_get_stdout_pipe (helper->process);
 
   if (helper_read_greeting (helper) && helper_create_session (helper))
+  {
+    g_clear_error (&helper->failure);
     return TRUE;
+  }
 
-  helper_delay_retry (helper);
+  /* The exact cause is already logged. */
+  helper_delay_retry (helper, NIMF_MOZC_HELPER_ERROR_FAILED,
+                      "the helper did not start a session");
 
   return FALSE;
 }
@@ -310,6 +328,7 @@ void
 nimf_mozc_helper_free (NimfMozcHelper *helper)
 {
   helper_stop (helper);
+  g_clear_error (&helper->failure);
   g_string_free (helper->buffer, TRUE);
   g_free (helper->program);
   g_free (helper);
@@ -319,22 +338,37 @@ nimf_mozc_helper_free (NimfMozcHelper *helper)
  * nimf_mozc_helper_send_key:
  * @helper: a #NimfMozcHelper
  * @tokens: the SendKey arguments
+ * @error: return location for a #NimfMozcHelperError
  *
  * Returns: (nullable): the full reply, or %NULL when the helper is unavailable.
  *   mozc state is lost in that case, so the caller must drop its composition.
  */
 NimfMozcSexp *
-nimf_mozc_helper_send_key (NimfMozcHelper *helper, const gchar *tokens)
+nimf_mozc_helper_send_key (NimfMozcHelper *helper,
+                           const gchar    *tokens,
+                           GError        **error)
 {
   NIMF_PROFILE_SCOPE (NIMF_PROFILE_MOZC_KEY, 0);
   g_autofree gchar *command = NULL;
   NimfMozcSexp *reply;
 
   if (!helper_start (helper))
+  {
+    g_propagate_error (error, g_error_copy (helper->failure));
     return NULL;
+  }
 
   command = g_strdup_printf ("SendKey %u %s", helper->session_id, tokens);
   reply   = helper_request (helper, command);
+
+  if (reply == NULL)
+  {
+    if (helper->failure)
+      g_propagate_error (error, g_error_copy (helper->failure));
+    else
+      g_set_error_literal (error, NIMF_MOZC_HELPER_ERROR,
+                           NIMF_MOZC_HELPER_ERROR_LOST, "the helper exited");
+  }
 
   return reply;
 }

@@ -4,7 +4,9 @@
 static NimfMozcSexp *
 send_key (NimfMozcHelper *helper, const char *key)
 {
-  NimfMozcSexp *reply = nimf_mozc_helper_send_key (helper, key);
+  GError *error = NULL;
+  NimfMozcSexp *reply = nimf_mozc_helper_send_key (helper, key, &error);
+  g_assert_no_error (error);
   g_assert_nonnull (reply);
   return reply;
 }
